@@ -19,8 +19,8 @@
  \renewcommand{\sfdefault}{phv}
  \let\JOURNAL@fonts\relax}
 \ExecuteOptions{cmfonts,final}
-    \setlength\paperheight {58.5pc}
-    \setlength\paperwidth  {41pc}
+    \setlength\paperheight {11in}
+    \setlength\paperwidth  {8.5in}
     \@twosidetrue\@mparswitchtrue
 \ProcessOptions
 \JOURNAL@fonts
