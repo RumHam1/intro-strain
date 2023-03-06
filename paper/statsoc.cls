@@ -84,33 +84,33 @@
 \setlength\footskip{30\p@}
 \setlength\maxdepth{0.5\topskip}
 %%%%%%Updation
-\setlength\textwidth{33pc}
-%%\setlength\textwidth{40pc}
+%%\setlength\textwidth{33pc}
+\setlength\textwidth{40pc}
 %%%%%%%
   \@settopoint\textwidth
 %%%%%%Updation
-\setlength\textheight{48\baselineskip}
-%%\setlength\textheight{58\baselineskip}
+%%\setlength\textheight{47\baselineskip}
+\setlength\textheight{58\baselineskip}
 %%%%%%
   \addtolength\textheight{\topskip}
   \@settopoint\textheight
 \setlength\marginparsep{11\p@}
 \setlength\marginparpush{5\p@}
 %%%%%%Updation
-\setlength\oddsidemargin   {4pc}
-%%\setlength\oddsidemargin   {0pc}
+%%\setlength\oddsidemargin   {4pc}
+\setlength\oddsidemargin   {0pc}
 %%%%%%
   \@settopoint\oddsidemargin
 %%%%%%Updation
-\setlength\evensidemargin  {3.5pc}
-%%\setlength\evensidemargin   {0pc}
+%%\setlength\evensidemargin  {3.5pc}
+\setlength\evensidemargin   {0pc}
 %%%%%%
   \@settopoint\evensidemargin
 \setlength\marginparwidth {107\p@}
   \@settopoint\marginparwidth
 %%%%%%Updation
-\setlength\topmargin{3pc}
-%%\setlength\topmargin{0pc}
+%%\setlength\topmargin{3pc}
+\setlength\topmargin{0pc}
 %%%%%%
   \@settopoint\topmargin
 \setlength\footnotesep{6.65\p@}
@@ -631,10 +631,10 @@ statsocwidth@\alph{table}\endcsname0.33333\textwidth}%
     \hb@xt@\fnsymbolwidth{\hss\@makefnmark}#1}
 \renewcommand\@makefnmark{\hbox{{\normalfont\@thefnmark}}}
 \renewcommand\refname{References}
-\newcommand\figurename{Figure}
+\newcommand\figurename{Fig.}
 \newcommand\tablename{Table}
 \newcommand\appendixname{Appendix}
-\newcommand\abstractname{Abstract}
+\newcommand\abstractname{Summary}
 \newcommand\today{}
 \edef\today{\ifcase\month\or
   January\or February\or March\or April\or May\or June\or
@@ -674,4 +674,5 @@ statsocwidth@\alph{table}\endcsname0.33333\textwidth}%
                \itemsep \parsep}%
    \belowdisplayskip \abovedisplayskip
 }
+\def\baselinestretch{1.5}
 %%%%

@@ -20,6 +20,8 @@ bibliography: "bibliography"
 output: rticles::rss_article
 ---
 
+\newpage
+
 **PAPER SKETCH**
 
 1. Introduction
@@ -56,6 +58,8 @@ corr with pressure rate = (hits + sacks + hurries) per snap
 meta metrics: discriminant, stability, independence @Franks2016Meta
 
 5. Discussion
+
+\newpage
 
 # Introduction
 
