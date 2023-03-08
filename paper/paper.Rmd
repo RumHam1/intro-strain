@@ -15,7 +15,7 @@ authors:
   email: "email2\\@example.com"
 abstract: |
   Abstract goes here
-keywords: tracking data, Bornn legacy
+keywords: tracking data, Bornn legacy, too much Canadian
 bibliography: "bibliography"
 output: rticles::rss_article
 ---
@@ -24,28 +24,49 @@ output: rticles::rss_article
 
 **PAPER SKETCH**
 
-1. Introduction
+i. Introduction
 
 <!--
 TODO: update citations after they're published
 -->
 
-Tracking data, big data bowl
+Tracking data in recent years, NFL
+
+examples of past nfl tracking data projects
+
 See @Baumer2023Big, @Macdonald2020Recreating, and @Kovalchik2023Player for more details
 
-Importance of linemen. Did all hard work. QB
+Importance of D-linemen, pass rush (Maybe talk about role of each position, edge vs interior, defensive formation)
 
 Previous metrics: Greg's lit review, their flaws
 
 Our contribution
 
-2. Data
+ii. Methods
 
-talk about data
+a. data
 
-3. Methods
+2023 bdb [@bdb2023]
 
-4. Results
+first 8 weeks 2021 season
+
+tracking: locations of players and ball, 10 fps, 
+
+pre-processing standardize
+
+PFF scouting: pass rush role
+
+sample restriction: remove plays w multiple QB
+
+frames between snap and QB outcome (pass forward, sack)
+
+sample size
+
+b. strain rate
+
+c. applying to pass rush
+
+iii. Results
 
 example play
 
@@ -57,11 +78,15 @@ corr with pressure rate = (hits + sacks + hurries) per snap
 
 meta metrics: discriminant, stability, independence @Franks2016Meta
 
-5. Discussion
+iv. Discussion
 
 \newpage
 
 # Introduction
+
+## Previous Metrics for Pass Rush Evaluation
+
+## Our Contribution
 
 <!--
 
@@ -90,11 +115,13 @@ Our proposed metric has a nice interpretation and is inspired by the concept of 
 
 -->
 
-# Data
-
-introduce data
+The remainder of this paper is outlined as follows.
 
 # Methods
+
+## Data
+
+bdb
 
 ## Strain rate in materials science
 
@@ -117,8 +144,14 @@ In order to apply strain rate to measure NFL pass-rusher effectiveness, we make 
 
 Let $(x_{ijt}, y_{ijt})$ be the $(x, y)$ location on the field of player $j = 1, \cdots, J$ at frame $t = 1, \cdots, T_i$ for play $i = 1, \cdots, n$; and $(x^{QB}_{it}, y^{QB}_{it})$ be the $(x, y)$ location of the quarterback at frame $t$ during play $i$.
 
-* The distance between player $j$ and the quarterback at frame $t$ during play $i$ is $f_{d_{ij}}(t) = \sqrt{(x_{ijt} - x^{QB}_{it})^2 + (y_{ijt} - y^{QB}_{it})^2}$.
-* The rate at which player $j$ is moving towards the quarterback at frame $t$ during play $i$ is $\displaystyle f'_{d_{ij}}(t) = \frac{df_{d_{ij}}(t)}{dt}$.
+* The distance between player $j$ and the quarterback at frame $t$ during play $i$ is 
+
+$$f_{d_{ij}}(t) = \sqrt{\left(x_{ijt} - x^{QB}_{it}\right)^2 + \left(y_{ijt} - y^{QB}_{it}\right)^2}$$.
+
+* The rate at which player $j$ is moving towards the quarterback at frame $t$ during play $i$ is 
+
+$$\displaystyle f'_{d_{ij}}(t) = \frac{df_{d_{ij}}(t)}{dt}$$.
+
 * The STRAIN for player $j$ at frame $t$ during play $i$ is 
 
 $$\text{STRAIN}_{ij}(t) = \frac{-f'_{d_{ij}}(t)}{f_{d_{ij}}(t)} \,.$$
