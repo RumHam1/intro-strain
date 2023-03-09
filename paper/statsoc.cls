@@ -631,10 +631,10 @@ statsocwidth@\alph{table}\endcsname0.33333\textwidth}%
     \hb@xt@\fnsymbolwidth{\hss\@makefnmark}#1}
 \renewcommand\@makefnmark{\hbox{{\normalfont\@thefnmark}}}
 \renewcommand\refname{References}
-\newcommand\figurename{Fig.}
+\newcommand\figurename{Figure}
 \newcommand\tablename{Table}
 \newcommand\appendixname{Appendix}
-\newcommand\abstractname{Summary}
+\newcommand\abstractname{Abstract}
 \newcommand\today{}
 \edef\today{\ifcase\month\or
   January\or February\or March\or April\or May\or June\or
