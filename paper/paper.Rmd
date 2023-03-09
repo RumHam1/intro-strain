@@ -31,19 +31,23 @@ header-includes:
 TODO: update citations after they're published
 -->
 
-In recent years, tracking data have replaced traditional box-score statistics and play-by-play data as the state-of-the-art tool for analyzing and deeper understanding different sports.
+In recent years, tracking data have replaced traditional box-score statistics and play-by-play data as the state-of-the-art tool in sports analytics.
+Numerous sports have been collecting and releasing data on player and ball locations on the playing surface over the course of a game.
+This spatio-temporal multi-resolution source of data have provided exceptional opportunities for researchers to perform advanced studies at a more complex level to deepen the understanding of different sports.
+For complete surveys on how tracking data have transformed sports analytics, see @Macdonald2020Recreating, @Baumer2023Big, and @Kovalchik2023Player.
 
-examples of past nfl tracking data projects
+The National Football League (NFL) introduced their player tracking system known as Next Gen Stats (NGS) in 2016
+BDB
+https://operations.nfl.com/gameday/technology/nfl-next-gen-stats/
 
-See @Baumer2023Big, @Macdonald2020Recreating, and @Kovalchik2023Player for more complete reviews on how tracking data have transformed sports analytics.
-
-NFL, next gen stats https://operations.nfl.com/gameday/technology/nfl-next-gen-stats/
-
+Previous research bdb
+this year: linemen
 Importance of D-linemen, pass rush (Maybe talk about role of each position, edge vs interior, defensive formation)
 
-Previous metrics: Greg's lit review, their flaws
-
 ## Previous Pass Rush Metrics
+
+Limitations
+
 
 \begin{table}
 \caption{A summary of previously-existed pass rush metrics. \label{tab:metrics}}
