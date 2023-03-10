@@ -35,8 +35,6 @@ knitr::opts_chunk$set(
 library(here)
 ```
 
-
-
 \newpage
 
 # Introduction {#sec:introduction}
@@ -45,10 +43,17 @@ library(here)
 TODO: update citations after they're published
 -->
 
+<!--
+textual citation (\citet): @Baumer2023Big
+parenthetical citation (\citep): [@Baumer2023Big]
+-->
+
 In recent years, tracking data have replaced traditional box-score statistics and play-by-play data as the state-of-the-art tool in sports analytics.
 Numerous sports have been collecting and releasing data on player and ball locations on the playing surface over the course of a game.
 This spatio-temporal multi-resolution source of data have provided exceptional opportunities for researchers to perform advanced studies at a more complex level to deepen the understanding of different sports.
 For complete surveys on how tracking data have transformed sports analytics, see @Macdonald2020Recreating, @Baumer2023Big, and @Kovalchik2023Player.
+
+
 
 The National Football League (NFL) introduced their player tracking system known as Next Gen Stats (NGS) in 2016
 BDB
@@ -214,11 +219,15 @@ Fairly strong correlation (r = 0.6254943) between average STRAIN & hurries + sac
 
 From @Franks2016Meta (github https://github.com/afranks86/meta-analytics)
 
+<!--
+
 Discrimination: Does the metric reliably differentiate between players?
 
-Stability: Does the metric measure a quantity which is stable over time?  (section 5.1 of openWAR has a similar idea)
-
 Independence: Does the metric provide new information?
+
+-->
+
+Stability: Does the metric measure a quantity which is stable over time?  (section 5.1 of openWAR has a similar idea)
 
 
 
@@ -241,5 +250,9 @@ Strong correlation shows great metric stability
 
 
 # Discussion {#sec:discussion}
+
+# Acknowledgements
+
+Big data bowl, Mike
 
 # References
