@@ -5,6 +5,7 @@
 **/paper.tex
 **/*.aux
 **/*.out
+**/df_cleaned.csv.gz
 
 # History files
 .Rhistory

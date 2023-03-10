@@ -1,13 +1,21 @@
 library(tidyverse)
 library(here)
 
-# df_cleaned <- read_csv(here("data", "df_cleaned.csv.zip"))
+# We have a cleaned data file from BDB
+# This data file is too large to push to github
+# So I stored it on dropbox (as a zipped file)
+# Download and save it in the "data" folder
+# https://www.dropbox.com/s/haojedm4kgq3atu/df_cleaned.csv.gz?dl=1
+# What's great about readr::read_csv() is that
+# it allows direct importing of .csv.gz
 
-# play_lv_den <- df_cleaned |> 
+# df_cleaned <- read_csv(here("data", "df_cleaned.csv.gz"))
+
+# play_lv_den <- df_cleaned |>
 #   filter(gameId == 2021101709 & playId == 1444)
-# write_rds(play_lv_den, here("data", "play_lv_den.rds"))
+# write_csv(play_lv_den, here("data", "play_lv_den.csv.gz"))
 
-play_lv_den <- read_rds(here("data", "play_lv_den.rds"))
+play_lv_den <- read_csv(here("data", "play_lv_den.csv.gz"))
 
 plays <- read_csv(here("data", "plays.csv"))
 desc <- plays |>
@@ -106,3 +114,4 @@ fig_field <- plot_grid(
   ncol = 1
 )
 
+fig_field

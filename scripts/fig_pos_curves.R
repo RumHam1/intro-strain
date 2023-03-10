@@ -1,25 +1,25 @@
 library(tidyverse)
 library(here)
 
-# df_cleaned <- read_csv(here("data", "df_cleaned.csv.zip"))
+# df_cleaned <- read_csv(here("data", "df_cleaned.csv.gz"))
 
 pff <- read_csv(here("data", "pffScoutingData.csv"))
 
-# pass_rush_pos <- df_cleaned |> 
+# pass_rush <- df_cleaned |> 
 #   left_join(pff) |>
 #   filter(pff_role == "Pass Rush")
-# write_rds(pass_rush_pos, here("data", "pass_rush_pos.rds"))
+# write_csv(pass_rush, here("data", "pass_rush.csv.gz"))
 
-pass_rush_pos <- read_rds(here("data", "pass_rush_pos.rds"))
+pass_rush <- read_csv(here("data", "pass_rush.csv.gz"))
 
-avg_strain_all <- pass_rush_pos |> 
+avg_strain_all <- pass_rush |> 
   filter(team == defensiveTeam,
          frameId_snap_corrected <= 40) |> 
   group_by(frameId_snap_corrected) |> 
   summarise(mn = mean(strain, na.rm = TRUE))
 
 
-fig_pos_curves <- pass_rush_pos |> 
+fig_pos_curves <- pass_rush |> 
   filter(team == defensiveTeam,
          officialPosition %in% c("OLB", "NT", "DE", "DT"),
          frameId_snap_corrected <= 40) |> 
