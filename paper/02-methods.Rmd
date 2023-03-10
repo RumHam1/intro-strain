@@ -1,0 +1,32 @@
+---
+output: rticles::rss_article
+bibliography: bibliography.bib
+---
+
+# Methods {#sec:methods}
+
+## Data
+
+2023 bdb [@Howard2023NFL]
+
+first 8 weeks 2021 season
+
+tracking: locations of players and ball, 10 fps, 
+
+pre-processing standardize
+
+PFF scouting: pass rush role
+
+sample restriction: remove plays w multiple QB
+
+frames between snap and QB outcome (pass forward, sack)
+
+sample size
+
+## Strain rate in materials science
+
+math
+
+## Application to pass-rushing in football
+
+analogy

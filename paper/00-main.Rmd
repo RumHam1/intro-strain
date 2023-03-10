@@ -1,0 +1,60 @@
+---
+title: |
+  Introducing STRAIN: A simple and interpretable pass rush metric inspired by materials science
+short_title: STRAIN
+authors: 
+- name: "Author1"
+  affiliation: "Address"
+  city: "City"
+  country: "Country"
+  email: "email1\\@example.com"
+- name: "Author2"
+  affiliation: "Address2"
+  city: "City2"
+  country: "Country2"
+  email: "email2\\@example.com"
+- name: "Author3"
+  affiliation: "Address3"
+  city: "City3"
+  country: "Country3"
+  email: "email3\\@example.com"
+abstract: |
+  Abstract goes here
+keywords: tracking data, Bornn legacy, too much Canadian
+header-includes:
+  \usepackage{booktabs}
+output: rticles::rss_article
+bibliography: bibliography.bib
+---
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+library(here)
+```
+
+\newpage
+
+```{r child = "01-introduction.Rmd"}
+```
+
+```{r child = "02-methods.Rmd"}
+```
+
+```{r child = "03-results.Rmd"}
+```
+
+```{r child = "04-discussion.Rmd"}
+```
+
+# Acknowledgements {-}
+
+Big data bowl, Mike
+
+# References

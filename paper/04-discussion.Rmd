@@ -1,0 +1,12 @@
+---
+output: rticles::rss_article
+bibliography: bibliography.bib
+---
+
+# Discussion {#sec:discussion}
+
+Summary
+
+Critique
+
+Future work
