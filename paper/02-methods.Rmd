@@ -1,6 +1,6 @@
 ---
-output: rticles::rss_article
 bibliography: bibliography.bib
+output: rticles::asa_article
 ---
 
 # Methods {#sec:methods}

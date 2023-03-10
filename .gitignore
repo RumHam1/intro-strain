@@ -2,7 +2,7 @@
 **/*.DS_Store
 **/*.pdf
 **/*.log
-**/00-main.tex
+**/*.tex
 **/*.aux
 **/*.out
 **/df_cleaned.csv.gz

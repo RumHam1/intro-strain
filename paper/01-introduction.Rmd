@@ -1,6 +1,6 @@
 ---
-output: rticles::rss_article
 bibliography: bibliography.bib
+output: rticles::asa_article
 ---
 
 # Introduction {#sec:introduction}
@@ -33,23 +33,20 @@ Importance of D-linemen, pass rush (Maybe talk about role of each position, edge
 
 Limitations
 
-
 \begin{table}
 \caption{A summary of previously-existed pass rush metrics. \label{tab:metrics}}
-\centering
+\begin{center}
 \begin{tabular}{ll}
-\toprule
-\textbf{Metric} & \textbf{Description}\\
-\midrule
+\textbf{Metric} & \textbf{Description}\\\hline
 Sacks & a\\
 Hits & a\\
 Hurries & a\\
 QB Pressures & a\\
 Pass-Rush Productivity (PRP) & a\\
 Time In Pocket (TIP) & a\\
-Pass Rush Win Rate (PRWR) & Rate at which pass rusher beats pass block within 2.5 seconds after snap\\
-\bottomrule
+Pass Rush Win Rate (PRWR) & Rate at which pass rusher beats pass block within 2.5 seconds after snap\\\hline
 \end{tabular}
+\end{center}
 \end{table}
 
 Table \ref{tab:metrics}
