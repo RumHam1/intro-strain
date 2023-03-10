@@ -23,6 +23,20 @@ header-includes:
   \usepackage{booktabs}
 ---
 
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+library(here)
+```
+
+
+
 \newpage
 
 # Introduction
@@ -134,14 +148,59 @@ sample size
 
 ## Example play
 
+```{r}
+#| label: fig_field
+#| fig.cap: "snapshots"
+#| fig.width: 7
+#| fig.height: 9
+source(here("scripts", "fig_field.R"))
+fig_field
+```
+
+
+Figure \ref{fig:fig_field} shows snapshots
+
+```{r}
+#| label: fig_crosby_curves
+#| fig.cap: "crosby"
+#| fig.width: 5.1
+#| fig.height: 3
+source(here("scripts", "fig_crosby_curves.R"))
+fig_crosby_curves
+```
+
+Figure \ref{fig:fig_crosby_curves} shows Crosby throughout the play
+
 ## Positional STRAIN curves
 
+```{r}
+#| label: fig_pos_curves
+#| fig.cap: "STRAIN curves for different positions"
+#| fig.width: 4.5
+#| fig.height: 3
+source(here("scripts", "fig_pos_curves.R"))
+fig_pos_curves
+```
+
+Figure \ref{fig:fig_pos_curves} shows pos curves
 
 ## Ranking the best pass-rushers
 
 
 ## Corr with pressure rate = (hits + sacks + hurries) per snap
 
+```{r}
+#| label: fig_cor_pressure
+#| fig.cap: "Cor with"
+#| fig.width: 4.2
+#| fig.height: 3
+source(here("scripts", "fig_cor_pressure.R"))
+fig_cor_pressure
+```
+
+Figure \ref{fig:fig_cor_pressure} shows cor with pressure
+
+Fairly strong correlation (r = 0.6254943) between average STRAIN & hurries + sacks + hits per snaps
 
 ## Statistical Properties of STRAIN
 
@@ -152,6 +211,25 @@ Discrimination: Does the metric reliably differentiate between players?
 Stability: Does the metric measure a quantity which is stable over time?
 
 Independence: Does the metric provide new information?
+
+
+
+```{r}
+#| label: fig_stability
+#| fig.cap: "Metric stability"
+#| fig.width: 4.2
+#| fig.height: 3
+source(here("scripts", "fig_stability.R"))
+fig_stability
+```
+
+0.8544865
+
+Figure \ref{fig:fig_stability} shows
+
+Average STRAIN across all frames played in first and last 4 weeks
+
+Strong correlation shows great metric stability
 
 
 # Discussion
