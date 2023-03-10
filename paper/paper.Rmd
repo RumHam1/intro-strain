@@ -39,7 +39,7 @@ library(here)
 
 \newpage
 
-# Introduction
+# Introduction {#sec:introduction}
 
 <!--
 TODO: update citations after they're published
@@ -115,10 +115,17 @@ While PRWR is certainly a step in the right direction, it takes continuous data 
 
 ## Contributions of STRAIN
 
+STRAIN is the best etc.
 
 The remainder of this paper is outlined as follows.
 
-# Methods
+Section \ref{sec:methods}
+
+Section \ref{sec:results}
+
+Section \ref{sec:discussion}
+
+# Methods {#sec:methods}
 
 ## Data
 
@@ -144,7 +151,7 @@ sample size
 ## Application to pass-rushing in football
 
 
-# Results
+# Results {#sec:results}
 
 ## Example play
 
@@ -186,6 +193,7 @@ Figure \ref{fig:fig_pos_curves} shows pos curves
 
 ## Ranking the best pass-rushers
 
+Do we want gt tables or traditional tex table
 
 ## Corr with pressure rate = (hits + sacks + hurries) per snap
 
@@ -208,7 +216,7 @@ From @Franks2016Meta (github https://github.com/afranks86/meta-analytics)
 
 Discrimination: Does the metric reliably differentiate between players?
 
-Stability: Does the metric measure a quantity which is stable over time?
+Stability: Does the metric measure a quantity which is stable over time?  (section 5.1 of openWAR has a similar idea)
 
 Independence: Does the metric provide new information?
 
@@ -232,6 +240,6 @@ Average STRAIN across all frames played in first and last 4 weeks
 Strong correlation shows great metric stability
 
 
-# Discussion
+# Discussion {#sec:discussion}
 
 # References

@@ -1,3 +1,6 @@
+# FYI: no need to run this script
+# data needed to figures/paper have already been saved
+
 # data from BDB
 # https://www.kaggle.com/competitions/nfl-big-data-bowl-2023/data
 # save them in the "data" folder
