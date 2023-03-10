@@ -50,18 +50,18 @@ plot_field <- function(frame) {
              color = "#bebebe",
              size = rel(4),
              label = 10 * c(3:5, 4:3)) +
-    annotate("text", 
+    annotate("segment", 
              x = setdiff(seq(35, 85, 1), seq(35, 85, 5)),
-             y = 0,
-             color = "#bebebe",
-             label = "|",
-             vjust = 1.5) +
-    annotate("text", 
+             xend = setdiff(seq(35, 85, 1), seq(35, 85, 5)),
+             y = -Inf,
+             yend = 0,
+             color = "#bebebe") +
+    annotate("segment", 
              x = setdiff(seq(35, 85, 1), seq(35, 85, 5)),
+             xend = setdiff(seq(35, 85, 1), seq(35, 85, 5)),
              y = 48.7,
-             color = "#bebebe",
-             label = "∣",
-             vjust = -0.5) +
+             yend = Inf,
+             color = "#bebebe") +
     annotate("text", 
              x = setdiff(seq(35, 85, 1), seq(35, 85, 5)),
              y = 23.36667,
@@ -115,3 +115,4 @@ fig_field <- plot_grid(
 )
 
 fig_field
+

@@ -153,7 +153,7 @@ sample size
 #| fig.cap: "snapshots"
 #| fig.width: 7
 #| fig.height: 9
-source(here("scripts", "fig_field.R"))
+source(here("scripts", "01_fig_field.R"))
 fig_field
 ```
 
@@ -163,9 +163,9 @@ Figure \ref{fig:fig_field} shows snapshots
 ```{r}
 #| label: fig_crosby_curves
 #| fig.cap: "crosby"
-#| fig.width: 5.1
+#| fig.width: 5
 #| fig.height: 3
-source(here("scripts", "fig_crosby_curves.R"))
+source(here("scripts", "02_fig_crosby_curves.R"))
 fig_crosby_curves
 ```
 
@@ -178,7 +178,7 @@ Figure \ref{fig:fig_crosby_curves} shows Crosby throughout the play
 #| fig.cap: "STRAIN curves for different positions"
 #| fig.width: 4.5
 #| fig.height: 3
-source(here("scripts", "fig_pos_curves.R"))
+source(here("scripts", "03_fig_pos_curves.R"))
 fig_pos_curves
 ```
 
@@ -192,9 +192,9 @@ Figure \ref{fig:fig_pos_curves} shows pos curves
 ```{r}
 #| label: fig_cor_pressure
 #| fig.cap: "Cor with"
-#| fig.width: 4.2
+#| fig.width: 4
 #| fig.height: 3
-source(here("scripts", "fig_cor_pressure.R"))
+source(here("scripts", "04_fig_cor_pressure.R"))
 fig_cor_pressure
 ```
 
@@ -217,9 +217,9 @@ Independence: Does the metric provide new information?
 ```{r}
 #| label: fig_stability
 #| fig.cap: "Metric stability"
-#| fig.width: 4.2
+#| fig.width: 4
 #| fig.height: 3
-source(here("scripts", "fig_stability.R"))
+source(here("scripts", "05_fig_stability.R"))
 fig_stability
 ```
 

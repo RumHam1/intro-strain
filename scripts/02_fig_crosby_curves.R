@@ -1,5 +1,5 @@
 library(here)
-source(here("scripts", "fig_field.R"))
+source(here("scripts", "01_fig_field.R"))
 pff <- read_csv(here("data", "pffScoutingData.csv"))
 
 crosby <- play_lv_den |> 

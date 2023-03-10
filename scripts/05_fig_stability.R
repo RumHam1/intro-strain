@@ -1,5 +1,5 @@
 games <- read_csv(here("data", "games.csv"))
-source(here("scripts", "fig_cor_pressure.R"))
+source(here("scripts", "04_fig_cor_pressure.R"))
 
 min_100_snaps <- test |> 
   select(nflId, team, displayName, officialPosition) |> 
