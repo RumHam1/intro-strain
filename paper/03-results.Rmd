@@ -1,8 +1,3 @@
----
-bibliography: bibliography.bib
-output: rticles::asa_article
----
-
 # Results {#sec:results}
 
 ## Example play
@@ -10,8 +5,8 @@ output: rticles::asa_article
 ```{r}
 #| label: fig_field
 #| fig.cap: "snapshots"
-#| fig.width: 7
-#| fig.height: 9
+#| fig.width: 6
+#| fig.height: 8
 source(here("scripts", "01_fig_field.R"))
 fig_field
 ```
