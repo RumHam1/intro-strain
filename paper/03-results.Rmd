@@ -40,7 +40,69 @@ Figure \ref{fig:fig_pos_curves} shows pos curves
 
 ## Ranking the best pass-rushers
 
-Do we want gt tables or traditional tex table
+\begin{table}
+\caption{Top 15 edge rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:edge}}
+\centering
+\begin{tabular}{rrlllrr}
+\hline
+ Rank & Player & Team & Position & Snaps & Average STRAIN \\ 
+\hline
+1 & Rashan Gary & GB & OLB & 176 & 2.82 \\ 
+2 & Leonard Floyd & LA & OLB & 185 & 2.80 \\ 
+3 & Justin Houston & BAL & OLB & 132 & 2.78 \\ 
+4 & Myles Garrett & CLE & DE & 197 & 2.75 \\ 
+5 & Von Miller & DEN & OLB & 145 & 2.75 \\ 
+6 & T.J. Watt & PIT & OLB & 147 & 2.71 \\ 
+7 & Yannick Ngakoue & LV & DE & 175 & 2.70 \\ 
+8 & Alex Highsmith & PIT & OLB & 129 & 2.65 \\ 
+9 & Preston Smith & GB & OLB & 124 & 2.61 \\ 
+10 & Randy Gregory & DAL & DE & 134 & 2.58 \\ 
+11 & Joey Bosa & LAC & OLB & 160 & 2.58 \\ 
+12 & Darrell Taylor & SEA & DE & 107 & 2.57 \\ 
+13 & Josh Sweat & PHI & DE & 159 & 2.57 \\ 
+14 & Maxx Crosby & LV & DE & 198 & 2.56 \\ 
+15 & Markus Golden & ARI & OLB & 164 & 2.50 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}
+\caption{Top 15 interior rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:interior}}
+\centering
+\begin{tabular}{rlllrr}
+\hline
+Rank & Player & Team & Position & Snaps & Average STRAIN \\ 
+\hline
+1 & Aaron Donald & LA & DT & 239 & 1.67 \\ 
+2 & Solomon Thomas & LV & DT & 115 & 1.51 \\ 
+3 & Quinton Jefferson & LV & DT & 144 & 1.46 \\ 
+4 & Chris Jones & KC & DT & 139 & 1.42 \\ 
+5 & DeForest Buckner & IND & DT & 198 & 1.26 \\ 
+6 & Cameron Heyward & PIT & DT & 188 & 1.25 \\ 
+7 & Javon Hargrave & PHI & DT & 156 & 1.24 \\ 
+8 & Jerry Tillery & LAC & DT & 171 & 1.16 \\ 
+9 & Ed Oliver & BUF & DT & 133 & 1.15 \\ 
+10 & Osa Odighizuwa & DAL & DT & 162 & 1.13 \\ 
+11 & Greg Gaines & LA & NT & 111 & 1.11 \\ 
+12 & Leonard Williams & NYG & DT & 226 & 1.03 \\ 
+13 & Christian Barmore & NE & DT & 166 & 1.02 \\ 
+14 & Vita Vea & TB & NT & 184 & 1.01 \\ 
+15 & B.J. Hill & CIN & DT & 123 & 0.96 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+
+\ref{tab:edge}
+
+\ref{tab:interior}
+
+
+
+
+
 
 ## Corr with pressure rate = (hits + sacks + hurries) per snap
 
