@@ -5,6 +5,7 @@
 **/*.tex
 **/*.aux
 **/*.out
+**/*.html
 **/df_cleaned.csv.gz
 
 # History files

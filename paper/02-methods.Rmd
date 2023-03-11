@@ -2,9 +2,13 @@
 
 ## Data
 
-2023 bdb [@Howard2023NFL]
+We rely on Next Gen Stats data provided by the 2023 NFL Big Data Bowl competition [@Howard2023NFL] for our investigation.
+The data span the first eight weeks of the 2021 NFL regular season, consisting of a total of 122 games.
+Also included are general information about the players, games, and plays within each game
+At a more granular level, we are given information on the player and football locations recorded at 10 frames per second for each play.
+Also included are scouting data supplied by Pro Football Focus, which collects player-level information at the play level.
 
-first 8 weeks 2021 season
+
 
 tracking: locations of players and ball, 10 fps, 
 
@@ -20,8 +24,59 @@ sample size
 
 ## Strain rate in materials science
 
-math
+In materials science, strain is the deformation of a material from stress, showing the rate of change in a material's length relative to its original length.
+Formally, let $L(t)$ be the distance between any given two points of interest within a material at time $t$, and $L_0$ be the initial distance between those two points.
+The **strain** for a material at time $t$ is defined as 
+\begin{equation}
+s(t)= \frac{L(t)-L_{0}}{L_{0}}.
+\end{equation}
+Notice that this measure is unitless due to being a ratio of two quantities having the same dimension.
+
+According, the **strain rate** of a material measures the change in its deformation with respect to time.
+Mathematically, the strain rate of a material can be expressed as the derivative of its strain.
+That is,
+\begin{equation}
+s'(t) = \frac{ds}{dt} = \frac{v(t)}{L_{0}},
+\end{equation}
+where $v(t)$ is the velocity at which the two points of interest within the material are moving away from or towards each other.
+Whereas strain has no units, the strain rate is measured in inverse of time, usually 1/second.
 
 ## Application to pass-rushing in football
 
-analogy
+Motivated by its scientific definition, we draw a delightful analogy between strain rate and pass-rushing in football.
+Just as strain rate is a measure of deformation in materials science, a pass-rusher's efforts involve the application of deformation against the offensive line, with the ultimate goal of breaking through the protection to reach the quarterback.
+The players can be viewed as "particles" in some material and the defensive "particles" are attempting to exert pressure on the pocket with the aim of compressing and collapsing this pocket around the quarterback.
+
+In order to apply strain rate to measure NFL pass-rusher effectiveness, we make modifications to how this concept is traditionally defined.
+
+Let $(x_{ijt}, y_{ijt})$ be the $(x, y)$ location on the field of player $j = 1, \cdots, J$ at frame $t = 1, \cdots, T_i$ for play $i = 1, \cdots, n$; and $(x^{QB}_{it}, y^{QB}_{it})$ be the $(x, y)$ location of the quarterback at frame $t$ during play $i$.
+
+*   The distance between player $j$ and the quarterback at frame $t$ during play $i$ is 
+\begin{equation}
+f_{d_{ij}}(t) = \sqrt{(x_{ijt} - x^{QB}_{it})^2 + (y_{ijt} - y^{QB}_{it})^2}.
+\end{equation}
+*   The velocity at which player $j$ is moving towards the quarterback at frame $t$ during play $i$ is 
+\begin{equation}
+f'_{d_{ij}}(t) = \frac{df_{d_{ij}}(t)}{dt}.
+\end{equation}
+*   The STRAIN for player $j$ at frame $t$ during play $i$ is 
+\begin{equation}
+\text{STRAIN}_{ij}(t) = \frac{-f'_{d_{ij}}(t)}{f_{d_{ij}}(t)}.
+\end{equation}
+Note that to distinguish our metric from strain and strain rate in materials science, we write it in capital letters (STRAIN) for the remainder of this manuscript.
+
+Recall that based on its materials science property, an increase in strain rate is associated with an increase in the distance between two points.
+In our football setting, the two points of interest are the pass-rusher and the quarterback, and we expect our metric to increase as the distance between the pass-rusher and the quarterback decreases.
+Thus, the negative sign in the numerator of our formula effectively accounts for this. 
+Additionally, rather than keeping the initial distance ($L_0$ as previously denoted) between two points constant over time, we update the initial position to be the player locations at the beginning of each frame.
+This effectively gives us the STRAIN for each frame throughout a play.
+
+Since we only observe the distance and velocity quantities discretely in increments of 10 frames/second, a point estimate for our proposed metric STRAIN for player $j$ at frame $t$ during play $i$ is 
+\begin{equation}
+\widehat{\text{STRAIN}}_{ij}(t) = \cfrac{-\cfrac{f_{d_{ij}}(t) - f_{d_{ij}}(t - 1)}{0.1}}{f_{d_{ij}}(t)}.
+\end{equation}
+Notice that this quantity increases in two ways: 1) the rate at which the rusher is moving towards the quarterback increases, and 2) the distance between the rusher and the quarterback gets smaller.
+Both of these are indications of pass-rusher effectiveness.
+Finally, our statistic STRAIN is measured in inverse second, similar to strain rate.
+In addition, the reciprocal of our metric (1/STRAIN) has a straightforward interpretation.
+It illustrates the amount of time required for the rusher to get to the quarterback at the current location and rate at any given time $t$.
