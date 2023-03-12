@@ -4,15 +4,13 @@
 
 ```{r}
 #| label: fig_field
-#| fig.cap: "snapshots"
+#| fig.cap: "A display of the player tracking data for a play during the Las Vegas Raiders (defense, in black) versus Denver Broncos (offense, in orange) NFL game on October 17, 2021. Raiders DE Maxx Crosby is highlighted in blue. For each Raiders defender, the point size indicates their individual STRAIN value, with larger points suggesting larger STRAIN. Snapshots are captured at 1, 2, 3, and 4 seconds after the ball snap."
 #| fig.width: 6.6
 #| fig.height: 4.4
 source(here("scripts", "01_fig_field.R"))
 fig_field
 ```
 
-
-Figure \ref{fig:fig_field} shows snapshots
 
 ```{r}
 #| label: fig_crosby_curves
@@ -23,7 +21,28 @@ source(here("scripts", "02_fig_crosby_curves.R"))
 fig_crosby_curves
 ```
 
-Figure \ref{fig:fig_crosby_curves} shows Crosby throughout the play
+
+To illustrate our proposed metric STRAIN for pass rush evaluation, we use a play from the 2021 NFL regular season week 6 matchup between the Las Vegas Raiders and Denver Broncos, which ended with Broncos QB Teddy Bridgewater getting sacked by Raiders DE Maxx Crosby[^crosbysack].
+Figure \ref{fig:fig_field} presents the locations of every Las Vegas (black) and Denver (orange) player on the field at particular time points in this play, with our focused player Maxx Crosby highlighted in blue.
+Note that the point size for each Las Vegas defender corresponds to the estimated STRAIN in the selected frames as the play progresses.
+In addition, Figure \ref{fig:fig_field} is accompanied by Figure \ref{fig:fig_crosby_curves}, which is a line graph showing how Crosby's distance from the quarterback, velocity, and STRAIN change continuously throughout the play. 
+
+[^crosbysack]: An real-game footage of this play is available at https://www.raiders.com/video/de-maxx-crosby-sacks-qb-teddy-bridgewater-for-a-loss-of-6-yards-nfl
+
+We observe that for the first two seconds, Crosby is being blocked by a Denver offensive lineman and unable to get close to the quarterback, hence the corresponding STRAIN values are virtually zero. 
+Suddenly at around three seconds after the snap, the STRAIN for Crosby starts to increase after the Raiders DE is freed up and charges towards Bridgewater. 
+At 4 seconds after the snap, Crosby's STRAIN is 2.30, which means at his current moving rate, it will take Crosby about 0.43 (1/2.30) seconds to make the distance between him and the quarterback 0 (i.e. essentially sack the quarterback).
+This matches well with the final outcome of the play, as the sack takes place at the very last frame (4.4 seconds) where the estimated STRAIN for Crosby reaches its peak at 3.96.
+
+
+Moreover, Figure \ref{fig:fig_crosby_curves} clearly demonstrates the interactions between the features for Maxx Crosby.
+Here, a higher STRAIN generally corresponds to faster moving rate towards the quarterback.
+STRAIN also increases as the distance between the pass rusher and quarterback is being reduced.
+Both of these relationships suggest an overall successful pass rush by Maxx Crosby.
+
+(bring in the unsuccessful pass rush play)
+
+(talk a bit about other rushers, maybe connect this with positional curves broken down by outcome - sack.)
 
 ## Positional STRAIN curves
 
@@ -39,6 +58,19 @@ fig_pos_curves
 Figure \ref{fig:fig_pos_curves} shows pos curves
 
 ## Ranking the best pass-rushers
+
+Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size.
+
+(maybe some math)
+
+Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass-rushers (NT's and DT's) separately from edge rushers (OLB's and DE's).
+Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
+
+Our results show many true positives with no surprises. Myles Garrett and TJ Watt are known as top-tier edge rushers, while Aaron Donald is undoubtedly the best interior defender in football. Rashan Gary, a young rusher with huge potential, ranks first among all pass-rushers according to our metric. Our leaderboards largely match the rankings of experts in the field (for instance, PFF's edge and interior rusher rankings after the 2021 season), lending credibility to our proposed metric as a measure of pass-rushing effectiveness.
+
+https://www.pff.com/news/nfl-2022-edge-rusher-rankings-tiers
+
+https://www.pff.com/news/nfl-interior-defensive-line-rankings-tiers-2022
 
 \begin{table}
 \caption{Top 15 edge rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:edge}}
@@ -93,12 +125,6 @@ Rank & Player & Team & Position & Snaps & Average STRAIN \\
 \hline
 \end{tabular}
 \end{table}
-
-
-Table \ref{tab:edge}
-
-Table \ref{tab:interior}
-
 
 
 
