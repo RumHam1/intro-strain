@@ -31,8 +31,8 @@ lv_strain_range <- play_lv_den |>
 play_lv_den <- play_lv_den |>
   mutate(point_size = ifelse(
     team != "LV",
-    1.5,
-    scales::rescale(strain, to = c(1.5, 7.5), from = lv_strain_range)
+    0.5,
+    scales::rescale(strain, to = c(0.5, 5), from = lv_strain_range)
   ))
 
 plot_field <- function(frame) {
@@ -42,13 +42,14 @@ plot_field <- function(frame) {
              x = seq(40, 80, 10),
              y = 12,
              color = "#bebebe",
-             size = rel(4),
+             size = rel(3),
              label = 10 * c(3:5, 4:3)) +
     annotate("text", 
              x = seq(40, 80, 10),
              y = 38.35,
              color = "#bebebe",
-             size = rel(4),
+             size = rel(3),
+             angle = 180,
              label = 10 * c(3:5, 4:3)) +
     annotate("segment", 
              x = setdiff(seq(35, 85, 1), seq(35, 85, 5)),
@@ -95,23 +96,24 @@ plot_field <- function(frame) {
                shape = 20,
                data = filter(plot_df, team == "football")) +
     scale_size_identity() +
-    labs(title = str_c(frame/10, " seconds since snap")) +
+    labs(title = str_c(frame/10, "s since snap")) +
     theme_minimal() +
     theme(axis.text = element_blank(),
-          plot.title = element_text(size = rel(1), face = "bold", hjust = 0.5),
+          plot.title = element_text(size = rel(0.8), face = "bold", hjust = 0.5),
           panel.grid = element_blank(),
           axis.title = element_blank(),
-          axis.ticks = element_blank())
+          axis.ticks = element_blank(),
+          plot.margin = unit(c(0.25, 0, 0, -0.25), "cm"))
   return(field)
 }
 
 
 library(cowplot)
 fig_field <- plot_grid(
+  plot_field(10),
   plot_field(20),
   plot_field(30),
-  plot_field(40),
-  ncol = 1
+  plot_field(40)
 )
 
 fig_field

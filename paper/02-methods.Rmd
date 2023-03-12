@@ -32,7 +32,7 @@ s(t)= \frac{L(t)-L_{0}}{L_{0}}.
 \end{equation}
 Notice that this measure is unitless due to being a ratio of two quantities having the same dimension.
 
-According, the **strain rate** of a material measures the change in its deformation with respect to time.
+Accordingly, the **strain rate** of a material measures the change in its deformation with respect to time.
 Mathematically, the strain rate of a material can be expressed as the derivative of its strain.
 That is,
 \begin{equation}
@@ -76,7 +76,7 @@ Since we only observe the distance and velocity quantities discretely in increme
 \widehat{\text{STRAIN}}_{ij}(t) = \cfrac{-\cfrac{f_{d_{ij}}(t) - f_{d_{ij}}(t - 1)}{0.1}}{f_{d_{ij}}(t)}.
 \end{equation}
 Notice that this quantity increases in two ways: 1) the rate at which the rusher is moving towards the quarterback increases, and 2) the distance between the rusher and the quarterback gets smaller.
-Both of these are indications of pass rusher effectiveness.
+Both of these are indications of an effective pass rush attempt.
 Finally, our statistic STRAIN is measured in inverse second, similar to strain rate.
-In addition, the reciprocal of our metric (1/STRAIN) has a straightforward interpretation.
-It illustrates the amount of time required for the rusher to get to the quarterback at the current location and rate at any given time $t$.
+In addition, the reciprocal of our metric (1/STRAIN) has a straightforward interpretation:
+it illustrates the amount of time required for the rusher to get to the quarterback at the current location and rate at any given time $t$.

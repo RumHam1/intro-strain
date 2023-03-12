@@ -5,8 +5,8 @@
 ```{r}
 #| label: fig_field
 #| fig.cap: "snapshots"
-#| fig.width: 6
-#| fig.height: 8
+#| fig.width: 6.6
+#| fig.height: 4.4
 source(here("scripts", "01_fig_field.R"))
 fig_field
 ```
@@ -17,8 +17,8 @@ Figure \ref{fig:fig_field} shows snapshots
 ```{r}
 #| label: fig_crosby_curves
 #| fig.cap: "crosby"
-#| fig.width: 5
-#| fig.height: 3
+#| fig.width: 4.8
+#| fig.height: 2.7
 source(here("scripts", "02_fig_crosby_curves.R"))
 fig_crosby_curves
 ```
@@ -95,9 +95,9 @@ Rank & Player & Team & Position & Snaps & Average STRAIN \\
 \end{table}
 
 
-\ref{tab:edge}
+Table \ref{tab:edge}
 
-\ref{tab:interior}
+Table \ref{tab:interior}
 
 
 
