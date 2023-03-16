@@ -68,10 +68,14 @@ More recently metrics such as Time In Pocket (TIP) and Pass Rush Win Rate (PRWR)
 Pocket Time: Number of seconds the quarterback was in the pocket between the snap of the ball and a pass or the collapse of the pocket
 
 @Burke2018Created
+@AlamarGoldner2013: They talk about how there is no data available to measure offensive line performance.  1259 plays, 20 teams, 2010 season.  Success of each offensive lineman was evaluated using the best judgement of the observer.   Collected time in pocket.  They collected a bunch of binary variables and did this all by HAND!  Estimate a survival model for each position on the offensive line.  They don't rank individuals, but rather positions on a team.  They then use the predicted probability as a covariate in a model to predict completion.  
+
+@AlamarGould2008
 
 https://www.espn.com/nfl/story/_/id/24892208
 
 2.5 seconds, arbitrary
+
 
 While PRWR is certainly a step in the right direction, it takes continuous data and converts it to a binary win/loss, which is generally not recommended in statistical analysis
 
