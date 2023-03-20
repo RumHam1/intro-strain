@@ -1,0 +1,21 @@
+# Data {#sec:data}
+
+We rely on Next Gen Stats data provided by the 2023 NFL Big Data Bowl competition [@Howard2023NFL] for our investigation.
+The data span the first eight weeks of the 2021 NFL regular season, consisting of a total of 122 games.
+Also included are general information about the players, games, and plays within each game
+At a more granular level, we are given information on the player and football locations recorded at 10 frames per second for each play.
+Also included are scouting data supplied by Pro Football Focus, which collects player-level information at the play level.
+
+
+
+tracking: locations of players and ball, 10 fps, 
+
+pre-processing standardize
+
+PFF scouting: pass rush role
+
+sample restriction: remove plays w multiple QB
+
+frames between snap and QB outcome (pass forward, sack)
+
+sample size

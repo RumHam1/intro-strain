@@ -1,6 +1,6 @@
 ---
 title: |
-  | Bearing the Strain: Analyzing Pass Rush in American Football with Player Tracking Data
+  | Bearing the STRAIN: Analyzing Pass Rush in American Football with Player Tracking Data
   
 # Deforming the line:
 # Straining the line:
@@ -68,13 +68,16 @@ library(here)
 ```{r child = "01-introduction.Rmd"}
 ```
 
-```{r child = "02-methods.Rmd"}
+```{r child = "02-data.Rmd"}
 ```
 
-```{r child = "03-results.Rmd"}
+```{r child = "03-methods.Rmd"}
 ```
 
-```{r child = "04-discussion.Rmd"}
+```{r child = "04-results.Rmd"}
+```
+
+```{r child = "05-discussion.Rmd"}
 ```
 
 # Acknowledgements {-}

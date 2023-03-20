@@ -141,7 +141,7 @@ tibble(nflId = as.double(rownames(fit_out_rush)),
   arrange(-intercept) |> 
   left_join(players) |> 
   filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
-  filter(officialPosition == "DT")
+  filter(officialPosition == "OLB")
 
 
 fit_out_qb <- strain_fit |> 
@@ -156,10 +156,12 @@ get_passer_id <- players |>
 
 tibble(passer = rownames(fit_out_qb), 
        intercept = fit_out_qb$`(Intercept)`) |>
-  arrange(intercept) |> 
+  arrange(-intercept) |> 
   left_join(get_passer_id) |> 
-  filter(nflId %in% filter(pass_snaps, n_plays >= 100)$nflId)
+  filter(nflId %in% filter(pass_snaps, n_plays >= 100)$nflId) |> 
+  View()
   
+# https://cran.r-project.org/web/packages/merTools/index.html
 
 fit_out_block <- strain_fit |> 
   ranef() |> 
@@ -170,7 +172,11 @@ tibble(nflId = as.double(rownames(fit_out_block)),
   arrange(intercept) |> 
   left_join(players) |> 
   filter(nflId %in% filter(pass_block_snaps, n_plays >= 100)$nflId) |> 
-  filter(officialPosition == "C")
+  filter(officialPosition == "G")
+
+
+# fixed eff
+# var partition
 
 
 # some plays are missing - Greg?

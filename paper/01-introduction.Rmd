@@ -92,6 +92,8 @@ STRAIN is the best etc.
 
 The remainder of this paper is outlined as follows.
 
+Section \ref{sec:data}
+
 Section \ref{sec:methods}
 
 Section \ref{sec:results}
