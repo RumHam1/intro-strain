@@ -62,3 +62,20 @@ it illustrates the amount of time required for the rusher to get to the quarterb
 ## Average STRAIN
 
 ## Multilevel Model
+
+While average STRAIN appears to be positively correlated with pass rusher ability, the observed average STRAIN on a single play is likely due to a convolution of factors. Outside of the pass rusher's ability, there is variability in the opposing strength of pass blockers across plays a pass rusher is involved. Additionally, based on previous work by PFF, the opposing QB plays an important role on observed pressure in passing plays [@eager2019pressure]. Thus, we need to appropriately divide the credit of an observed average STRAIN across the different players involved and other factors.
+
+We use a multilevel model (i.e., hierarchical, random-effects, or mixed effects model) to evaluate pass rushers' impact on the average STRAIN observed in a play, while accounting for their pass blocker, QB, and play-level information. We identify the pass blocker linked with the pass rusher of interest using the data provided by PFF. Since there can be multiple blockers linked to a rusher, for simplicity we only consider the nearest blocker positioned to the pass rusher at the start of the play. We use random intercepts for the three player groups: (1) pass rushers as $R$, (2) nearest pass blockers as $B$, and (3) QBs as $Q$. The coefficients $\beta$ for additional information $X_{j,i}$ about pass rusher $j$ in play $i$ are estimated as fixed-effects. Our model for the average STRAIN by pass rusher $j$ on play $i$ is as follows:
+
+$$
+\begin{aligned}
+\overline{STRAIN}_{j,i} &\sim Normal(R_{r[j,i]} + B_{b[j,i]} + Q_{q[i]} + X_{j,i} \cdot \beta, \sigma^2), \text{ for } i = 1, \dots, n \text{ plays} \\
+R_{r} &\sim Normal(\mu_R, \sigma^2_R), \text{ for } r = 1, \cdots, \text{ \# of pass rushers}, \\
+B_{b} &\sim Normal(\mu_B, \sigma^2_B), \text{ for } b = 1, \cdots, \text{ \# of pass blockers}, \\
+Q_{q} &\sim Normal(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
+\end{aligned}
+$$
+
+We use a Normal distribution to pull the random intercepts for each player toward their respective position group means. This provides us with average individual effects on STRAIN for each player while applying shrinkage, which is a useful property in this problem's context since we do not observe the same number of plays for each player. With regards to the fixed-effects about pass rusher $j$ in play $i$, we include the length of the play, the pass rusher position (INSERT POSITIONS), the nearest pass blocker's position (INSERT POSITIONS), and the number of pass blockers assigned to the pass rusher according to PFF. We fit the model using penalized likelihood via the `lme4` package in `R` [@bateslme4].
+
+
