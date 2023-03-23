@@ -1,48 +1,16 @@
 # Data {#sec:data}
 
-We use the tracking data made available in the 2023 NFL BDB competition for our investigation. The data span the first eight weeks of the 2021 NFL regular season, consisting of a total of 122 games. 
+We use the tracking data made available in the 2023 NFL BDB competition for our investigation. The data corresponds to _INSERT NUMBER_ passing plays across 122 games in the first eight weeks of the 2021 NFL regular season. The aforementioned NGS data provides the on-field location, speed, direction, and orientation of each player on the field (and the ball) at a rate of 10 Hz, along with event annotations (e.g., ball snapped, pass thrown, etc.). In this particular dataset, there are _INSERT NUMBER_ unique frames corresponding to moments of time from the start of the play at snap until the moment the quarterback either throws the pass or is sacked. (_VERIFY THIS STATEMENT MAKES SENSE_)
 
+_Table X_ displays example data for a play from the 2021 NFL regular season week six matchup between the Las Vegas Raiders and Denver Broncos, which ended with Broncos QB Teddy Bridgewater getting sacked by Raiders DE Maxx Crosby[^crosbysack]. _Figure X_ presents the locations of every Las Vegas (black) and Denver (orange) player on the field at four particular moments of time, with Maxx Crosby highlighted (blue). 
 
-Also included are general information about the players, games, and plays within each game
-At a more granular level, we are given information on the player and football locations recorded at 10 frames per second for each play.
-Also included are scouting data supplied by Pro Football Focus, which collects player-level information at the play level.
+_INSERT TABLE_
 
-In December 2018, the NFL became the first North American professional sports league to release a portion of their tracking data to the public when temporarily made available a subset of this data from the first 6 weeks of the 2017 season for the inaugural “Big Data Bowl” competition.[2]
+_INSERT FIGURE_
 
-The NFL’s tracking data collected as follows: Two radio frequency identification (RFID) chips are placed in each player’s shoulder pads (and in the ball). The RFID chips emit a signal to sensors in each stadium, which triangulate the location of the chip on the field. The data is collected at a rate of 10 Hz, so that the on-field location, speed, and angle of each player (and the ball) is recorded 10 times per second. Event annotations (e.g. ball snapped, first contact, pass thrown, etc) are recorded by the NFL for each play. In total, the dataset contains 1,075,720 unique frames across 14,167 plays, each of which records the locations and trajectories (speed, angle) of all twenty-two players (and the ball) on the field.
+Along with the tracking information, the 2023 BDB includes scouting data provided by Pro Football Focus (PFF). PFF's scouting data includes manually collected player-level information at the play level, such as the player's role (e.g., if they are a pass rusher) and credited events (e.g., player is credited with hitting the QB on the play). In this manuscript, we use the PFF data to identify _INSERT NUMBER_ unique players designated in the "pass rush" role across all plays. For context, _Figure X_ displays the distribution of the number of observed pass rushers involved in a play, ranging from _INSERT NUMBER_ to _INSERT NUMBER_ with _INSERT NUMBER_ pass rushers as the most common value. We also leverage the PFF data to count how many hits, hurries, and sacks each pass rusher is credited with across span of collected data. Additionally, we use the PFF player roles to identify which players were labeled as blocking each pass rusher to adjust for opponent strength, as discussed in Section _INSERT NUMBER_.
 
-Table 1 shows an example of this data for a 47-yard touchdown run by WR Cordarrelle Patterson, which occurred in a Week 6 game between the Los Angeles Chargers and Oakland Raiders in the 2017 season. Four frames from this play are displayed in Figure 2 displaying the coordinates of the offense (blue), defense (orange), and the ball-carrier (black) at particular events in the play. We will visualize the player tracking data in this manner for the remainder of the manuscript.
-
-
-This data can easily be joined to existing play-by-play data from the NFL’s API (e.g. via the nflscrapR package), which contains additional information about each play (Horowitz et al. 2017). For the models in Section 4, we identified all ball-carrier sequences for running plays, which includes designed runs and QB scrambles. While the tracking data records the location of the ball in addition to the players, it does not identify who is the ball-carrier for a particular frame. We first identified the ball-carriers for every type of play (pass attempts, runs, returns, etc.) based on the information available from the NFL’s API via nflscrapR, which denotes who was directly involved in each play. Given the roles a player can have (passer, runner, receiver, interceptor, or returner), we used the provided event annotations to determine when a player became the ball-carrier. Since, for simplicity, we focus our attention on running plays in this manuscript, we identify the beginning of the ball-carrier sequence when the runner received the ball by either a handoff, lateral, or direct snap. The end of the ball-carrier sequence was marked when either the player was tackled, ran out of bounds, fumbled, or scored a touchdown. We excluded all plays missing the necessary information from the NFL API, as well as plays where the snap of the play was missing in the tracking data, and any ball-carrier sequences where either the starting or ending events were missing. After further pre-processing for the covariates described in Section 4, our final modeling dataset consisted of 154,908 frames from 4502 unique ball-carrier sequences on running plays. Figure 3A displays the distribution of the length of these ball-carrier sequences, revealing that majority of ball-carrier sequences are between two to five seconds in length, while Figure 3B displays the observed change in field position from the ball-carrier’s current location that will be modeled, as discussed in 3.3.
-
-
-
-The NFL Big Data Bowl Dataset contains tracking, play, and game data from all 91 games
-in the the first 6 weeks of the 2017 NFL season. The tracking data is at the granularity of
-every tenth of a second per play. For each player on the field (and the ball) for a given play,
-5
-the data contains: time stamp of play (time, yyyy-mm-dd, hh:mm:ss), player position along
-the long axis of the field (0 - 120 yards), player position along the short axis of the field
-(0 - 53.3 yards), speed in yards/second, distance traveled from prior time point (in yards),
-angle of player motion (0 - 360 degrees), tagged play details, (including moment of ball snap,
-pass release, pass catch, tackle, etc), player identification number (unique across players),
-player name, jersey number of player, team (away or home) of corresponding player, frame
-identifier for each play (starting at 1), unique game identifier, and play identifier (not unique
-across games). From the tracking data we are able to calculate eadch player’s distance to
-the ball and to other players as well as their cumulative distance run in the play and in the
-game. The play data contains (not an exhaustive list): game quarter, time on game clock at
-the start of the play (counting down from 15:00, MM:SS), down, distance needed for a first
-down, yard line at line-of-scrimmage, home team score prior to the play, visiting team score
-prior to the play, home team points at the end of the play, visiting team points at the end
-of the play, indicator for penalty called on play, indicator for special teams play, pass length
-(in yards), result of pass play (caught, incomplete, intercepted, run, sack), result of play in
-yards, and a description of the play. The play data allows us to calculate the difference in
-score and incorporate the timing of the play in our models. The game data contains game
-specific information like final score, temperature, humidity, and wind. We did not use any
-of this information in our models. More detailed information on the data can be found at
-the Big Data Bowl GitHub page
-
+INSERT FIGURE
 
 
 tracking: locations of players and ball, 10 fps, 
