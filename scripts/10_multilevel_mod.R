@@ -102,8 +102,8 @@ mod_df |>
   count(block_pos)
 
 # some rushers are assigned 4 blockers 
-mod_df |> 
-  count(gameId, playId, nflId, sort = TRUE)
+n_blockers <- mod_df |> 
+  count(gameId, playId, nflId, name = "n_blockers")
 
 loc_rush <- mod_df |> 
   select(gameId, playId, nflId) |> 
@@ -121,12 +121,13 @@ mod_df_final <- mod_df |>
          y_block = loc_block$y,
          dis = sqrt((x_rush - x_block) ^ 2 + (y_rush - y_block) ^ 2)) |>
   group_by(gameId, playId, nflId) |> 
-  slice_min(dis, n = 1)
+  slice_min(dis, n = 1) |> 
+  left_join(n_blockers)
 
 
 library(lme4)  
 strain_fit <- lmer(
-  avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | passer) + play_len + rush_pos + block_pos,
+  avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | passer) + play_len + rush_pos + block_pos + n_blockers,
   data = mod_df_final
 )
 
@@ -158,8 +159,7 @@ tibble(passer = rownames(fit_out_qb),
        intercept = fit_out_qb$`(Intercept)`) |>
   arrange(-intercept) |> 
   left_join(get_passer_id) |> 
-  filter(nflId %in% filter(pass_snaps, n_plays >= 100)$nflId) |> 
-  View()
+  filter(nflId %in% filter(pass_snaps, n_plays >= 100)$nflId)
   
 # https://cran.r-project.org/web/packages/merTools/index.html
 
@@ -172,11 +172,39 @@ tibble(nflId = as.double(rownames(fit_out_block)),
   arrange(intercept) |> 
   left_join(players) |> 
   filter(nflId %in% filter(pass_block_snaps, n_plays >= 100)$nflId) |> 
-  filter(officialPosition == "G")
+  filter(officialPosition == "C")
 
 
 # fixed eff
 # var partition
 
+
+strain_fit |> 
+  VarCorr() |> 
+  as_tibble() |> 
+  mutate(icc = vcov / sum(vcov)) |> 
+  select(grp, icc)
+
+
+library(merTools)
+
+strain_eff <- REsim(strain_fit)
+
+strain_eff |> 
+  plotREsim()
+
+strain_eff |> 
+  as_tibble() |> 
+  group_by(groupFctr) |> 
+  arrange(desc(mean)) |> 
+  slice(1:5, (n() - 4):n()) |> 
+  ggplot(aes(x = reorder(groupID, mean))) +
+  geom_point(aes(y = mean)) +
+  geom_errorbar(aes(ymin = mean - 2 * sd,
+                    ymax = mean + 2 * sd)) +
+  facet_wrap(~groupFctr, ncol = 1, scales = "free_y") +
+  geom_vline(xintercept = 0, linetype = "dashed",
+             color = "red") +
+  coord_flip()
 
 # some plays are missing - Greg?
