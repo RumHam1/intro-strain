@@ -15,14 +15,16 @@ parenthetical citation (\citep): [@Baumer2023Big]
 -->
 
 In recent years, tracking data have replaced traditional box-score statistics and play-by-play data as the state-of-the-art tool in sports analytics.Numerous sports have been collecting and releasing data on player and ball locations on the playing surface over the course of a game.
+
 This spatio-temporal multi-resolution source of data have provided exceptional opportunities for researchers to perform advanced studies at a more complex level to deepen the understanding of different sports.
+
 For complete surveys on how tracking data have transformed sports analytics, see @Macdonald2020Recreating, @Baumer2023Big, and @Kovalchik2023Player.
 
 We contribute to the growing literature of research based on player tracking data in American football. The National Football League (NFL) introduced their player tracking system known as [Next Gen Stats (NGS)](https://operations.nfl.com/gameday/technology/nfl-next-gen-stats/) in 2016, using radio frequency identification (RFID) chips placed in players' shoulder pads (and in the ball) to collect data 10 times per second. These NGS tracking data contain information about the on-field locations, speeds, and angles of all 22 players on the field (as well as the ball). While these data were initially only available for teams, media, and vendors, in December 2018 the NFL launched the inaugural edition of their annual [Big Data Bowl (BDB)](https://operations.nfl.com/gameday/analytics/big-data-bowl/past-big-data-bowl-recaps/) competition.  
 
-The first BDB led to several contributions largely focused offensive performance evaluation. For example. finalists @deshpande2020expected introduced an approach for modeling the hypothetical completional probability of a pass aiding in the evalaution of quarterback (QB) decision making. The winners of the inaugural BDB focused on identifying receiver routes via clustering techniques [@chu2020route] and convolutional neural networks [@sterken2019routenet]. Along with the BDB competition entries, the public release of NGS data allowed researchers to tackle a variety of other problems such as revisiting fourth down decision making [@lopez2020bigger], annotating pass coverage with gaussian mixture models [@dutta2020unsupervised], and introducing a continuous-time framework to estimate within-play value [@yurko2020going]. Since its inception, the BDB has changed themes each year leading to new insight about evaluating different positions such as running backs, defensive backs, and special teams. The [2023 edition of the NFL BDB](https://www.kaggle.com/competitions/nfl-big-data-bowl-2023) continued this revolving theme by asking participants to evaluate lineman on passing plays [@Howard2023NFL].
+The first BDB led to several contributions largely focused on offensive performance evaluation. For example, one group of finalists introduced an approach for modeling the hypothetical completion probability of a pass aiding in the evaluation of quarterback (QB) decision making [@deshpande2020expected]. The winners of the inaugural BDB focused on identifying receiver routes via clustering techniques [@chu2020route] and convolutional neural networks [@sterken2019routenet]. Along with the BDB competition entries, the public release of NGS data allowed researchers to tackle (pun intended) a variety of other problems such as revisiting fourth down decision making [@lopez2020bigger], annotating pass coverage with Gaussian mixture models [@dutta2020unsupervised], and introducing a continuous-time framework to estimate within-play value [@yurko2020going].  Since its inception, the BDB has chosen a different theme each year leading to new insight about evaluating different positions such as running backs, defensive backs, and special teams. The [2023 edition of the NFL BDB](https://www.kaggle.com/competitions/nfl-big-data-bowl-2023) asked participants to evaluate lineman on passing plays [@Howard2023NFL].
 
-In this work, using data made available in the 2023 BDB, we present a novel approach to measure the performance of pass rushers (defensive players charging the QB). Relative to other aspects of American football, such as QB evaluation [@burke2019deepqb, @reyers2021quarterback], the literature on evaluating pass rushers is scarce. Below, we provide a brief overview of existing pass rush metrics.
+In this work, using data made available in the 2023 BDB, we present a novel approach to measure the performance of pass rushers (defensive players whose role on a given play is to put pressure on the QB). Relative to other aspects of American football, such as QB evaluation [@burke2019deepqb, @reyers2021quarterback], the literature on evaluating pass rushers is scarce. Below, we provide a brief overview of existing pass rush metrics.
 
 
 Previous research bdb
@@ -30,6 +32,14 @@ this year: linemen
 Importance of D-linemen, pass rush (Maybe talk about role of each position, edge vs interior, defensive formation)
 
 ## Previous Pass Rush Metrics
+The most widely know metric for tracking pass rusher performance is the sack.  A sack is defined as follows: "to tackle (the quarterback) behind the line of scrimmage before the quarterback is able to throw a pass" (https://www.dictionary.com/browse/sack#:~:text=Football.%20to%20tackle%20(the%20quarterback,Verb%20Phrases) and has been officially tracked in the NFL since 1982 (citation?).  Sacks represent a simple binary measure of success for a rusher on a pass play.  However, there are many intermediate outcomes for a rusher that can also be considered successes that don't result in a sack.  Measures such a hits and hurries are collected by various outlets where hits counts the number of times a QB is hit while passing and hurries counts how often a QB has to throw the ball earlier than they would have liked to.  
+
+The sum of sacks, hits, and hurries has been defined as "pressures" (https://www.pro-football-reference.com/years/2022/advanced.htm) and is an improvement over simply sacks, but suffers from problems of subjectivity (i.e. was the play actually a hurry?) and are still binary outcomes (i.e. There is a continuum of plays that aren't hurries that all counted as simply "not hurries")
+
+
+
+
+hurries hits and sacks are "pressures"
 
 Limitations
 
@@ -55,6 +65,7 @@ Sacks, hits, hurries, pressures
 
 Officially tracked by the NFL since 1982, the most well known statistic for evaluating defensive linemen on pass rushing plays is the sack, which occurs when a defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass.
 
+Sack definition: 
 
 https://www.pro-football-reference.com/about/advanced_stats.htm
 
