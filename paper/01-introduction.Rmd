@@ -32,10 +32,25 @@ this year: linemen
 Importance of D-linemen, pass rush (Maybe talk about role of each position, edge vs interior, defensive formation)
 
 ## Previous Pass Rush Metrics
-The most widely know metric for tracking pass rusher performance is the sack.  A sack is defined as follows: "to tackle (the quarterback) behind the line of scrimmage before the quarterback is able to throw a pass" (https://www.dictionary.com/browse/sack#:~:text=Football.%20to%20tackle%20(the%20quarterback,Verb%20Phrases) and has been officially tracked in the NFL since 1982 (citation?).  Sacks represent a simple binary measure of success for a rusher on a pass play.  However, there are many intermediate outcomes for a rusher that can also be considered successes that don't result in a sack.  Measures such a hits and hurries are collected by various outlets where hits counts the number of times a QB is hit while passing and hurries counts how often a QB has to throw the ball earlier than they would have liked to.  
+Officially tracked by the NFL since 1982, the most well known statistic for evaluating defensive linemen on pass rushing plays is the sack, which occurs when a defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass.  Sacks represent a simple binary measure of success for a rusher on a pass play.  However, there are many intermediate outcomes for a rusher that can also be considered successes that don't result in a sack.  Measures such a hits and hurries are collected by various outlets where hits counts the number of times a QB is hit while passing and hurries counts how often a QB has to throw the ball earlier than they would have liked to.  
 
-The sum of sacks, hits, and hurries has been defined as "pressures" (https://www.pro-football-reference.com/years/2022/advanced.htm) and is an improvement over simply sacks, but suffers from problems of subjectivity (i.e. was the play actually a hurry?) and are still binary outcomes (i.e. There is a continuum of plays that aren't hurries that all counted as simply "not hurries")
+The sum of sacks, hits, and hurries has been defined as "pressures" (https://www.pro-football-reference.com/years/2022/advanced.htm) and is an improvement over sacks, but suffers from problems of subjectivity (e.g. was the play actually a hurry?) and are still binary outcomes (i.e. There is a continuum of plays that aren't hurries that all counted as simply "not hurries").  
 
+Pro football focus (PFF) defines pass-rush productivity as: 
+$$
+\frac{\frac{(\# Hurries + \# Hits)}{2} + \# Sacks}{\#PassRush Snaps}
+$$.
+This metric gives twice as much weight to a sack relative to hurries and hits, which is a slight improvement, but the choice of weights is ad-hoc an still measures binary outcomes. (https://www.pro-football-reference.com/about/advanced_stats.htm)
+
+More recently metrics such as Time In Pocket (TIP) and Pass Rush Win Rate (PRWR) have also been proposed and are substantial improvements over the less sophisticated counting statistics.  However, these are still imperfect measures as TIP is highly context dependent (e.g. deep vs shallow passing routes).  PRWR is based on whether a pass rusher is able to beat their block before a fixed time from the snap, but this is highly dependent on the rather arbitrary choice of time used to define a "win".  
+
+All of these measures represent different versions of "the best we can do with the available data".  Without more sophisticated data (i.e. player tracking data), it is difficult to measure effectiveness of a pass rusher.  
+
+
+
+Pass Rush productivity 
+Time in pocket
+Pass Rush win rate
 
 
 
@@ -78,6 +93,8 @@ Hit: Times QBs were hit - occurs when the QB hits the ground after a throw, not 
 PFF's Pass-Rush Productivity (PRP)
 
 https://www.pff.com/news/pro-signature-stats-spotlight-defensive-line
+
+
 
 More recently metrics such as Time In Pocket (TIP) and Pass Rush Win Rate (PRWR) have also been proposed and are substantial improvements over the less sophisticated counting statistics. 
 
