@@ -55,7 +55,23 @@ source(here("scripts", "03_fig_pos_curves.R"))
 fig_pos_curves
 ```
 
-Figure \ref{fig:fig_pos_curves} shows pos curves
+```{r}
+#| label: fig_outcome_curves
+#| fig.cap: "STRAIN curves for different positions by outcome"
+#| fig.width: 6
+#| fig.height: 6
+source(here("scripts", "08_fig_outcome_curves.R"))
+fig_outcome_curves
+```
+
+
+Figure \ref{fig:fig_pos_curves} displays the average STRAIN by position for the first 40 frames (4 seconds) after the snap. We observe a clear difference in STRAIN between edge rushers (OLB's and DE's) and interior linemen (DT's and NT's). Specifically, edge rushers have higher STRAIN than interior linemen on average, as they are more easily able to approach the quarterback on the edge of the pocket versus, for instance, a nose tackle attacking the line head on.
+
+On average, STRAIN appears to increase for the first 0.5 seconds of a play, followed by a decline in the next second. STRAIN then increases again until around 2.5-3 seconds after the snap before trending down towards the end of the play. In context, this reflects the actions that a pass-rusher initially moves towards the quarterback, but is then stopped by the offensive line while the quarterback drops back. When the quarterback stops dropping, the rusher closes the gap and increases STRAIN, before slowing down later on.
+
+
+Further, Figure \ref{fig:fig_outcome_curves} shows the positional STRAIN curves by whether a play's outcome is a hit, sack, hurry, or none of those. 
+
 
 ## Ranking the best pass-rushers
 
@@ -127,8 +143,17 @@ Rank & Player & Team & Position & Snaps & Average STRAIN \\
 \end{table}
 
 
+## Statistical Properties of STRAIN
 
+<!-- From @Franks2016Meta (github https://github.com/afranks86/meta-analytics) -->
 
+<!--
+
+Discrimination: Does the metric reliably differentiate between players?
+
+Independence: Does the metric provide new information?
+
+-->
 
 ## Corr with pressure rate = (hits + sacks + hurries) per snap
 
@@ -143,19 +168,8 @@ fig_cor_pressure
 
 Figure \ref{fig:fig_cor_pressure} shows cor with pressure
 
-Fairly strong correlation (r = 0.6254943) between average STRAIN & hurries + sacks + hits per snaps
+We observe a fairly strong correlation (r = 0.625) between average STRAIN and pressure rate.
 
-## Statistical Properties of STRAIN
-
-From @Franks2016Meta (github https://github.com/afranks86/meta-analytics)
-
-<!--
-
-Discrimination: Does the metric reliably differentiate between players?
-
-Independence: Does the metric provide new information?
-
--->
 
 Stability: Does the metric measure a quantity which is stable over time?  (section 5.1 of openWAR has a similar idea)
 
@@ -168,10 +182,26 @@ source(here("scripts", "05_fig_stability.R"))
 fig_stability
 ```
 
-0.8544865
 
-Figure \ref{fig:fig_stability} shows
+Figure \ref{fig:fig_stability} is a scatterplot of average STRAIN across all frames played in first and last 4 weeks.
+It is apparent that there is a strong correlation (r = 0.854), illustrating great metric stability.
 
-Average STRAIN across all frames played in first and last 4 weeks
+## Multilevel Model
 
-Strong correlation shows great metric stability
+coefficient table
+
+icc
+rusher 0.0574
+blocker 0.0121
+passer 0.0233
+Residual 0.907 
+
+
+```{r}
+#| label: fig_rankings_boot
+#| fig.cap: "steve"
+#| fig.width: 6
+#| fig.height: 8
+source(here("scripts", "10_multilevel_mod.R"))
+fig_rankings_boot
+```

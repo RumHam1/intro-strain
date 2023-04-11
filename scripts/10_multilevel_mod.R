@@ -49,9 +49,9 @@ get_avg_strain <- pass_rush |>
   summarize(avg_strain = mean(strain, na.rm = TRUE)) |>
   ungroup()
 
-get_avg_strain |> 
-  ggplot(aes(avg_strain)) +
-  geom_histogram()
+# get_avg_strain |> 
+#   ggplot(aes(avg_strain)) +
+#   geom_histogram()
 
 # get qb and play info from nflfastR
 d <- nflfastR::load_pbp(2021)
@@ -95,11 +95,11 @@ mod_df <- pff |>
   mutate(block_pos = ifelse(!block_pos %in% c("C", "G", "T"), "other", block_pos))
 
 # check to make sure
-mod_df |> 
-  count(rush_pos)
-
-mod_df |> 
-  count(block_pos)
+# mod_df |> 
+#   count(rush_pos)
+# 
+# mod_df |> 
+#   count(block_pos)
 
 # some rushers are assigned 4 blockers 
 n_blockers <- mod_df |> 
@@ -131,48 +131,47 @@ strain_fit <- lmer(
   data = mod_df_final
 )
 
-strain_fit
 
-fit_out_rush <- strain_fit |> 
-  ranef() |> 
-  pluck("nflId")
-
-tibble(nflId = as.double(rownames(fit_out_rush)), 
-       intercept = fit_out_rush$`(Intercept)`) |> 
-  arrange(-intercept) |> 
-  left_join(players) |> 
-  filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
-  filter(officialPosition == "OLB")
-
-
-fit_out_qb <- strain_fit |> 
-  ranef() |> 
-  pluck("passer")
-
-get_passer_id <- players |> 
-  filter(officialPosition == "QB") |> 
-  separate(displayName, into = c("fn", "ln")) |> 
-  transmute(passer = str_c(str_sub(fn, 1, 1), ".", ln),
-            nflId)
-
-tibble(passer = rownames(fit_out_qb), 
-       intercept = fit_out_qb$`(Intercept)`) |>
-  arrange(-intercept) |> 
-  left_join(get_passer_id) |> 
-  filter(nflId %in% filter(pass_snaps, n_plays >= 100)$nflId)
+# fit_out_rush <- strain_fit |> 
+#   ranef() |> 
+#   pluck("nflId")
+# 
+# tibble(nflId = as.double(rownames(fit_out_rush)), 
+#        intercept = fit_out_rush$`(Intercept)`) |> 
+#   arrange(-intercept) |> 
+#   left_join(players) |> 
+#   filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
+#   filter(officialPosition == "OLB")
+# 
+# 
+# fit_out_qb <- strain_fit |> 
+#   ranef() |> 
+#   pluck("passer")
+# 
+# get_passer_id <- players |> 
+#   filter(officialPosition == "QB") |> 
+#   separate(displayName, into = c("fn", "ln")) |> 
+#   transmute(passer = str_c(str_sub(fn, 1, 1), ".", ln),
+#             nflId)
+# 
+# tibble(passer = rownames(fit_out_qb), 
+#        intercept = fit_out_qb$`(Intercept)`) |>
+#   arrange(-intercept) |> 
+#   left_join(get_passer_id) |> 
+#   filter(nflId %in% filter(pass_snaps, n_plays >= 100)$nflId)
   
 # https://cran.r-project.org/web/packages/merTools/index.html
 
-fit_out_block <- strain_fit |> 
-  ranef() |> 
-  pluck("blocker_id")
-
-tibble(nflId = as.double(rownames(fit_out_block)), 
-       intercept = fit_out_block$`(Intercept)`) |> 
-  arrange(intercept) |> 
-  left_join(players) |> 
-  filter(nflId %in% filter(pass_block_snaps, n_plays >= 100)$nflId) |> 
-  filter(officialPosition == "C")
+# fit_out_block <- strain_fit |> 
+#   ranef() |> 
+#   pluck("blocker_id")
+# 
+# tibble(nflId = as.double(rownames(fit_out_block)), 
+#        intercept = fit_out_block$`(Intercept)`) |> 
+#   arrange(intercept) |> 
+#   left_join(players) |> 
+#   filter(nflId %in% filter(pass_block_snaps, n_plays >= 100)$nflId) |> 
+#   filter(officialPosition == "C")
 
 
 # fixed eff
@@ -185,26 +184,27 @@ strain_fit |>
   mutate(icc = vcov / sum(vcov)) |> 
   select(grp, icc)
 
+strain_eff <- merTools::REsim(strain_fit, n.sims = 10000, seed = 101)
 
-library(merTools)
+# strain_eff |> 
+#   merTools::plotREsim()
 
-strain_eff <- REsim(strain_fit)
-
-strain_eff |> 
-  plotREsim()
-
-strain_eff |> 
+fig_rankings_boot <- strain_eff |> 
   as_tibble() |> 
-  group_by(groupFctr) |> 
-  arrange(desc(mean)) |> 
-  slice(1:5, (n() - 4):n()) |> 
-  ggplot(aes(x = reorder(groupID, mean))) +
+  filter(groupFctr == "nflId") |> 
+  mutate(nflId = as.double(groupID)) |> 
+  left_join(players) |> 
+  filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
+  filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
+  group_by(officialPosition) |> 
+  arrange(desc(mean)) |>
+  slice(1:10) |>
+  ggplot(aes(x = reorder(displayName, mean))) +
   geom_point(aes(y = mean)) +
   geom_errorbar(aes(ymin = mean - 2 * sd,
                     ymax = mean + 2 * sd)) +
-  facet_wrap(~groupFctr, ncol = 1, scales = "free_y") +
-  geom_vline(xintercept = 0, linetype = "dashed",
-             color = "red") +
-  coord_flip()
-
-# some plays are missing - Greg?
+  facet_wrap(~officialPosition, ncol = 1, scales = "free_y") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  coord_flip() +
+  theme_light() +
+  labs(x = NULL, y = "intercept")

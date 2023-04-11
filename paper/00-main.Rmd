@@ -21,7 +21,7 @@ blinded: 0
 
 authors: 
 - name: Quang Nguyen
-  thanks: Corresponding author's email
+  # thanks: Corresponding author's email
   affiliation: |
     | Department of Statistics & Data Science
     | Carnegie Mellon University
