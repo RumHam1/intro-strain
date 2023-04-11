@@ -61,6 +61,8 @@ it illustrates the amount of time required for the rusher to get to the quarterb
 
 ## Average STRAIN
 
+To determine the most effective pass-rushers, we compute STRAIN, which represents the average STRAIN across all frames played for each player
+
 ## Multilevel Model
 
 While average STRAIN appears to be positively correlated with pass rusher ability, the observed average STRAIN on a single play is likely due to a convolution of factors. Outside of the pass rusher's ability, there is variability in the opposing strength of pass blockers across plays a pass rusher is involved. Additionally, based on previous work by PFF, the opposing QB plays an important role on observed pressure in passing plays [@eager2019pressure]. Thus, we need to appropriately divide the credit of an observed average STRAIN across the different players involved and other factors.

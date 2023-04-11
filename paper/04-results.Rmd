@@ -34,7 +34,6 @@ Suddenly at around three seconds after the snap, the STRAIN for Crosby starts to
 At 4 seconds after the snap, Crosby's STRAIN is 2.30, which means at his current moving rate, it will take Crosby about 0.43 (1/2.30) seconds to make the distance between him and the quarterback 0 (i.e. essentially sack the quarterback).
 This matches well with the final outcome of the play, as the sack takes place at the very last frame (4.4 seconds) where the estimated STRAIN for Crosby reaches its peak at 3.96.
 
-
 Moreover, Figure \ref{fig:fig_crosby_curves} clearly demonstrates the interactions between the features for Maxx Crosby.
 Here, a higher STRAIN generally corresponds to faster moving rate towards the quarterback.
 STRAIN also increases as the distance between the pass rusher and quarterback is being reduced.
@@ -71,14 +70,11 @@ On average, STRAIN appears to increase for the first 0.5 seconds of a play, foll
 
 
 Further, Figure \ref{fig:fig_outcome_curves} shows the positional STRAIN curves by whether a play's outcome is a hit, sack, hurry, or none of those. 
-
+It is striking that for plays with sack outcome, 
 
 ## Ranking the best pass-rushers
 
 Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size.
-
-(maybe some math)
-
 Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass-rushers (NT's and DT's) separately from edge rushers (OLB's and DE's).
 Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
 
@@ -155,6 +151,15 @@ Independence: Does the metric provide new information?
 
 -->
 
+Next, we examine the predictability of STRAIN as a measure of pressure.
+We first look at how well strain correlates with a simple measure of pressure rate, defined as the total hits, sacks and hurries per snap.
+Figure \ref{fig:fig_cor_pressure} shows a scatterplot of average STRAIN and pressure rate.
+We observe a fairly strong correlation (r = 0.625)...
+
+Furthermore, first 4 weeks’ avg STRAIN is more predictive of last 4 weeks’ hurries sacks hits rate than first 4 weeks’ HSH rate
+
+(INSERT FIGURE)
+
 ```{r}
 #| label: fig_cor_pressure
 #| fig.cap: "Corr with pressure rate = (hits + sacks + hurries) per snap"
@@ -164,8 +169,8 @@ source(here("scripts", "04_fig_cor_pressure.R"))
 fig_cor_pressure
 ```
 
-Figure \ref{fig:fig_cor_pressure} shows cor with pressure
-We observe a fairly strong correlation (r = 0.625) between average STRAIN and pressure rate.
+
+
 
 
 
