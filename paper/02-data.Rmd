@@ -1,10 +1,24 @@
 # Data {#sec:data}
 
-We use the tracking data made available in the 2023 NFL BDB competition for our investigation. The data corresponds to _INSERT NUMBER_ passing plays across 122 games in the first eight weeks of the 2021 NFL regular season. The aforementioned NGS data provides the on-field location, speed, direction, and orientation of each player on the field (and the ball) at a rate of 10 Hz, along with event annotations (e.g., ball snapped, pass thrown, etc.). In this particular dataset, there are _INSERT NUMBER_ unique frames corresponding to moments of time from the start of the play at snap until the moment the quarterback either throws the pass or is sacked. (_VERIFY THIS STATEMENT MAKES SENSE_)
+We use the tracking data made available in the 2023 NFL BDB competition for our investigation. The data corresponds to 8557 passing plays across 122 games in the first eight weeks of the 2021 NFL regular season. The aforementioned NGS data provides the on-field location, speed, direction, and orientation of each player on the field (and the ball) at a rate of 10 Hz, along with event annotations (e.g., ball snapped, pass thrown, etc.). In this particular dataset, there are _INSERT NUMBER_ unique frames corresponding to moments of time from the start of the play at snap until the moment the quarterback either throws the pass or is sacked. (_VERIFY THIS STATEMENT MAKES SENSE_)
 
-_Table X_ displays example data for a play from the 2021 NFL regular season week six matchup between the Las Vegas Raiders and Denver Broncos, which ended with Broncos QB Teddy Bridgewater getting sacked by Raiders DE Maxx Crosby[^crosbysack]. _Figure X_ presents the locations of every Las Vegas (black) and Denver (orange) player on the field at four particular moments of time, with Maxx Crosby highlighted (blue). 
+Table \ref{tab:track} displays example data for a play from the 2021 NFL regular season week six matchup between the Las Vegas Raiders and Denver Broncos, which ended with Broncos QB Teddy Bridgewater getting sacked by Raiders DE Maxx Crosby[^crosbysack]. _Figure X_ presents the locations of every Las Vegas (black) and Denver (orange) player on the field at four particular moments of time, with Maxx Crosby highlighted (blue). 
 
-_INSERT TABLE_
+\begin{table}
+\caption{track. \label{tab:track}}
+\centering
+\begin{tabular}{rrrlrrrrrrrl}
+\hline
+frameId & jerseyNumber & team & x & y & s & a & dis & o & dir & event \\ 
+\hline
+7 & 98 & LV & 67.68 & 29.89 & 0.34 & 1.57 & 0.04 & 124.86 & 88.21 & ball\_snap \\ 
+8 & 98 & LV & 67.76 & 29.89 & 0.69 & 2.13 & 0.08 & 124.07 & 89.59 & None \\ 
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\ 
+50 & 98 & LV & 73.67 & 25.06 & 4.19 & 2.62 & 0.42 & 134.21 & 125.26 & qb\_sack \\ 
+\hline
+\end{tabular}
+\end{table}
+
 
 _INSERT FIGURE_
 
@@ -12,15 +26,6 @@ Along with the tracking information, the 2023 BDB includes scouting data provide
 
 INSERT FIGURE
 
+(sample restriction)
 
-tracking: locations of players and ball, 10 fps, 
-
-pre-processing standardize
-
-PFF scouting: pass rush role
-
-sample restriction: remove plays w multiple QB
-
-frames between snap and QB outcome (pass forward, sack)
-
-sample size
+We include only the frames between the ball snap and when a pass forward or QB sack is recorded for each play. We also remove all plays with multiple quarterbacks on the field, since we need a uniquely defined quarterback to calculate our measure. Using PFF scouting data, we only consider defenders with role "Pass rush" for evaluation.

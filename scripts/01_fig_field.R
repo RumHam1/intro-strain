@@ -17,6 +17,11 @@ library(here)
 
 play_lv_den <- read_csv(here("data", "play_lv_den.csv.gz"))
 
+# play_lv_den |> filter(nflId == 47889) |> 
+#   select(frameId, jerseyNumber, team, x:event) |> 
+#   filter(frameId %in% c(7, 8, 50)) |> 
+#   xtable::xtable()
+
 plays <- read_csv(here("data", "plays.csv"))
 desc <- plays |>
   filter(gameId == 2021101709 & playId == 1444) |>

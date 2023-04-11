@@ -177,6 +177,8 @@ strain_fit <- lmer(
 # fixed eff
 # var partition
 
+summary(strain_fit)$coef
+broom.mixed::tidy(strain_fit, conf.int=TRUE)
 
 strain_fit |> 
   VarCorr() |> 

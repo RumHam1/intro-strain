@@ -155,11 +155,9 @@ Independence: Does the metric provide new information?
 
 -->
 
-## Corr with pressure rate = (hits + sacks + hurries) per snap
-
 ```{r}
 #| label: fig_cor_pressure
-#| fig.cap: "Cor with"
+#| fig.cap: "Corr with pressure rate = (hits + sacks + hurries) per snap"
 #| fig.width: 4
 #| fig.height: 3
 source(here("scripts", "04_fig_cor_pressure.R"))
@@ -167,11 +165,9 @@ fig_cor_pressure
 ```
 
 Figure \ref{fig:fig_cor_pressure} shows cor with pressure
-
 We observe a fairly strong correlation (r = 0.625) between average STRAIN and pressure rate.
 
 
-Stability: Does the metric measure a quantity which is stable over time?  (section 5.1 of openWAR has a similar idea)
 
 ```{r}
 #| label: fig_stability
@@ -184,9 +180,11 @@ fig_stability
 
 
 Figure \ref{fig:fig_stability} is a scatterplot of average STRAIN across all frames played in first and last 4 weeks.
-It is apparent that there is a strong correlation (r = 0.854), illustrating great metric stability.
+It is apparent that there is a strong correlation (r = 0.854), illustrating great metric stability over time.
 
 ## Multilevel Model
+
+
 
 coefficient table
 
