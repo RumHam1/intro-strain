@@ -6,6 +6,7 @@
 # save them in the "data" folder
 
 # a lot of base R from Greg here
+# You call it "base R".  I call it "OG R".  
 
 library(tidyverse)
 library(here)

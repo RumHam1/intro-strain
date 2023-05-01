@@ -1,6 +1,10 @@
 # Data {#sec:data}
+```{r eval = FALSE, echo = FALSE}
+pass_rush <- read_csv(here("data", "pass_rush.csv.gz"))
+pass_rush %>% select(gameId, playId, frameId) %>% n_distinct()
+```
 
-We use the tracking data made available in the 2023 NFL BDB competition for our investigation. The data corresponds to 8557 passing plays across 122 games in the first eight weeks of the 2021 NFL regular season. The aforementioned NGS data provides the on-field location, speed, direction, and orientation of each player on the field (and the ball) at a rate of 10 Hz, along with event annotations (e.g., ball snapped, pass thrown, etc.). In this particular dataset, there are _INSERT NUMBER_ unique frames corresponding to moments of time from the start of the play at snap until the moment the quarterback either throws the pass or is sacked. (_VERIFY THIS STATEMENT MAKES SENSE_)
+We use the tracking data made available in the 2023 NFL BDB competition for our investigation. The data corresponds to 8557 passing plays across 122 games in the first eight weeks of the 2021 NFL regular season. The aforementioned NGS data provides the on-field location, speed, direction, and orientation of each player on the field (and the ball) at a rate of 10 Hz, along with event annotations (e.g., ball snapped, pass thrown, etc.). In this particular dataset, there are _INSERT NUMBER_ (our cleaned dataset has 251060 unique frames) unique frames corresponding to moments of time from the start of the play at snap until the moment the quarterback either throws the pass or is sacked. (_VERIFY THIS STATEMENT MAKES SENSE_)
 
 Table \ref{tab:track} displays example data for a play from the 2021 NFL regular season week six matchup between the Las Vegas Raiders and Denver Broncos, which ended with Broncos QB Teddy Bridgewater getting sacked by Raiders DE Maxx Crosby[^crosbysack]. _Figure X_ presents the locations of every Las Vegas (black) and Denver (orange) player on the field at four particular moments of time, with Maxx Crosby highlighted (blue). 
 
