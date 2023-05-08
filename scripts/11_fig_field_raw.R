@@ -62,16 +62,20 @@ plot_field_raw <- function(frame) {
              color = "#bebebe") +
     geom_vline(xintercept = seq(35, 85, 5), color = "#bebebe") +
     geom_point(aes(x = x, y = y),
+               size = 0.5,
                color = "black",
                data = filter(plot_df, team == "LV" & nflId != 47889)) +
     geom_point(aes(x = x, y = y),
                color = "#1143E2",
+               size = 0.5,
                data = filter(plot_df, team == "LV" & nflId == 47889)) +
     geom_point(aes(x = x, y = y),
                color = "#FB4F14",
+               size = 0.5,
                data = filter(plot_df, team == "DEN")) +
     geom_point(aes(x = x, y = y),
                color = "#803621",
+               size = 0.5,
                shape = 20,
                data = filter(plot_df, team == "football")) +
     scale_size_identity() +

@@ -12,11 +12,13 @@ desc <- plays |>
 
 # df_cleaned <- read_csv(here("data", "df_cleaned.csv.gz"))
 
-play_unsucess <- df_cleaned |>
-  filter(gameId == 2021101709 & playId == 1113)
+# play_unsucess <- df_cleaned |>
+#   filter(gameId == 2021101709 & playId == 1113)
 # write_csv(play_unsucess, here("data", "play_unsucess.csv.gz"))
 
 # https://www.nfl.com/videos/teddy-bridgewater-courtland-sutton-barely-miss-out-on-chance-at-62-yard-td-bomb
+
+play_unsucess <- read_csv(here("data", "play_unsucess.csv.gz"))
 
 crosby <- play_unsucess |> 
   filter(nflId == 47889) |>

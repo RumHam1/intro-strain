@@ -59,9 +59,15 @@ Finally, our statistic STRAIN is measured in inverse second, similar to strain r
 In addition, the reciprocal of our metric (1/STRAIN) has a straightforward interpretation:
 it illustrates the amount of time required for the rusher to get to the quarterback at the current location and rate at any given time $t$.
 
-## Average STRAIN
+Moreover, since we observe STRAIN continuously at every tenth of a second within each play, we can then compute the average STRAIN across all frames played for every pass rusher.
+This can be helpful in regards to player evaluation, as we can determine the most effective pass-rushers based on their average STRAIN values.
+Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass rusher $i$ over $n$ total plays with $T$ total frames is
 
-To determine the most effective pass-rushers, we compute STRAIN, which represents the average STRAIN across all frames played for each player
+[CHECK THIS - is notation consistent with what we have above?]
+\begin{equation}
+\overline{\text{STRAIN}}_{i} = \frac{1}{n} \sum_{t=1}^T {\text{STRAIN}}_{i}(t).
+\end{equation}
+
 
 ## Multilevel Model
 

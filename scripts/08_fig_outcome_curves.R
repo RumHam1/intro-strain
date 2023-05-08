@@ -72,8 +72,9 @@ fig_outcome_curves <- hit |>
   labs(y = "STRAIN",
        x = "Time since snap (seconds)") +
   theme_light() +
-  facet_wrap(~ outcome) +
+  facet_wrap(~ outcome, nrow = 1) +
   theme(legend.key.width = unit(0.9, "cm"),
+        legend.position = "bottom",
         axis.title = element_text(size = rel(1)),
         axis.text = element_text(size = rel(0.8)),
         legend.title = element_text(size = rel(1)),
