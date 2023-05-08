@@ -76,9 +76,11 @@ Pass Rush Win Rate (PRWR) & Rate at which pass rusher beats pass block within 2.
 <!-- (https://www.espn.com/nfl/story/_/id/34536376/2022-nfl-pass-rushing-run-stopping-blocking-leaderboard-win-rate-rankings-top-players-teams) -->
 
 
-## Previous Pass-Rush Measure in academic literaure
+<!-- ## Previous Pass-Rush Measure in academic literaure -->
 
-The academic literature on the performance of linemen, either offensive or defensive in football is scant. @AlamarGould2008 studied the the relationship between pass completion rate and performance of offensive linemen in terms of how successful they were at blocking.  The data for this study was collecting essentially by hand by watching and charting the performance of each lineman on a play.  This was done using games from the beginning 2007 season for seven teams and their first three games each.  The authors note that there is not much research on linemen saying "One of the principal reasons for this lack of study is the absence of publicly available data that is needed in order to track the performance of a specific lineman." 
+## Previous Research on Football Linemen
+
+The literature on the performance of linemen, either offensive or defensive in football is scant. @AlamarGould2008 studied the the relationship between pass completion rate and performance of offensive linemen in terms of how successful they were at blocking.  The data for this study was collecting essentially by hand by watching and charting the performance of each lineman on a play.  This was done using games from the beginning 2007 season for seven teams and their first three games each.  The authors note that there is not much research on linemen saying "One of the principal reasons for this lack of study is the absence of publicly available data that is needed in order to track the performance of a specific lineman." 
 
 Later, @AlamarGoldner2011 again studied offensive linemen performance.  They analyzed 20 teams during the 2010 season for a total of 1,259 plays.  They don't estimate the performance of an individual lineman, but rather positions on a team (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center, etc.).  They then go on to use a survival analysis model to estimate time in pocket.  The average probability of success from the survival model is then used as a covariate in a model to estimate the probability of competing a pass, and they show that there is a significant relationship between these two probabilities.  
 
