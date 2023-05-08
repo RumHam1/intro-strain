@@ -131,6 +131,9 @@ strain_fit <- lmer(
   data = mod_df_final
 )
 
+# library(lmerTest)
+# xtable(summary(strain_fit)$coef, digits = rep(3, 6))
+
 
 # fit_out_rush <- strain_fit |> 
 #   ranef() |> 

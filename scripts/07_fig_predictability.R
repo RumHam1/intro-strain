@@ -52,7 +52,7 @@ hsh_last <- hsh |>
 
 
 #0.09651732
-hsh_first |> 
+hsh_hsh <- hsh_first |> 
   full_join(hsh_last) |>
   left_join(select(players, nflId, officialPosition)) |>
   mutate(officialPosition = factor(officialPosition, levels = c("OLB", "DE", "DT", "NT"))) |> 
@@ -73,7 +73,7 @@ hsh_first |>
 
 #0.3216974
 
-hsh_last |> 
+strain_hsh <- hsh_last |> 
   left_join(select(players, nflId, officialPosition, displayName)) |> 
   select(name = displayName, pos = officialPosition, last_hsh) |> 
   full_join(strain_first) |>
