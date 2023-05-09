@@ -93,12 +93,13 @@ Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 secon
 ## Previous Research on Football Linemen
 
 The literature on the performance of linemen, either offensive or defensive in football is scant.
-@AlamarGould2008 examine the the relationship between pass completion and offensive linemen's performance, in terms of how successful they were at blocking.
-The data for this study are manually collected for the first three weeks of the 2007 NFL season, recording whether a lineman holds a block and the time in pocket for the quarterback.
-
+@AlamarGould2008 find an association between pass completion rate and successful pass blocking by offensive linemen.
+The data for this study are collected for the first three weeks of the 2007 NFL season, manually recording whether a lineman holds a block and the time it took for quarterback to throw the football.
 Later, @AlamarGoldner2011 use manually-tracked data during the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center).
-[this next part needs re-wording]
-They then go on to use a survival analysis model to estimate time in pocket.  The average probability of success from the survival model is then used as a covariate in a model to estimate the probability of competing a pass, and they show that there is a significant relationship between these two probabilities.  
+The paper uses survival analysis to model time in pocket and completion percentage for quarterbacks, before ultimately measures a lineman's contribution to the overall offense in terms of yards gained.
+
+<!-- [this next part needs re-wording] -->
+<!-- They then go on to use a survival analysis model to estimate time in pocket.  The average probability of success from the survival model is then used as a covariate in a model to estimate the probability of competing a pass, and they show that there is a significant relationship between these two probabilities. -->
 
 ## Contributions of STRAIN
 

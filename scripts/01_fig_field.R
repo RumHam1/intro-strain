@@ -36,8 +36,8 @@ lv_strain_range <- play_lv_den |>
 play_lv_den <- play_lv_den |>
   mutate(point_size = ifelse(
     team != "LV",
-    0.5,
-    scales::rescale(strain, to = c(0.5, 5), from = lv_strain_range)
+    1,
+    scales::rescale(strain, to = c(1, 6), from = lv_strain_range)
   ))
 
 plot_field <- function(frame) {
