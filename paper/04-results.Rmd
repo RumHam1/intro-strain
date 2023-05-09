@@ -24,7 +24,7 @@ fig_crosby_curves
 
 To illustrate our proposed metric STRAIN for pass rush evaluation, we use the same play from the Las Vegas Raiders and Denver Broncos game as mentioned in Section \ref{sec:data}.
 Figure \ref{fig:fig_field} shows an updated version of Figure \ref{fig:fig_field_raw}, with the point size for each Las Vegas defender corresponding to the estimated STRAIN in the selected frames as the play progresses.
-In addition, Figure \ref{fig:fig_field} is accompanied by Figure \ref{fig:fig_crosby_curves}, which is a line graph showing how Crosby's distance from the quarterback, velocity, and STRAIN change continuously throughout the play. 
+This is accompanied by Figure \ref{fig:fig_crosby_curves}, which is a line graph showing how Crosby's distance from the quarterback, velocity, and STRAIN change continuously throughout the play. 
 
 [^crosbysack]: An real-game footage of this play is available at https://www.raiders.com/video/de-maxx-crosby-sacks-qb-teddy-bridgewater-for-a-loss-of-6-yards-nfl
 

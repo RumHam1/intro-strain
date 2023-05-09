@@ -37,42 +37,51 @@ In this work, using data made available in the 2023 BDB, we present a novel appr
 
 ## Previous Pass Rush Metrics
 
-Officially tracked by the NFL since 1982, the most well known statistic for evaluating defensive linemen on pass rushing plays is the sack, which occurs when a defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass.  Sacks represent a simple binary measure of success for a rusher on a pass play.  However, there are many intermediate outcomes for a rusher that can also be considered successes that don't result in a sack.  Measures such a hits and hurries are collected by various outlets where hits counts the number of times a QB is hit while passing and hurries counts how often a QB has to throw the ball earlier than they would have liked to.  
+Table \ref{tab:metrics} gives a summary of existing pass-rush metrics. 
 
-The sum of sacks, hits, and hurries has been defined as "pressures" (https://www.pro-football-reference.com/years/2022/advanced.htm) and is an improvement over sacks, but suffers from problems of subjectivity (e.g. was the play actually a hurry?) and are still binary outcomes (i.e. There is a continuum of plays that aren't hurries that all counted as simply "not hurries").  
+Officially tracked by the NFL since 1982, the most well-known statistic for evaluating defensive linemen on pass rushing plays is the sack, which occurs when a defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass.  Sacks represent a simple binary measure of success for a rusher on a pass play.  However, there are many intermediate outcomes for a rusher that can also be considered successes that don't result in a sack.  Measures such a hits and hurries are collected by various outlets where hits counts the number of times a QB is hit while passing and hurries counts how often a QB has to throw the ball earlier than they would have liked to.  
 
+<!-- (https://www.pro-football-reference.com/years/2022/advanced.htm) -->
 
-Pro football focus (PFF) defines pass-rush productivity as 
-$$[ \ (\text{Hurries} + \text{Hits})/2 + \text{Sacks} \ ]\  / \text{ Pass Rush Snaps}$$
-This metric gives twice as much weight to a sack relative to hurries and hits, which is a slight improvement, but the choice of weights is ad-hoc an still only measures binary outcomes similar to the shortcomings of previously discussed metrics.   (https://www.pro-football-reference.com/about/advanced_stats.htm)
+[Pro football ref has a slightly different QB pressures formula than the formula below https://www.pro-football-reference.com/about/advanced_stats.htm]
 
-More recently metrics such as Time In Pocket (TIP) and Pass Rush Win Rate [@Burke2018Created] (PRWR) have also been proposed and are substantial improvements over the less sophisticated counting statistics.  However, these are still imperfect measures as TIP is highly context dependent (e.g. deep vs shallow passing routes).  PRWR is based on whether a pass rusher is able to beat their block before a fixed time (ESPN chooses 2.5 seconds) from the snap, but this is highly dependent on the rather arbitrary choice of time used to define a "win".  In addition, once a cut-off is chosen, this metric becomes binary like most of the previously discussed measures.   
+The sum of sacks, hits, and hurries has been defined as "pressures" and is an improvement over sacks, but suffers from problems of subjectivity (e.g. was the play actually a hurry?) and are still binary outcomes (i.e. There is a continuum of plays that aren't hurries that all counted as simply "not hurries").  
 
-(https://www.espn.com/nfl/story/_/id/34536376/2022-nfl-pass-rushing-run-stopping-blocking-leaderboard-win-rate-rankings-top-players-teams)
+<!-- $$\frac{(\text{Hurries} + \text{Hits})/2 + \text{Sacks}}{\text{ Pass Rush Snaps}}$$ -->
 
-All of these measures represent different versions of "the best we can do with the available data".  Without more sophisticated data (i.e. player tracking data), it is difficult to measure effectiveness of a pass rusher so many simple metrics of success have been proposed.  Table \ref{tab:metrics} gives a summary of existing pass-rush metrics.  
+Pro football focus (PFF) comes up with a metric called "pass-rush productivity" (PRP), which is a minor modification from the aforementioned pressures metric (see Table \ref{tab:metrics}).
+In particular, PRP gives twice as much weight to a sack relative to hurries and hits, which is a slight improvement to pressures.
+However, the choice of weights is ad-hoc and still only measures binary outcomes similar to the shortcomings of previously discussed metrics.
+
+<!-- (https://www.pro-football-reference.com/about/advanced_stats.htm) -->
+
+More recently metrics such as Time In Pocket (TIP) and Pass Rush Win Rate (PRWR) [@Burke2018Created] have also been proposed and are substantial improvements over the less sophisticated counting statistics.
+Nevertheless, these are still imperfect measures.
+TIP is highly context dependent, as it can be influenced by the type of passing route (e.g. deep versus shallow).
+PRWR is based on whether a pass rusher is able to beat their block before a fixed time (ESPN chooses 2.5 seconds) from the snap, but this is highly dependent on the rather arbitrary choice of time used to define a "win".
+In addition, once a cut-off is chosen, this metric becomes binary like most of the previously discussed measures.   
+
+<!-- (https://www.espn.com/nfl/story/_/id/34536376/2022-nfl-pass-rushing-run-stopping-blocking-leaderboard-win-rate-rankings-top-players-teams) -->
+
+All of these measures represent different versions of "the best we can do with the available data".  Without granular data, it is difficult to measure effectiveness of a pass rusher so many simple metrics of success have been proposed. 
 
 \begin{table}
 \caption{A summary of previously-existing pass rush metrics. \label{tab:metrics}}
 \centering
 \begin{tabular}{p{0.27\textwidth}p{0.67\textwidth}}
-  \hline
+\hline
 Metric & Description \\ 
-  \hline
+\hline
 Sacks & A defender tackles the QB behind the line of scrimmage before the QB is able to throw a pass \\
 Hits & A defender tackles the QB behind the line of scrimmage after the QB is able to throw a pass. \\
 Hurries & A defender pressures the QB behind the line of scrimmage such that the QB must release the ball prior sooner than they wanted to. \\
 Pressures & $\text{Hurries} + \text{ Hits } + \text{ Sacks}$ \\
-Pass-Rush Productivity & $[\ (\text{Hurries} + \text{Hits})/2 + \text{Sacks}\ ]\  / \text{ Pass Rush Snaps}$\\
+Pass-Rush Productivity & $\displaystyle \frac{(\text{Hurries} + \text{Hits})/2 + \text{Sacks}}{\text{ Pass Rush Snaps}}$\\
 Time In Pocket & Time (in seconds) between ball snap and throw or pocket collapse for a QB \\
 Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 seconds after ball snap\\
-   \hline
+\hline
 \end{tabular}
 \end{table}
-
-
-[Pro football ref has different QB pressures formula? https://www.pro-football-reference.com/about/advanced_stats.htm]
-
 
 <!-- (https://www.pff.com/news/pro-pff-signature-statistics-a-glossary#:~:text=Time%20in%20Pocket,time%20until%20a%20quarterback%20scrambles) -->
 
@@ -83,9 +92,13 @@ Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 secon
 
 ## Previous Research on Football Linemen
 
-The literature on the performance of linemen, either offensive or defensive in football is scant. @AlamarGould2008 studied the the relationship between pass completion rate and performance of offensive linemen in terms of how successful they were at blocking.  The data for this study was collecting essentially by hand by watching and charting the performance of each lineman on a play.  This was done using games from the beginning 2007 season for seven teams and their first three games each.  The authors note that there is not much research on linemen saying "One of the principal reasons for this lack of study is the absence of publicly available data that is needed in order to track the performance of a specific lineman." 
+The literature on the performance of linemen, either offensive or defensive in football is scant.
+@AlamarGould2008 examine the the relationship between pass completion and offensive linemen's performance, in terms of how successful they were at blocking.
+The data for this study are manually collected for the first three weeks of the 2007 NFL season, recording whether a lineman holds a block and the time in pocket for the quarterback.
 
-Later, @AlamarGoldner2011 again studied offensive linemen performance.  They analyzed 20 teams during the 2010 season for a total of 1,259 plays.  They don't estimate the performance of an individual lineman, but rather positions on a team (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center, etc.).  They then go on to use a survival analysis model to estimate time in pocket.  The average probability of success from the survival model is then used as a covariate in a model to estimate the probability of competing a pass, and they show that there is a significant relationship between these two probabilities.  
+Later, @AlamarGoldner2011 use manually-tracked data during the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center).
+[this next part needs re-wording]
+They then go on to use a survival analysis model to estimate time in pocket.  The average probability of success from the survival model is then used as a covariate in a model to estimate the probability of competing a pass, and they show that there is a significant relationship between these two probabilities.  
 
 ## Contributions of STRAIN
 
