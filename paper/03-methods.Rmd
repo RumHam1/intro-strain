@@ -68,6 +68,8 @@ Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass ru
 \overline{\text{STRAIN}}_{i} = \frac{1}{n} \sum_{t=1}^T {\text{STRAIN}}_{i}(t).
 \end{equation}
 
+(mention avg strain can be used to correlate with pressure...)
+
 
 ## Multilevel Model
 

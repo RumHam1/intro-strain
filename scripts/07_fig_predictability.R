@@ -60,8 +60,8 @@ hsh_hsh <- hsh_first |>
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.5, color = "black", alpha = 0.5) +
   geom_point(aes(color = officialPosition, group = nflId), size = 2, alpha = 0.8) +
   scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
-  labs(x = "(Hurries + Sacks + Hits) per snap in first 4 weeks",
-       y = "(Hurries + Sacks + Hits) per snap in last 4 weeks",
+  labs(x = "Pressure rate in first 4 weeks",
+       y = "Pressure rate per snap in last 4 weeks",
        color = "Position") +
   theme_light() +
   theme(axis.title = element_text(size = rel(1)),
@@ -83,8 +83,8 @@ strain_hsh <- hsh_last |>
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.5, color = "black", alpha = 0.5) +
   geom_point(aes(color = pos, group = name), size = 2, alpha = 0.8) +
   scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
-  labs(x = "STRAIN in first 4 weeks",
-       y = "(Hurries + Sacks + Hits) per snap\nin last 4 weeks",
+  labs(x = "Average STRAIN in first 4 weeks",
+       y = "Pressure rate in last 4 weeks",
        color = "Position") +
   theme_light() +
   theme(axis.title = element_text(size = rel(1)),
