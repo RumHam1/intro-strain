@@ -46,9 +46,10 @@ abstract: |
   This paper evaluates pass rusher performance in the National Football League. We propose STRAIN, a new measure for pass rusher effectiveness, which accounts for the distance between the pass rusher and quarterback and the rate at which this distance is being reduced. STRAIN is a simple and interpretable statistic, with higher STRAIN corresponds to greater pass rushing ability. Our metric is closely related to the concept of "strain rate" in materials science. We present the mathematical motivations for our metric, followed by an illustration with an example play. The analysis concludes with a comparison of STRAIN for different positions and our rankings of NFL's best pass-rushers according to our metric.
 
 bibliography: bibliography.bib
+biblio-style: chicago
 output: rticles::asa_article
-header-includes:
-  \renewcommand{\arraystretch}{0.9}
+# header-includes:
+#   \renewcommand{\arraystretch}{0.8}
 ---
 
 ```{r}

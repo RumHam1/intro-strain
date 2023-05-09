@@ -41,12 +41,9 @@ Officially tracked by the NFL since 1982, the most well known statistic for eval
 
 The sum of sacks, hits, and hurries has been defined as "pressures" (https://www.pro-football-reference.com/years/2022/advanced.htm) and is an improvement over sacks, but suffers from problems of subjectivity (e.g. was the play actually a hurry?) and are still binary outcomes (i.e. There is a continuum of plays that aren't hurries that all counted as simply "not hurries").  
 
-Pro football focus (PFF) defines pass-rush productivity as: 
-$$
-\frac{\frac{1}{2}(\# Hurries + \# Hits) + \# Sacks}{\#PassRush Snaps}
-$$.
 
-
+Pro football focus (PFF) defines pass-rush productivity as 
+$$[ \ (\text{Hurries} + \text{Hits})/2 + \text{Sacks} \ ]\  / \text{ Pass Rush Snaps}$$
 This metric gives twice as much weight to a sack relative to hurries and hits, which is a slight improvement, but the choice of weights is ad-hoc an still only measures binary outcomes similar to the shortcomings of previously discussed metrics.   (https://www.pro-football-reference.com/about/advanced_stats.htm)
 
 More recently metrics such as Time In Pocket (TIP) and Pass Rush Win Rate [@Burke2018Created] (PRWR) have also been proposed and are substantial improvements over the less sophisticated counting statistics.  However, these are still imperfect measures as TIP is highly context dependent (e.g. deep vs shallow passing routes).  PRWR is based on whether a pass rusher is able to beat their block before a fixed time (ESPN chooses 2.5 seconds) from the snap, but this is highly dependent on the rather arbitrary choice of time used to define a "win".  In addition, once a cut-off is chosen, this metric becomes binary like most of the previously discussed measures.   
@@ -57,19 +54,25 @@ All of these measures represent different versions of "the best we can do with t
 
 \begin{table}
 \caption{A summary of previously-existing pass rush metrics. \label{tab:metrics}}
-\begin{center}
-\begin{tabular}{ll}
-\textbf{Metric} & \textbf{Description}\\\hline
-Sacks & A defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass \\
-Hits & A defensive player tackles the quarterback behind the line of scrimmage after the quarterback is able to throw a pass. \\
-Hurries & A defensive player pressures the quarterback behind the line of scrimmage such that the quarterback must release the ball prior sooner than they wanted to. \\
-QB Pressures & A sack, hit, or hurry. \\
-Pass-Rush Productivity (PRP) & $\frac{\frac{(\# Hurries + \# Hits)}{2} + \# Sacks}{\#PassRush Snaps}$\\
-Time In Pocket (TIP) & The time from snap to throw or pocket collapse for a quarterback \\
-Pass Rush Win Rate (PRWR) & Rate at which pass rusher beats pass block within 2.5 seconds after snap\\\hline
+\centering
+\begin{tabular}{p{0.27\textwidth}p{0.67\textwidth}}
+  \hline
+Metric & Description \\ 
+  \hline
+Sacks & A defender tackles the QB behind the line of scrimmage before the QB is able to throw a pass \\
+Hits & A defender tackles the QB behind the line of scrimmage after the QB is able to throw a pass. \\
+Hurries & A defender pressures the QB behind the line of scrimmage such that the QB must release the ball prior sooner than they wanted to. \\
+Pressures & $\text{Hurries} + \text{ Hits } + \text{ Sacks}$ \\
+Pass-Rush Productivity & $[\ (\text{Hurries} + \text{Hits})/2 + \text{Sacks}\ ]\  / \text{ Pass Rush Snaps}$\\
+Time In Pocket & Time (in seconds) between ball snap and throw or pocket collapse for a QB \\
+Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 seconds after ball snap\\
+   \hline
 \end{tabular}
-\end{center}
 \end{table}
+
+
+[Pro football ref has different QB pressures formula? https://www.pro-football-reference.com/about/advanced_stats.htm]
+
 
 <!-- (https://www.pff.com/news/pro-pff-signature-statistics-a-glossary#:~:text=Time%20in%20Pocket,time%20until%20a%20quarterback%20scrambles) -->
 

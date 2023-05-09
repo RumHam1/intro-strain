@@ -67,6 +67,7 @@ hsh_hsh <- hsh_first |>
   theme(axis.title = element_text(size = rel(1)),
         legend.title = element_text(size = rel(1)),
         legend.text = element_text(size = rel(0.8)),
+        legend.position = "none",
         axis.text = element_text(size = rel(0.8)),
         panel.grid.minor = element_blank())
 
@@ -83,7 +84,7 @@ strain_hsh <- hsh_last |>
   geom_point(aes(color = pos, group = name), size = 2, alpha = 0.8) +
   scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
   labs(x = "STRAIN in first 4 weeks",
-       y = "(Hurries + Sacks + Hits) per snap in last 4 weeks",
+       y = "(Hurries + Sacks + Hits) per snap\nin last 4 weeks",
        color = "Position") +
   theme_light() +
   theme(axis.title = element_text(size = rel(1)),
@@ -91,5 +92,7 @@ strain_hsh <- hsh_last |>
         legend.text = element_text(size = rel(0.8)),
         axis.text = element_text(size = rel(0.8)),
         panel.grid.minor = element_blank())
+
+fig_predictability <- cowplot::plot_grid(hsh_hsh, strain_hsh, rel_widths = c(2.4, 3.6))
 
 

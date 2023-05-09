@@ -190,12 +190,11 @@ fig_stability
 ```{r}
 #| label: fig_predictability
 #| fig.cap: "strain is more predictive of pressure rate than pressure rate itself."
-#| fig.width: 4
+#| fig.width: 6.5
 #| fig.height: 3
 #| fig.show: "hold"
 source(here("scripts", "07_fig_predictability.R"))
-hsh_hsh
-strain_hsh
+fig_predictability
 ```
 
 
