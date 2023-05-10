@@ -41,7 +41,7 @@ fig_cor_pressure <- test_summed |>
   scale_y_continuous(breaks = seq(0, 0.12, 0.04)) +
   scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
   labs(y = "Pressure rate",
-       x = "Average STRAIN across all frames",
+       x = "Average STRAIN",
        color = "Position") +
   theme_light() +
   theme(axis.title = element_text(size = rel(1)),

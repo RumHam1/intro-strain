@@ -47,8 +47,8 @@ fig_stability <- strain_first |>
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.5, color = "black", alpha = 0.5) +
   geom_point(aes(color = pos, group = name), size = 2, alpha = 0.8) +
   scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
-  labs(x = "Average STRAIN in first 4 weeks",
-       y = "Average STRAIN in last 4 weeks",
+  labs(x = "Average STRAIN (first 4 weeks)",
+       y = "Average STRAIN (last 4 weeks)",
        color = "Position") +
     theme_light() +
     theme(axis.title = element_text(size = rel(1)),

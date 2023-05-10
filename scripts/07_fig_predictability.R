@@ -60,8 +60,8 @@ hsh_hsh <- hsh_first |>
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.5, color = "black", alpha = 0.5) +
   geom_point(aes(color = officialPosition, group = nflId), size = 2, alpha = 0.8) +
   scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
-  labs(x = "Pressure rate in first 4 weeks",
-       y = "Pressure rate per snap in last 4 weeks",
+  labs(x = "Pressure rate (first 4 weeks)",
+       y = "Pressure rate (last 4 weeks)",
        color = "Position") +
   theme_light() +
   theme(axis.title = element_text(size = rel(1)),
@@ -83,16 +83,16 @@ strain_hsh <- hsh_last |>
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.5, color = "black", alpha = 0.5) +
   geom_point(aes(color = pos, group = name), size = 2, alpha = 0.8) +
   scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
-  labs(x = "Average STRAIN in first 4 weeks",
-       y = "Pressure rate in last 4 weeks",
+  labs(x = "Average STRAIN (first 4 weeks)",
+       # y = "Pressure rate (last 4 weeks)",
+       y = NULL,
        color = "Position") +
   theme_light() +
   theme(axis.title = element_text(size = rel(1)),
+        axis.text.y = element_blank(),
         legend.title = element_text(size = rel(1)),
         legend.text = element_text(size = rel(0.8)),
         axis.text = element_text(size = rel(0.8)),
         panel.grid.minor = element_blank())
 
-fig_predictability <- cowplot::plot_grid(hsh_hsh, strain_hsh, rel_widths = c(2.4, 3.6))
-
-
+fig_predictability <- cowplot::plot_grid(hsh_hsh, strain_hsh, rel_widths = c(2.1, 2.4))
