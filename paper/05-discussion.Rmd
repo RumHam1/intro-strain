@@ -5,3 +5,21 @@ Summary
 Critique
 
 Future work
+
+<!--
+
+(Stuff from BDB draft)
+
+We have proposed a simple, effective, and easily interpretable metric for evaluating the performance of pass rushers in the NFL that we call STRAIN. Higher values of STRAIN indicate two important aspects of a pass rush: 1) the distance between the pass rusher and the quarterback is small and 2) the rate at which the pass rusher is moving towards the quarterback is high.
+
+One of the major advantages of STRAIN over existing measures is that it gives a measure of effectiveness of a pass rush for every single play at a much more granular level than simply the play resulted in a sack or not or the play was a "success" or not. It is important to have a quantitative measure of pass rushing effectiveness if one wants to objectively evaluate the performance of pass rushers. STRAIN is just such a measure that objectively measures the pressure that pass rushers put on a quarterback.
+
+In this report, we simply propose the new metric STRAIN; However, there are innumerable future projects that could be based on STRAIN. For example, STRAIN could be used to collectively evaluate the performance of a pass rushing unit by looking at the total amount of STRAIN during a play, which could, in turn, be used to evaluate the effectiveness of different types of blitzes. In addtion, STRAIN could be included as a covariate in models trying to predict quantities such as passing yards or completion probability. Notably, I believe there is very interesting work that could be done with functional regression (i.e. treating the STRAIN curve over time as a function) in modeling how STRAIN affects offensive production though is non-trivial as the length in time of plays varies from one play to another, and we leave this as future work.
+
+In addtion, while we focused solely on evaluating the performance of pass rushers, this concept can be easily extended to the evaluation of pass blockers as a unit by simply looking at a quantity such as the total amount of STRAIN on a play or the maximum amount of STRAIN per frame aggregated across the entire play. Further, STRAIN could be extended to individual offensive pass blockers provided that a method of matching blockers to rushers was devised.
+
+While STRAIN is a big step forward, there are still some notable limitations to this metric. For instance, STRAIN, as currently devised, cannot distinguish between a pass rusher who has to face a single blocker versus a double team. This problem could be addressed, at least somewhat, by devising a method of matching pass rushers to blockers as previously mentioned. Another limitation of this metric occurs when a quarterback scrambles out of the pocket. If you are a pass rusher on the left side and the quarterback scrambles out to the left, the STRAIN value for that pass rusher can drop considerably as the distance between the quarterback and the pass rusher gets larger, which the pass rushers shouldn't necessarily be negatively affected by in a measure of pass rushing effectiveness.
+
+Finally, we believe there are other concepts in materials science that could be applied to evaluating pass rushing and pass blocking. One potential idea is a quantity called stress, which measures force over an area. Recall from intro physics that force is mass times acceleration, so this quantity would take into account the physical size of a pass rusher in the computation of force. You could then somehow divide this force over the "area" of the pocket formed by pass blockers to compute stress. There is also a quantity measuring the ratio of stress and strain called the elastic modulus which measures "an object's or substance's resistance to being deformed elastically". It is easy to imagine the pocket as an object and evaluating the succes of the pocket based on it's "resistance to being deformed".
+
+-->

@@ -93,57 +93,65 @@ Within the three pressure metrics, it is not surprised that a sack corresponds t
 Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size.
 Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass-rushers (NT's and DT's) separately from edge rushers (OLB's and DE's).
 Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
+The tables also consist of the total number of hits, hurries, and sacks for each defender.
 
-Our results show many true positives with no surprises. Myles Garrett and TJ Watt are known as top-tier edge rushers, while Aaron Donald is undoubtedly the best interior defender in football. Rashan Gary, a young rusher with huge potential, ranks first among all pass-rushers according to our metric. Our leaderboards largely match the rankings of experts in the field -- for instance, PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings after the 2021 season, lending credibility to our proposed metric as a measure of pass-rushing effectiveness.
+Our results show many true positives with no surprises.
+Myles Garrett and TJ Watt are known as top-tier edge rushers, while Aaron Donald is undoubtedly the best interior defender in football.
+Rashan Gary, a young rusher with huge potential, ranks first among all pass-rushers according to our metric.
+Moreover, our leaderboards largely match the rankings of experts in the field.
+For instance, there is considerable overlap between our lists and PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings released after the 2021 season.
+This ultimately lends credibility to our proposed metric STRAIN as a measure of pass-rushing effectiveness.
 
 \begin{table}
 \caption{Top 15 edge rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:edge}}
 \centering
-\begin{tabular}{rrlllrr}
+\begin{tabular}{rlllrrrrr}
 \hline
- Rank & Player & Team & Position & Snaps & Average STRAIN \\ 
+Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\text{STRAIN}}$ \\
 \hline
-1 & Rashan Gary & GB & OLB & 176 & 2.82 \\ 
-2 & Leonard Floyd & LA & OLB & 185 & 2.80 \\ 
-3 & Justin Houston & BAL & OLB & 132 & 2.78 \\ 
-4 & Myles Garrett & CLE & DE & 197 & 2.75 \\ 
-5 & Von Miller & DEN & OLB & 145 & 2.75 \\ 
-6 & T.J. Watt & PIT & OLB & 147 & 2.71 \\ 
-7 & Yannick Ngakoue & LV & DE & 175 & 2.70 \\ 
-8 & Alex Highsmith & PIT & OLB & 129 & 2.65 \\ 
-9 & Preston Smith & GB & OLB & 124 & 2.61 \\ 
-10 & Randy Gregory & DAL & DE & 134 & 2.58 \\ 
-11 & Joey Bosa & LAC & OLB & 160 & 2.58 \\ 
-12 & Darrell Taylor & SEA & DE & 107 & 2.57 \\ 
-13 & Josh Sweat & PHI & DE & 159 & 2.57 \\ 
-14 & Maxx Crosby & LV & DE & 198 & 2.56 \\ 
-15 & Markus Golden & ARI & OLB & 164 & 2.50 \\ 
+1 & Rashan Gary & GB & OLB & 176 & 10 & 25 & 5 & 2.82 \\ 
+2 & Leonard Floyd & LA & OLB & 185 & 2 & 25 & 8 & 2.80 \\ 
+3 & Justin Houston & BAL & OLB & 132 & 8 & 8 & 4 & 2.78 \\ 
+4 & Myles Garrett & CLE & DE & 197 & 9 & 29 & 12 & 2.75 \\ 
+5 & Von Miller & DEN & OLB & 145 & 4 & 21 & 5 & 2.75 \\ 
+6 & T.J. Watt & PIT & OLB & 147 & 6 & 9 & 8 & 2.71 \\ 
+7 & Yannick Ngakoue & LV & DE & 175 & 6 & 20 & 4 & 2.70 \\ 
+8 & Alex Highsmith & PIT & OLB & 129 & 4 & 7 & 2 & 2.65 \\ 
+9 & Preston Smith & GB & OLB & 124 & 4 & 8 & 2 & 2.61 \\ 
+10 & Randy Gregory & DAL & DE & 134 & 7 & 19 & 5 & 2.58 \\ 
+11 & Joey Bosa & LAC & OLB & 160 & 5 & 21 & 4 & 2.58 \\ 
+12 & Darrell Taylor & SEA & DE & 107 & 5 & 9 & 3 & 2.57 \\ 
+13 & Josh Sweat & PHI & DE & 159 & 4 & 14 & 5 & 2.57 \\ 
+14 & Maxx Crosby & LV & DE & 198 & 12 & 30 & 7 & 2.56 \\ 
+15 & Markus Golden & ARI & OLB & 164 & 5 & 14 & 5 & 2.50 \\ 
 \hline
 \end{tabular}
 \end{table}
 
+
+
 \begin{table}
 \caption{Top 15 interior rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:interior}}
 \centering
-\begin{tabular}{rlllrr}
+\begin{tabular}{rlllrrrrr}
 \hline
-Rank & Player & Team & Position & Snaps & Average STRAIN \\ 
+Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\text{STRAIN}}$ \\
 \hline
-1 & Aaron Donald & LA & DT & 239 & 1.67 \\ 
-2 & Solomon Thomas & LV & DT & 115 & 1.51 \\ 
-3 & Quinton Jefferson & LV & DT & 144 & 1.46 \\ 
-4 & Chris Jones & KC & DT & 139 & 1.42 \\ 
-5 & DeForest Buckner & IND & DT & 198 & 1.26 \\ 
-6 & Cameron Heyward & PIT & DT & 188 & 1.25 \\ 
-7 & Javon Hargrave & PHI & DT & 156 & 1.24 \\ 
-8 & Jerry Tillery & LAC & DT & 171 & 1.16 \\ 
-9 & Ed Oliver & BUF & DT & 133 & 1.15 \\ 
-10 & Osa Odighizuwa & DAL & DT & 162 & 1.13 \\ 
-11 & Greg Gaines & LA & NT & 111 & 1.11 \\ 
-12 & Leonard Williams & NYG & DT & 226 & 1.03 \\ 
-13 & Christian Barmore & NE & DT & 166 & 1.02 \\ 
-14 & Vita Vea & TB & NT & 184 & 1.01 \\ 
-15 & B.J. Hill & CIN & DT & 123 & 0.96 \\ 
+1 & Aaron Donald & LA & DT & 239 & 8 & 24 & 6 & 1.67 \\ 
+2 & Solomon Thomas & LV & DT & 115 & 7 & 11 & 3 & 1.51 \\ 
+3 & Quinton Jefferson & LV & DT & 144 & 6 & 8 & 3 & 1.46 \\ 
+4 & Chris Jones & KC & DT & 139 & 3 & 18 & 3 & 1.42 \\ 
+5 & DeForest Buckner & IND & DT & 198 & 4 & 18 & 4 & 1.26 \\ 
+6 & Cameron Heyward & PIT & DT & 188 & 2 & 22 & 3 & 1.25 \\ 
+7 & Javon Hargrave & PHI & DT & 156 & 6 & 15 & 5 & 1.24 \\ 
+8 & Jerry Tillery & LAC & DT & 171 & 4 & 7 & 3 & 1.16 \\ 
+9 & Ed Oliver & BUF & DT & 133 & 4 & 12 & 1 & 1.15 \\ 
+10 & Osa Odighizuwa & DAL & DT & 162 & 3 & 18 & 3 & 1.13 \\ 
+11 & Greg Gaines & LA & NT & 111 & 2 & 13 & 2 & 1.11 \\ 
+12 & Leonard Williams & NYG & DT & 226 & 4 & 14 & 6 & 1.03 \\ 
+13 & Christian Barmore & NE & DT & 166 & 5 & 17 & 1 & 1.02 \\ 
+14 & Vita Vea & TB & NT & 184 & 6 & 12 & 1 & 1.01 \\ 
+15 & B.J. Hill & CIN & DT & 123 & 3 & 4 & 3 & 0.96 \\ 
 \hline
 \end{tabular}
 \end{table}
@@ -173,8 +181,6 @@ Figure \ref{fig:fig_cor_pressure} is a scatterplot of average STRAIN and pressur
 Furthermore, the average STRAIN for the first 4 weeks of the 2021 season is more predictive of the last 4 weeks' pressure rate ($r=0.322$) than the first 4 weeks' pressure rate ($r=0.097$), as illustrated in Figure \ref{fig:fig_predictability}.
 We also analyze the stability of STRAIN over time by comparing the average STRAIN across all frames played in first and last four weeks of the 2021 NFL regular season.
 It is apparent from Figure \ref{fig:fig_stability} that there is a strong correlation $(r = 0.854)$ for this relationship, illustrating that STRAIN is a stable quantity over the provided 8-week window.
-
-
 
 ```{r}
 #| label: fig_cor_pressure

@@ -2,9 +2,16 @@ library(tidyverse)
 library(here)
 
 pass_rush <- read_csv(here("data", "pass_rush.csv.gz"))
+pff <- read_csv(here("data", "pffScoutingData.csv"))
+pff_hsh <- pff |> 
+  group_by(nflId) |> 
+  summarize(total_hit = sum(pff_hit, na.rm = TRUE),
+            total_hurry = sum(pff_hurry, na.rm = TRUE),
+            total_sack = sum(pff_sack, na.rm = TRUE)) |> 
+  arrange(-total_sack)
 
 test <- pass_rush |> 
-  filter(team == defensiveTeam & !is.na(strain))
+  filter(team == defensiveTeam & !is.na(strain) & !is.infinite(strain))
 test$strain <- test$slope_distance_from_QB/test$distance_from_QB
 test_summed <- test |> 
   group_by(nflId) |>
@@ -17,7 +24,8 @@ test_summed <- test |>
   ) |>
   mutate(strain_rate = 10 * strain / n) |> 
   arrange(-strain_rate) |> 
-  ungroup()
+  ungroup() |> 
+  left_join(pff_hsh)
 
 info <- test |> 
   ungroup() |> 
@@ -34,7 +42,8 @@ out <- test_summed |>
          team, 
          n_plays, 
          strain, 
-         strain_rate)
+         strain_rate,
+         contains("total_"))
 
 library(xtable)
 # edge 
@@ -46,6 +55,9 @@ edge <- out |>
          Team = team, 
          Position = officialPosition,
          Snaps = n_plays, 
+         Hits = total_hit,
+         Hurries = total_hurry,
+         Sacks = total_sack,
          "Average STRAIN" = strain_rate) |> 
   slice_head(n = 15)
 
@@ -60,7 +72,11 @@ interior <- out |>
          Team = team, 
          Position = officialPosition,
          Snaps = n_plays, 
+         Hits = total_hit,
+         Hurries = total_hurry,
+         Sacks = total_sack,
          "Average STRAIN" = strain_rate) |> 
   slice_head(n = 15)
 
 print(xtable(interior), include.rownames = FALSE)
+
