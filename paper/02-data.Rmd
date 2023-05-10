@@ -16,7 +16,7 @@ Table \ref{tab:track} displays a tracking data example for a play from the 2021 
 In addition, Figure \ref{fig:fig_field_raw} presents the locations of every Las Vegas (in black) and Denver (in orange) player on the field from this play at 1, 2, 3 and 4 seconds after the ball snap, with Maxx Crosby highlighted in blue. 
 
 \begin{table}
-\caption{Example of tracking data for a play during the Las Vegas Raiders versus Denver Broncos NFL game on October 17, 2021. The data shown here is for Raiders DE Maxx Crosby, and the frames included are between the ball snap and when the sack by Crosby is recorded. \label{tab:track}}
+\caption{Example of tracking data for a play during the Las Vegas Raiders versus Denver Broncos NFL game on October 17, 2021. The data shown here are for Raiders DE Maxx Crosby, and the frames included are between the ball snap and when the sack by Crosby is recorded. \label{tab:track}}
 \centering
 \begin{tabular}{ccccccccc}
 \hline

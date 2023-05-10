@@ -60,11 +60,12 @@ fig_outcome_curves <- hit |>
   bind_rows(sack) |> 
   bind_rows(hurry) |> 
   bind_rows(none) |> 
-  mutate(officialPosition = factor(officialPosition, levels = c("OLB", "DE", "DT", "NT"))) |> 
+  mutate(officialPosition = factor(officialPosition, levels = c("OLB", "DE", "DT", "NT")),
+         outcome = factor(outcome, levels = c("Sack", "Hit", "Hurry", "None"))) |> 
   ggplot(aes(frameId_snap_corrected, mn, 
              color = officialPosition, 
              group = officialPosition)) +
-  geom_smooth(se = FALSE, span = 0.3, linewidth = 1) +
+  geom_smooth(se = FALSE, span = 0.4, linewidth = 1) +
   scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40"), name = "Position") +
   scale_x_continuous(breaks = seq(0, 40, 10), labels = 0:4) +
   scale_linetype_manual(values = c(rep("solid", 4), "dotted"), name = "Position") +

@@ -60,6 +60,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   fig.align = "center",
+  fig.pos = "p",
   cache = TRUE
 )
 library(here)

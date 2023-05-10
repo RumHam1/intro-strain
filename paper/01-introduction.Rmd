@@ -37,13 +37,18 @@ In this work, using data made available in the 2023 BDB, we present a novel appr
 
 ## Previous Pass Rush Metrics
 
-Table \ref{tab:metrics} gives a summary of existing pass-rush metrics. 
+Table \ref{tab:metrics} gives a summary of existing pass-rush metrics.
+We now highlight what these quantities measure as well as their limitations.
 
-Officially tracked by the NFL since 1982, the most well-known statistic for evaluating defensive linemen on pass rushing plays is the sack, which occurs when a defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass.  Sacks represent a simple binary measure of success for a rusher on a pass play.  However, there are many intermediate outcomes for a rusher that can also be considered successes that don't result in a sack.  Measures such a hits and hurries are collected by various outlets where hits counts the number of times a QB is hit while passing and hurries counts how often a QB has to throw the ball earlier than they would have liked to.  
+Officially tracked by the NFL since 1982, the most well-known statistic for evaluating defensive linemen on pass rushing plays is the sack.
+A sack is recorded when a defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass.
+Sacks represent a simple binary measure of success for a rusher on a pass play.
+However, there are many intermediate outcomes for a rusher that can also be considered successes that do not result in a sack.
+Measures such a hits and hurries are collected by various outlets where hits counts the number of times a QB is hit while passing and hurries counts how often a QB has to throw the ball earlier than they would have liked to.  
 
 <!-- (https://www.pro-football-reference.com/years/2022/advanced.htm) -->
 
-[Pro football ref has a slightly different QB pressures formula than the formula below https://www.pro-football-reference.com/about/advanced_stats.htm]
+<!-- [Pro football ref has a slightly different QB pressures formula than the formula below https://www.pro-football-reference.com/about/advanced_stats.htm] -->
 
 The sum of sacks, hits, and hurries has been defined as "pressures" and is an improvement over sacks, but suffers from problems of subjectivity (e.g. was the play actually a hurry?) and are still binary outcomes (i.e. There is a continuum of plays that aren't hurries that all counted as simply "not hurries").  
 
@@ -63,7 +68,8 @@ In addition, once a cut-off is chosen, this metric becomes binary like most of t
 
 <!-- (https://www.espn.com/nfl/story/_/id/34536376/2022-nfl-pass-rushing-run-stopping-blocking-leaderboard-win-rate-rankings-top-players-teams) -->
 
-All of these measures represent different versions of "the best we can do with the available data".  Without granular data, it is difficult to measure effectiveness of a pass rusher so many simple metrics of success have been proposed. 
+All of these measures represent different versions of "the best we can do with the available data".
+Without granular data, it is difficult to measure effectiveness of a pass rusher so many simple metrics of success have been proposed. 
 
 \begin{table}
 \caption{A summary of previously-existing pass rush metrics. \label{tab:metrics}}
@@ -103,9 +109,20 @@ The paper uses survival analysis to model time in pocket and completion percenta
 
 ## Contributions of STRAIN
 
-All the aforementioned methods suffered from not having the data that was actually necessary to develop a meaningful metric for linemen in football, either offensive or defensive.  Now though, thanks to the 2023 Big Data Bowl, we have a publicly available tracking data not only for the linemen, but for every player on the field!  With this data performance of offensive and defensive linemen can be meaningfully assessed, though we focus solely on the performance of defensive linemen here.  This manuscript presents a metric we refer to as STRAIN based on a concept of the same name from materials science.  STRAIN gives a continuous measure of pressure for each of the defensive linemen over the course of an entire play allowing for the measurement of the level of success of the pass rush even on plays that don't result in an easily observed outcome like a sack, hit, or hurry.  We view this as a major step forward in the accurate evaluation of defensive linemen performance.  Further, we note than while we focus exclusively on defensive linemen here, the proposed metric STRAIN is relatively easily extended to the evaluation of offensive linemen performance.  
+All the aforementioned methods suffered from not having the data that was actually necessary to develop a meaningful metric for linemen in football, either offensive or defensive.
+Now though, thanks to the 2023 Big Data Bowl, we have a publicly available tracking data not only for the linemen, but for every player on the field.
+This allows us to meaningfully assess the performance of linemen in football.
+In this paper, we focus on defensive linemen, and propose STRAIN, a metric for pass rush evaluation inspired by the concept of strain rate in materials science.
+STRAIN gives a continuous measure of pressure for each of the defensive linemen over the course of an entire play.
+This allows for the measurement of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
+We view this as a major step forward in the accurate evaluation of defensive linemen performance.
+Further, we note than while we focus exclusively on defensive linemen here, the proposed metric STRAIN is relatively easily extended to the evaluation of offensive linemen performance.  
 
-The remainder of this paper is outlined as follows. Section \ref{sec:data} describes the data set from the 2023 Big Data Bowl.  Section \ref{sec:methods} introduces the formal definition of STRAIN.  Section \ref{sec:results} studies the performance of the proposed metric.  We end with Section \ref{sec:discussion} where we present a discussion of future directions for STRAIN.  
+The remainder of this paper is outlined as follows.
+We first describe the player tracking data provided by 2023 Big Data Bowl in Section \ref{sec:data}.
+We then introduces the formal definition of our metric STRAIN and our modeling approach in Section \ref{sec:methods}.
+We present an real-game illustration of the proposed metric and study its performance in Section \ref{sec:results}.
+We close with a discussion of future directions for STRAIN in Section \ref{sec:discussion}.
 
 <!-- : They talk about how there is no data available to measure offensive line performance.  1259 plays, 20 teams, 2010 season.  Success of each offensive lineman was evaluated using the best judgement of the observer.   Collected time in pocket.  They collected a bunch of binary variables and did this all by HAND!  Estimate a survival model for each position on the offensive line.  They don't rank individuals, but rather positions on a team.  They then use the predicted probability as a covariate in a model to predict completion.  -->
 

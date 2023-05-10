@@ -60,16 +60,13 @@ In addition, the reciprocal of our metric (1/STRAIN) has a straightforward inter
 it illustrates the amount of time required for the rusher to get to the quarterback at the current location and rate at any given time $t$.
 
 Moreover, since we observe STRAIN continuously at every tenth of a second within each play, we can then compute the average STRAIN across all frames played for every pass rusher.
-This can be helpful in regards to player evaluation, as we can determine the most effective pass-rushers based on their average STRAIN values.
 Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass rusher $i$ over $n$ total plays with $T$ total frames is
-
 [CHECK THIS - is notation consistent with what we have above?]
 \begin{equation}
-\overline{\text{STRAIN}}_{i} = \frac{1}{n} \sum_{t=1}^T {\text{STRAIN}}_{i}(t).
+\overline{\text{STRAIN}}_{i} = \frac{1}{n} \sum_{t=1}^T {\text{STRAIN}}_{it}.
 \end{equation}
-
-(mention avg strain can be used to correlate with pressure...)
-
+This can be helpful for player evaluation, as we determine the most effective pass-rushers based on their average STRAIN values in Section \ref{sec:strainbar}.
+We also use average STRAIN to assess statistical properties of our metric in Section \ref{sec:statprop}.
 
 ## Multilevel Model
 
@@ -88,7 +85,7 @@ The coefficients $\beta$ for additional information $X_{j,i}$ about pass rusher 
 Our model for the average STRAIN by pass rusher $j$ on play $i$ is as follows.
 \begin{equation}
 \begin{aligned}
-\overline{\text{STRAIN}}_{j,i} &\sim N(R_{r[j,i]} + B_{b[j,i]} + Q_{q[i]} + X_{j,i} \cdot \beta, \sigma^2), \text{ for } i = 1, \dots, n \text{ plays} \\
+\overline{\text{STRAIN}}_{ij} &\sim N(R_{r[ij]} + B_{b[ij]} + Q_{q[i]} + X_{ij} \cdot \beta, \sigma^2), \text{ for } i = 1, \dots, n \text{ plays} \\
 R_{r} &\sim N(\mu_R, \sigma^2_R), \text{ for } r = 1, \cdots, \text{ \# of pass rushers}, \\
 B_{b} &\sim N(\mu_B, \sigma^2_B), \text{ for } b = 1, \cdots, \text{ \# of pass blockers}, \\
 Q_{q} &\sim N(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
@@ -98,7 +95,7 @@ Q_{q} &\sim N(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
 We consider a normal distribution to obtain the random intercepts for each player toward their respective position group means.
 This provides us with average individual effects on STRAIN for each player while applying shrinkage, which is a useful property in this problem's context since we do not observe the same number of plays for each player.
 With regards to the fixed-effects about pass rusher $j$ in play $i$, we include the length of the play, the pass rusher position, the nearest pass blocker's position, and the number of pass blockers assigned to the pass rusher based on the PFF data.
-Table \ref{tab:pos} shows our categorization of position for the pass rush and pass block roles.
+Table \ref{tab:pos} shows our positional categorization for the pass rush and pass block roles.
 We implement the model using penalized likelihood via the `lme4` package in `R` [@bateslme4; @R2023Language].
 
 \begin{table}
@@ -112,8 +109,8 @@ Pass rush & Defensive end \\
 Pass rush & Defensive tackle \\ 
 Pass rush & Nose tackle \\ 
 Pass rush & Outside linebacker \\ 
-Pass rush & Interior linebacker (middle and inside linebackers) \\ 
-Pass rush & Secondary (cornerback, free safety, and strong safety) \\
+Pass rush & Interior linebacker (middle linebacker, inside linebacker) \\ 
+Pass rush & Secondary (cornerback, free safety, strong safety) \\
 \hline
 Pass block & Center \\ 
 Pass block & Guard \\ 
