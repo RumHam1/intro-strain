@@ -12,7 +12,7 @@ For our investigation, we consider only the frames between the ball snap and whe
 We also remove all plays with multiple quarterbacks on the field, since we need a uniquely defined quarterback to compute our metric.
 After preprocessing, there are 251,060 unique frames corresponding to moments of time from the start of the play at snap until the moment the quarterback either throws the pass or is sacked.
 
-Table \ref{tab:track} displays a tracking data example for a play from the 2021 NFL regular season week six matchup between the Las Vegas Raiders and Denver Broncos, which ended with Broncos QB Teddy Bridgewater getting sacked by Raiders DE Maxx Crosby[^crosbysack].
+Table \ref{tab:track} displays a tracking data example for a play from the 2021 NFL regular season week six matchup between the Las Vegas Raiders and Denver Broncos, which ends with Broncos QB Teddy Bridgewater getting sacked by Raiders DE Maxx Crosby[^crosbysack].
 In addition, Figure \ref{fig:fig_field_raw} presents the locations of every Las Vegas (in black) and Denver (in orange) player on the field from this play at 1, 2, 3 and 4 seconds after the ball snap, with Maxx Crosby highlighted in blue. 
 
 \begin{table}
