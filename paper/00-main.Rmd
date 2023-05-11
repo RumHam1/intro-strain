@@ -1,6 +1,6 @@
 ---
 title: |
-  | Bearing the STRAIN: Analyzing Pass Rush in American Football with Player Tracking Data
+  | \Large Bearing the STRAIN: Analyzing Pass Rush in American Football with Player Tracking Data
   
 # Deforming the line:
 # Straining the line:
@@ -41,13 +41,13 @@ keywords:
 - statistics in sports
 
 abstract: |
-  In American football, existing metrics for assessing pass rush are either discrete-time quantities or based on subjective judgement. Using player tracking data, we propose STRAIN, a novel metric for evaluating pass rushers in the National Football League (NFL) at the continuous-time within-play level. Inspired by the concept of strain rate in materials science, STRAIN is a simple and interpretable means for measuring defensive pressure in football. It is a directly-observed quantity as a function of two features: the distance between the pass rusher and quarterback, and the rate at which this distance is being reduced. Our metric possesses great predictability of pressure and stability over time. We use a multilevel model to isolate the contribution of every pass rusher in a play while controlling for their pass blocker matchup, the quarterback, and play-level information. We apply our approach to NFL data and present results for the first 8 weeks of the 2021 season. These include comparisons of STRAIN for different positions and play outcomes, and rankings of the NFL's best pass rushers according to our metric.
+  In American football, a pass rush is an attempt by the defensive team to disrupt the offense and prevent the quarterback (QB) from completing a pass. Existing metrics for assessing pass rush are either discrete-time quantities or based on subjective judgement. Using player tracking data, we propose STRAIN, a novel metric for evaluating pass rushers in the National Football League (NFL) at the continuous-time within-play level. Inspired by the concept of strain rate in materials science, STRAIN is a simple and interpretable means for measuring defensive pressure in football. It is a directly-observed statistic as a function of two features: the distance between the pass rusher and QB, and the rate at which this distance is being reduced. Our metric possesses great predictability of pressure and stability over time. We use a multilevel model to isolate the contribution of every pass rusher in a play to the average STRAIN while controlling for their pass blocker matchup, the QB, and play-level information. We apply our approach to NFL data and present results for the first 8 weeks of the 2021 season. In particular, we provide comparisons of STRAIN for different defensive positions and play outcomes, and rankings of the NFL's best pass rushers according to our metric.
 
 bibliography: bibliography.bib
 biblio-style: chicago
 output: rticles::asa_article
 header-includes:
-  \usepackage{mathptmx}
+  # \usepackage{mathptmx}
   # \renewcommand{\arraystretch}{0.8}
 ---
 
