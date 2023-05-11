@@ -82,14 +82,13 @@ STRAIN then increases again until around 2.5-3 seconds after the snap before tre
 In context, this reflects the actions that a pass-rusher initially moves towards the quarterback, but is then stopped by the offensive line while the quarterback drops back.
 When the quarterback stops dropping, the rusher closes the gap and increases STRAIN, before slowing down later on.
 
-
 Further, Figure \ref{fig:fig_outcome_curves} shows the positional STRAIN curves by whether a play's outcome is a hit, sack, hurry, or none of those. 
 We clearly see that players tend to generate more STRAIN when a play ends in a hit, sack, or hurry, compared to no outcome.
 Within the three pressure metrics, it is not surprised that a sack corresponds to the highest amount of STRAIN, followed by a hit and hurry.
 
 ## Ranking the best pass-rushers {#sec:strainbar}
 
-Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size.
+Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size, as discussed in Section \ref{sec:app}.
 Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass-rushers (NT's and DT's) separately from edge rushers (OLB's and DE's).
 Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
 The tables also consist of the total number of hits, hurries, and sacks for each defender.
@@ -281,7 +280,7 @@ We observe different levels of variability across these top players, with the on
 
 ```{r}
 #| label: fig_rankings_boot
-#| fig.cap: "Top 10 pass rushers for each position (DE, DT, NT, OLB) by mean varying intercept."
+#| fig.cap: "Top 10 pass rushers for each position (DE, DT, NT, OLB) by mean varying intercept with 95% confidence intervals."
 #| fig.width: 6
 #| fig.height: 8
 source(here("scripts", "10_multilevel_mod.R"))
