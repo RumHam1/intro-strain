@@ -34,6 +34,7 @@ fig_crosby_curves <- play_lv_den |>
   ) |> 
   ggplot() +
   geom_line(aes(frameId_snap_corrected, value, color = name_fct, alpha = name_fct, group = name), linewidth = 1.2) +
+  geom_vline(xintercept = c(10, 20, 30, 40), linetype = "dashed", alpha = 0.3) +
   labs(x = "Time since snap (seconds)",
        y = "Feature value") +
   scale_x_continuous(breaks = seq(0, 40, 10), labels = 0:4) +

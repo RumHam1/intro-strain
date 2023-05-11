@@ -48,8 +48,9 @@ abstract: |
 bibliography: bibliography.bib
 biblio-style: chicago
 output: rticles::asa_article
-# header-includes:
-#   \renewcommand{\arraystretch}{0.8}
+header-includes:
+  \usepackage{mathptmx}
+  # \renewcommand{\arraystretch}{0.8}
 ---
 
 ```{r}

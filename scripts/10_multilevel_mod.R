@@ -122,7 +122,10 @@ mod_df_final <- mod_df |>
          dis = sqrt((x_rush - x_block) ^ 2 + (y_rush - y_block) ^ 2)) |>
   group_by(gameId, playId, nflId) |> 
   slice_min(dis, n = 1) |> 
-  left_join(n_blockers)
+  ungroup() |> 
+  left_join(n_blockers) |> 
+  mutate(block_pos = relevel(factor(block_pos), "T"),
+         rush_pos = relevel(factor(rush_pos), "DE"))
 
 
 library(lme4)  

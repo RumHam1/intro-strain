@@ -26,7 +26,6 @@ Just as strain rate is a measure of deformation in materials science, a pass rus
 The players can be viewed as "particles" in some material and the defensive "particles" are attempting to exert pressure on the pocket with the aim of compressing and collapsing this pocket around the quarterback.
 
 In order to apply strain rate to measure NFL pass rusher effectiveness, we make modifications to how this concept is traditionally defined.
-
 Let $(x_{ijt}, y_{ijt})$ be the $(x, y)$ location on the field of pass rusher $j = 1, \cdots, J$ at frame $t = 1, \cdots, T_i$ for play $i = 1, \cdots, n$; and $(x^{QB}_{it}, y^{QB}_{it})$ be the $(x, y)$ location of the quarterback at frame $t$ during play $i$.
 
 *   The distance between pass rusher $j$ and the quarterback at frame $t$ during play $i$ is 
@@ -41,6 +40,7 @@ f'_{d_{ij}}(t) = \frac{df_{d_{ij}}(t)}{dt}.
 \begin{equation}
 \text{STRAIN}_{ij}(t) = \frac{-f'_{d_{ij}}(t)}{f_{d_{ij}}(t)}.
 \end{equation}
+
 Note that to distinguish our metric from strain and strain rate in materials science, we write it in capital letters (STRAIN) for the remainder of this manuscript.
 
 Recall that based on its materials science property, an increase in strain rate is associated with an increase in the distance between two points.
@@ -81,7 +81,7 @@ To this end, we fit a multilevel model to evaluate pass rushers' impact on the a
 We identify the pass blocker linked with the pass rusher of interest using the data provided by PFF.
 Since there can be multiple blockers linked to a rusher, for simplicity we only consider the nearest blocker positioned to the pass rusher at the start of the play.
 We use random intercepts for the three player groups: (1) pass rushers as $R$, (2) nearest pass blockers as $B$, and (3) QBs as $Q$.
-The coefficients $\beta$ for additional information $X_{j,i}$ about pass rusher $j$ in play $i$ are estimated as fixed-effects. 
+The coefficients $\beta$ for additional information $X_{ij}$ about pass rusher $j$ in play $i$ are estimated as fixed-effects. 
 Our model for the average STRAIN by pass rusher $j$ on play $i$ is as follows.
 \begin{equation}
 \begin{aligned}
@@ -94,7 +94,7 @@ Q_{q} &\sim N(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
 
 We consider a normal distribution to obtain the random intercepts for each player toward their respective position group means.
 This provides us with average individual effects on STRAIN for each player while applying shrinkage, which is a useful property in this problem's context since we do not observe the same number of plays for each player.
-With regards to the fixed-effects about pass rusher $j$ in play $i$, we include the length of the play, the pass rusher position, the nearest pass blocker's position, and the number of pass blockers assigned to the pass rusher based on the PFF data.
+With regards to the fixed-effects about pass rusher $j$ in play $i$, we include the length of the play (in terms of elapsed time between ball snap and a QB event), the positions of pass rusher and nearest blocker, and the number of pass blockers assigned to the pass rusher based on the PFF data.
 Table \ref{tab:pos} shows our positional categorization for the pass rush and pass block roles.
 We implement the model using penalized likelihood via the `lme4` package in `R` [@bateslme4; @R2023Language].
 
