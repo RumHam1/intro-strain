@@ -77,9 +77,9 @@ Outside of the pass rusher's ability, there is variability in the opposing stren
 Additionally, based on previous work by PFF, the opposing QB plays an important role on observed pressure in passing plays [@eager2019pressure].
 Thus, we need to appropriately divide the credit of an observed average STRAIN across the different players involved and other factors.
 
-To this end, we fit a multilevel model to evaluate pass rushers' impact on the average STRAIN observed in a play, while accounting for their pass blocker, QB, and play-level information.
+To this end, we fit a multilevel model to evaluate pass rushers' impact on the average STRAIN observed in a play, while accounting for their pass blocker, QB, and play-level attributes.
 We identify the pass blocker linked with the pass rusher of interest using the data provided by PFF.
-Since there can be multiple blockers linked to a rusher, for simplicity we only consider the nearest blocker positioned to the pass rusher at the start of the play.
+Since there can be multiple blockers linked to a rusher, for simplicity, we consider the nearest blocker positioned to the pass rusher at the start of the play.
 We use random intercepts for the three player groups: (1) pass rushers as $R$, (2) nearest pass blockers as $B$, and (3) QBs as $Q$.
 The coefficients $\beta$ for additional information $X_{ij}$ about pass rusher $j$ in play $i$ are estimated as fixed-effects. 
 Our model for the average STRAIN by pass rusher $j$ on play $i$ is as follows.
