@@ -8,6 +8,7 @@ pass_rush %>% select(gameId, playId, frameId) %>% n_distinct()
 In the forthcoming analysis, we rely on the data from the 2023 NFL Big Data Bowl provided by the NFL Next Gen Stats tracking system.
 The data corresponds to 8,557 passing plays across 122 games in the first eight weeks of the 2021 NFL regular season. 
 For each play, we have information on the on-field location, speed, angle, direction, and orientation of each player on the field and the football at a rate of 10 Hz, along with event annotations for each frame such as ball snap, pass forward, and quarterback sack, to name a few.
+
 For our investigation, we consider only the frames between the ball snap and when a pass forward or quarterback sack is recorded for each play.
 We also remove all plays with multiple quarterbacks on the field, since we need a uniquely defined quarterback to compute our metric.
 After preprocessing, there are 251,060 unique frames corresponding to moments of time from the start of the play at snap until the moment the quarterback either throws the pass or is sacked.
