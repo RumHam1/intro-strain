@@ -26,11 +26,35 @@ In an attempt to foster analytics and innovate the game, the National Football L
 
 The first BDB led to several contributions largely focused on offensive performance evaluation. For example, one group of finalists introduced an approach for modeling the hypothetical completion probability of a pass aiding in the evaluation of quarterback (QB) decision making [@deshpande2020expected]. The winners of the inaugural BDB focused on identifying receiver routes via clustering techniques [@chu2020route] and convolutional neural networks [@sterken2019routenet]. Along with the BDB competition entries, the public release of NGS data allowed researchers to tackle (pun intended) a variety of other problems such as revisiting fourth down decision making [@lopez2020bigger], annotating pass coverage with Gaussian mixture models [@dutta2020unsupervised], and introducing a continuous-time framework to estimate within-play value [@yurko2020going].  Since its inception, the BDB has chosen a different theme each year leading to new insight about evaluating different positions such as running backs, defensive backs, and special teams. The 2023 edition of the NFL Big Data Bowl asked participants to evaluate linemen on passing plays [@Howard2023NFL].
 
-We limit our attention in this manuscript to the defensive side of the ball. There are two main types of defensive linemen in American football: (1) defensive tackles (DTs) located within the interior of the line and (2) defensive ends (DEs) located along the edges (see Figure INSERT FIGURE NUMBER HERE for example formation with DTs and DEs). The primary purpose of both positions is to rush the QB on passing plays, with DEs displaying superiority in observed pass rushing ability [@Eager2018nfl]. Additionally, within DTs there are nose tackles (NTs) who directly line up across from the ball at the line of scrimmage (see Figure INSERT FIGURE NUMBER HERE for example defensive formation with a NT). Typically, teams will employ either one NT or two DTs on the interior with DEs along either side of the defensive line. In addition to defensive lineman, other positions may attempt to rush the QB on blitzing plays such as outside linebackers (OLBs), interior linebackers (ILBs), and potentially members of the secondary (cornerback, free safety, strong safety) who typically play pass coverage.
+We limit our attention in this manuscript to the defensive side of the ball. There are two main types of defensive linemen in American football: (1) defensive tackles (DTs) located within the interior of the line and (2) defensive ends (DEs) located along the edges (see Figure \ref{fig:formation} (top) for example formation with DTs and DEs). The primary purpose of both positions is to rush the QB on passing plays, with DEs displaying superiority in observed pass rushing ability [@Eager2018nfl]. Additionally, within DTs there are nose tackles (NTs) who directly line up across from the ball at the line of scrimmage (see Figure \ref{fig:formation} (bottom) for example defensive formation with a NT). Typically, teams will employ either one NT or two DTs on the interior with DEs along either side of the defensive line. In addition to defensive lineman, other positions may attempt to rush the QB on blitzing plays such as outside linebackers (OLBs), interior linebackers (ILBs), and potentially members of the secondary (cornerback, free safety, strong safety) who typically play pass coverage.
 
-INSERT FORMATION FIGURE X
-
-INSERT FORMATION FIGURE Y
+```{r formation, fig.width=5, fig.height=4, fig.cap="Two common defensive alignments in football: 4-3 defense (top) and 3-4 defense (bottom). The dashed line represents the line of scrimmage separating the defense and offense."}
+tibble(x = c(3:5, 3:6 - 0.5, c(2, 3.7, 4.3, 6)),
+       y = c(1, 1, 1, 1.01, 1.01, 1.01, 1.01, 1.02, 1.02, 1.02, 1.02),
+       pos = c("DE", "NT", "DE", "OLB", "ILB", "ILB", "OLB",
+               "CB", "S", "S", "CB"),
+       d = "3-4 Defense") |> 
+  bind_rows(
+    tibble(x = c(3:6, c(2.5, 4.5, 6.5), c(2, 4.1, 4.9, 7)),
+           y = c(1, 1, 1, 1, 1.01, 1.01, 1.01, 1.02, 1.02, 1.02, 1.02),
+           pos = c("DE", "DT", "DT", "DE", "OLB", "MLB", "OLB",
+                   "CB", "S", "S", "CB"),
+           d = "4-3 Defense") 
+  ) |> 
+  mutate(d = fct_relevel(d, "4-3 Defense", "3-4 Defense")) |> 
+  ggplot(aes(x, y)) +
+  geom_tile(fill = "white") +
+  geom_label(aes(label = pos), size = rel(4)) +
+  geom_hline(yintercept = 0.996, linetype = "dashed") +
+  facet_wrap(~ d, scales = "free", ncol = 1) +
+  coord_cartesian(ylim = c(0.99, 1.03)) +
+  theme_light() +
+  theme(strip.text = element_text(size = rel(1.2)),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        panel.grid = element_blank())
+```
 
 In this work, using data made available in the 2023 BDB, we present a novel approach to measure the performance of pass rushers (defensive players whose role on a given play is to put pressure on the QB). Relative to other aspects of American football, such as QB evaluation [@burke2019deepqb, @reyers2021quarterback], the literature on evaluating pass rushers is scarce. Below, we provide a brief overview of existing pass rush metrics.
 

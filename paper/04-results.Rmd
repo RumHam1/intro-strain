@@ -280,7 +280,7 @@ We observe different levels of variability across these top players, with the on
 
 ```{r}
 #| label: fig_rankings_boot
-#| fig.cap: "Top 10 pass rushers for each position (DE, DT, NT, OLB) by mean varying intercept with 95% confidence intervals."
+#| fig.cap: "Top 10 pass rushers for each position (DE, DT, NT, OLB) by mean varying intercept with 95\\% confidence intervals."
 #| fig.width: 6
 #| fig.height: 8
 source(here("scripts", "10_multilevel_mod.R"))
