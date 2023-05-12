@@ -125,7 +125,8 @@ mod_df_final <- mod_df |>
   ungroup() |> 
   left_join(n_blockers) |> 
   mutate(block_pos = relevel(factor(block_pos), "T"),
-         rush_pos = relevel(factor(rush_pos), "DE"))
+         rush_pos = relevel(factor(rush_pos), "DE"),
+         play_len = play_len / 10)
 
 
 library(lme4)  

@@ -53,7 +53,7 @@ source(here("scripts", "09_fig_play_unsuccess.R"))
 fig_crosby_curves_unsucess
 ```
 
-## Positional STRAIN curves
+## Positional STRAIN curves {#sec:positional}
 
 ```{r}
 #| label: fig_pos_curves
@@ -210,9 +210,20 @@ fig_stability
 
 ## Multilevel Model
 
+[CHECK THIS, MAKE SURE WORDING IS CORRECT/NOT CONFUSING]
+
 There are a variety of quantities we are interested in from the multilevel model fit mentioned in Section \ref{sec:methods}.
 First, Table \ref{tab:fixedeff} displays the results for the fixed effects terms.
-[INSERT CONCLUSIONS ABOUT THESE VARIABLES]
+It appears that that the average STRAIN decreases by 0.042 (95% CI [-0.044, -0.040]) for every extra second in play length, and by 0.064 (95% CI [-0.069, -0.059]) every additional blocker in the offensive unit, after accounting for other covariates in the model.
+In other words, NFL pass rushers tend to generate more pressure in plays with shorter length and when facing fewer number of blockers, which totally makes sense.
+
+We observe statistically significant differences among the pass rush and pass block positions in most cases, while controlling for other variables.
+The coefficient estimates for the pass rush position terms reveal that players with positions closer to the line of scrimmage (DT and NT) appear to generate less STRAIN (relative to DE) than those that are further back, which is consistent with our results in Section \ref{sec:positional}.
+For blockers, centers are those that absorb the most pressure on average, compared to the baseline level tackles, guards, and other offensive positions.
+
+<!-- [INSERT CONCLUSIONS ABOUT THESE VARIABLES] -->
+<!-- [SAY SOMETHING ABOUT POSITION] -->
+
 Next, Table \ref{tab:icc} displays the intraclass correlation coefficients (ICC) for the three different grouped terms, describing the proportion variance explained between the group terms in comparison to the residual variance.
 While the residual variance is unsurprisingly the largest value, between the three group terms, we observe the largest ICC for pass rushers, followed by the QB, and the blocker.
 This emphasizes how STRAIN is mostly attributable to pass rushers, but is necessary to adjust for opposition and other factors.
@@ -220,14 +231,14 @@ This emphasizes how STRAIN is mostly attributable to pass rushers, but is necess
 <!-- reference levels: DE (rush), T (block) -->
 
 \begin{table}
-\caption{Fixed-effects coefficients estimates for the multilevel model for average STRAIN. Note that the reference pass rusher level is defensive end (DE), denoted R:DE; and the reference pass blocker level is tackle (T), denoted B:T. \label{tab:fixedeff}}
+\caption{Fixed-effects coefficient estimates for the multilevel model for average STRAIN. Note that the reference pass rusher level is defensive end (DE), denoted R:DE; and the reference pass blocker level is tackle (T), denoted B:T. \label{tab:fixedeff}}
 \centering
 \begin{tabular}{lrrrr}
 \hline
 & estimate & se & $t$-statistic & $p$-value \\ 
 \hline
 Intercept & 0.378 & 0.009 & 43.310 & 0.000 \\ 
-Length of play & -0.004 & 0.000 & -38.214 & 0.000 \\
+Length of play & -0.042 & 0.001 & -38.214 & 0.000 \\
 Number of blockers & -0.064 & 0.003 & -24.788 & 0.000 \\
 $I_{\text{\{R:DT\}}}$ & -0.081 & 0.008 & -10.340 & 0.000 \\
 $I_{\text{\{R:interior\}}}$ & 0.058 & 0.011 & 5.332 & 0.000 \\
