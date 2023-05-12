@@ -56,17 +56,19 @@ tibble(x = c(3:5, 3:6 - 0.5, c(2, 3.7, 4.3, 6)),
         panel.grid = element_blank())
 ```
 
-In this work, using data made available in the 2023 BDB, we present a novel approach to measure the performance of pass rushers (defensive players whose role on a given play is to put pressure on the QB). Relative to other aspects of American football, such as QB evaluation [@burke2019deepqb, @reyers2021quarterback], the literature on evaluating pass rushers is scarce. Below, we provide a brief overview of existing pass rush metrics.
+In this work, using data made available in the 2023 BDB, we present a novel approach to measure the performance of pass rushers. Relative to other aspects of American football, such as QB evaluation [@burke2019deepqb, @reyers2021quarterback], the literature on evaluating pass rushers is scarce. Below, we provide a brief overview of existing pass rush metrics.
 
-
+<!-- (defensive players whose role on a given play is to put pressure on the QB) -->
 
 ## Previous Pass Rush Metrics
 
-Table \ref{tab:metrics} gives a summary of existing pass-rush metrics.
+Table \ref{tab:metrics} gives a summary of existing football metrics for pass rush 
 We now highlight what these quantities measure as well as their limitations.
 
-Perhaps the most commonly-known statistics for evaluating defensive linemen on pass rush plays are sacks, hits, and hurries, which are observed at the discrete play-level.
-Officially tracked by the NFL since 1982, a sack is recorded when a defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass.
+[NEED TO ADD "NGS Get Off" https://fivethirtyeight.com/features/the-nfl-has-a-new-way-to-measure-the-explosiveness-of-pass-rushers/]
+
+Perhaps the most commonly-known statistics for evaluating defensive linemen on pass rush plays are sacks, hits, and hurries, which are discretely observed at the play-level.
+Officially tracked by the NFL since 1982, a sack is recorded when a defender tackles the QB behind the line of scrimmage before the QB releases a pass.
 Sacks represent a simple binary measure of success for a rusher on a pass play.
 However, there are many intermediate outcomes for a rusher that can also be considered successes that do not result in a sack.
 Other traditional box-score statistics such hits and hurries are collected by various outlets where hits counts the number of times a QB is hit while passing and hurries counts how often a QB has to throw the ball earlier than they would have liked to.
@@ -112,6 +114,7 @@ Pressures & $\text{Hurries} + \text{ Hits } + \text{ Sacks}$ \\
 Pass-Rush Productivity & $\displaystyle \frac{(\text{Hurries} + \text{Hits})/2 + \text{Sacks}}{\text{ Pass Rush Snaps}}$\\
 Time In Pocket & Time (in seconds) between ball snap and throw or pocket collapse for a QB \\
 Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 seconds after ball snap\\
+NGS Get Off & add this\\
 \hline
 \end{tabular}
 \end{table}
@@ -127,35 +130,35 @@ Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 secon
 
 <!-- https://www.taylorfrancis.com/chapters/edit/10.1201/9781315166070-12/forecasting-performance-college-prospects-selected-national-football-league-draft-julian-wolfson-vittorio-addona-robert-schmicker -->
 
-The literature on the performance of linemen, either offensive or defensive in football is scant.
+The peer-reviewed literature on measuring the performance of football linemen (either offensive or defensive) is scant.
 @AlamarGould2008 find an association between pass completion rate and successful pass blocking by offensive linemen.
 The data for this study are collected for the first three weeks of the 2007 NFL season, manually recording whether a lineman holds a block and the time it took for quarterback to throw the football.
-Later, @AlamarGoldner2011 use manually-tracked data during the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center).
-The paper uses survival analysis to model time in pocket and completion percentage for quarterbacks, before ultimately measures a lineman's contribution to the overall offense in terms of yards gained.
+@AlamarGoldner2011 later follow up by using manually-tracked data for the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center).
+The paper uses survival analysis to model time in pocket and completion percentage for quarterbacks, before proposing a measure for linemen's contribution to their team's passing in terms of yards gained.
+
+@Wolfson2017Forecasting comment on the two aforementioned articles that "[a]lthough these are exciting preliminary steps, there is still a long way to go before we can provide a comprehensive appraisal of the achievements of an individual lineman."
+The challenge here is fundamental, since there were not enough public data at the time to develop any meaningful metric for linemen in football, as also noted by @AlamarGould2008.
+However, with the granularity of player tracking data, we have access to data not only for the linemen but also for every player on the field.
+This provides us with a great opportunity to assess the performance of linemen in football.
 
 <!-- The academic literature on the performance of linemen, either offensive or defensive in football is scant. @AlamarGould2008 studied the the relationship between pass completion rate and performance of offensive linemen in terms of how successful they were at blocking.  The data for this study was collecting essentially by hand by watching and charting the performance of each lineman on a play.  This was done using games from the beginning 2007 season for seven teams and their first three games each.  The authors note that there is not much research on linemen saying "One of the principal reasons for this lack of study is the absence of publicly available data that is needed in order to track the performance of a specific lineman."  -->
 
 <!-- Later, @AlamarGoldner2011 again studied offensive linemen performance.  They analyzed 20 teams during the 2010 season for a total of 1,259 plays.  They don't estimate the performance of an individual lineman, but rather positions on a team (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center, etc.).  They then go on to use a survival analysis model to estimate time in pocket.  The average probability of success from the survival model is then used as a covariate in a model to estimate the probability of competing a pass, and they show that there is a significant relationship between these two probabilities.   -->
 
-<!-- [this next part needs re-wording] -->
-<!-- They then go on to use a survival analysis model to estimate time in pocket.  The average probability of success from the survival model is then used as a covariate in a model to estimate the probability of competing a pass, and they show that there is a significant relationship between these two probabilities. -->
+## Our Contribution
 
-## Contributions of STRAIN
+In this paper, we focus on the evaluation of defensive linemen in football.
+We devise STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science.
+Our metric gives a continuous measure of pressure for every pass rusher on the football field over the course of an entire play.
+This allows for the assessment of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
+We view this as a major step forward for accurately evaluating defensive linemen performance.
+Further, we note that although our focus in this paper is on defensive linemen, our proposed approach can be extended to the evaluation of offensive linemen in American football.  
 
-All the aforementioned methods suffered from not having the data that was actually necessary to develop a meaningful metric for linemen in football, either offensive or defensive.
-Now though, thanks to the 2023 Big Data Bowl, we have a publicly available tracking data not only for the linemen, but for every player on the field.
-This allows us to meaningfully assess the performance of linemen in football.
-In this paper, we focus on defensive linemen, and propose STRAIN, a metric for pass rush evaluation inspired by the concept of strain rate in materials science.
-STRAIN gives a continuous measure of pressure for each of the defensive linemen over the course of an entire play.
-This allows for the measurement of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
-We view this as a major step forward in the accurate evaluation of defensive linemen performance.
-Further, we note than while we focus exclusively on defensive linemen here, the proposed metric STRAIN is relatively easily extended to the evaluation of offensive linemen performance.  
-
-The remainder of this paper is outlined as follows.
+The remainder of this manuscript is outlined as follows.
 We first describe the player tracking data provided by 2023 Big Data Bowl in Section \ref{sec:data}.
-We then introduces the mathematical motivation and definition of our metric STRAIN and our modeling approach in Section \ref{sec:methods}.
-We present an real-game illustration of the proposed metric and study its performance in Section \ref{sec:results}.
-We close with a discussion of future directions for STRAIN in Section \ref{sec:discussion}.
+We then introduce the mathematical motivation and definition of our statistic STRAIN and our modeling approach in Section \ref{sec:methods}.
+Next, we present applications of STRAIN and study different statistical properties of the metric in Section \ref{sec:results}.
+We close with our discussion of future directions related to this work in Section \ref{sec:discussion}.
 
 
 

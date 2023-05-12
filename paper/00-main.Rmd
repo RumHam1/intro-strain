@@ -47,7 +47,7 @@ bibliography: bibliography.bib
 biblio-style: chicago
 output: rticles::asa_article
 header-includes:
-  \usepackage{mathptmx}
+  # \usepackage{mathptmx}
   # \renewcommand{\arraystretch}{0.8}
 ---
 
@@ -92,8 +92,6 @@ Big data bowl, Mike
 {\large\bf SUPPLEMENTARY MATERIAL}
 \end{center}
 
-**GitHub repository:** https://github.com/getstrained/intro-strain.
-
-**NFL Big Data Bowl 2023 Data:**: https://www.kaggle.com/competitions/nfl-big-data-bowl-2023/data.
+All code related to this paper is available at https://github.com/getstrained/intro-strain. The data provided by the NFL Big Data Bowl 2023 is available at: https://www.kaggle.com/competitions/nfl-big-data-bowl-2023/data.
 
 # References
