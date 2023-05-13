@@ -93,10 +93,10 @@ A hurry represents an instance when a defender successfully disrupts without nec
 These are all simple binary measures of pass rush outcome for any given play.
 However, for plays that do not result in the aforementioned outcomes (in particular, sack), there are still many intermediate defensive actions on the field within the play that are valuable and can be considered successes.
 
-Moreover, the sum of sacks, hits, and hurries is often defined as "pressures".
-This is an improvement over sacks, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
+Moreover, the sum of sacks, hits, and hurries is often defined as (QB) pressures.
+This is somewhat better than sacks, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
 Pro football focus (PFF) comes up with a metric called "pass-rush productivity" (PRP), which is a minor modification from the aforementioned pressures metric (see Table \ref{tab:metrics}).
-In particular, PRP gives twice as much weight to a sack relative to hurries and hits, which is a slight improvement to pressures.
+In particular, PRP gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures.
 However, the choice of weights is ad-hoc and still only measures binary outcomes, similar to the shortcomings of previously discussed metrics.
 
 <!-- and are still binary outcomes (i.e. There is a continuum of plays that are not hurries that all counted as simply "not hurries"). -->

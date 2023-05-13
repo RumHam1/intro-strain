@@ -1,12 +1,18 @@
 # Discussion {#sec:discussion}
 
+
+We have proposed STRAIN, a simple and interpretable statistic for evaluating pass-rushers, with higher STRAIN corresponds to greater pass-rushing ability. 
+Compared to existing metrics, STRAIN measures pass-rush effectiveness for every play continuously over time, which is at a much more granular level than considering whether the play resulted in a sack or converting continuous data to a binary win/loss.
+
+As for future directions, while we focus solely on pass-rushers in this paper, STRAIN can be easily extended to the assessment of pass-blockers as a unit. 
+This can be accomplished by looking at quantities such as the total STRAIN or the maximum STRAIN per frame aggregated across the entire play.
+It is also possible to apply STRAIN to assess individual offensive pass-blockers, provided that a method of matching blockers to rushers was developed.
+
 Summary
 
-Critique
+Critique/Limitations
 
-Future work
-
-rapm
+Future work rapm
 
 <!-- 
 
