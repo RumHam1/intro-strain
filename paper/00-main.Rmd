@@ -41,7 +41,7 @@ keywords:
 - statistics in sports
 
 abstract: |
-  In American football, a pass rush is an attempt by the defensive team to disrupt the offense and prevent the quarterback (QB) from completing a pass. Existing metrics for assessing pass rush performance are either discrete-time quantities or based on subjective judgement. Using player tracking data, we propose STRAIN, a novel metric for evaluating pass rushers in the National Football League (NFL) at the continuous-time within-play level. Inspired by the concept of strain rate in materials science, STRAIN is a simple and interpretable means for measuring defensive pressure in football. It is a directly-observed statistic as a function of two features: the distance between the pass rusher and QB, and the rate at which this distance is being reduced. Our metric possesses great predictability of pressure and stability over time. We use a multilevel model to isolate the contribution of every pass rusher in a play to the average STRAIN while controlling for their pass blocker matchup, the QB, and play-level information. We apply our approach to NFL data and present results for the first 8 weeks of the 2021 season. In particular, we provide comparisons of STRAIN for different defensive positions and play outcomes, and rankings of the NFL's best pass rushers according to our metric.
+  In American football, a pass rush is an attempt by the defensive team to disrupt the offense and prevent the quarterback (QB) from completing a pass. Existing metrics for assessing pass rush performance are either discrete-time quantities or based on subjective judgement. Using player tracking data, we propose STRAIN, a novel metric for evaluating pass rushers in the National Football League (NFL) at the continuous-time within-play level. Inspired by the concept of strain rate in materials science, STRAIN is a simple and interpretable means for measuring defensive pressure in football. It is a directly-observed statistic as a function of two features: the distance between the pass rusher and QB, and the rate at which this distance is being reduced. Our metric possesses great predictability of pressure and stability over time. We also fit a multilevel model for STRAIN to understand the defensive pressure contribution of every pass rusher at the play-level. We apply our approach to NFL data and present results for the first 8 weeks of the 2021 season. In particular, we provide comparisons of STRAIN for different defensive positions and play outcomes, and rankings of the NFL's best pass rushers according to our metric.
 
 bibliography: bibliography.bib
 biblio-style: chicago
@@ -58,9 +58,9 @@ knitr::opts_chunk$set(
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
-  fig.align = "center"
+  fig.align = "center",
   # fig.pos = "p",
-  # cache = TRUE
+  cache = TRUE
 )
 library(here)
 library(tidyverse)
@@ -92,6 +92,6 @@ We thank the organizers of the 2023 NFL Big Data Bowl for hosting the competitio
 {\large\bf SUPPLEMENTARY MATERIAL}
 \end{center}
 
-All code related to this paper is available at https://github.com/getstrained/intro-strain. The data provided by the NFL Big Data Bowl 2023 is available at: https://www.kaggle.com/competitions/nfl-big-data-bowl-2023/data.
+All code related to this paper is available at https://github.com/getstrained/intro-strain. The data provided by the NFL Big Data Bowl 2023 is available at https://www.kaggle.com/competitions/nfl-big-data-bowl-2023/data.
 
 # References

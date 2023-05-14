@@ -1,6 +1,6 @@
 # Results {#sec:results}
 
-## Example play
+## Real-Game Illustration of STRAIN
 
 ```{r}
 #| label: fig_field
@@ -79,26 +79,26 @@ Specifically, edge rushers have higher STRAIN than interior linemen on average, 
 
 On average, STRAIN appears to increase for the first 0.5 seconds of a play, followed by a decline in the next second.
 STRAIN then increases again until around 2.5-3 seconds after the snap before trending down towards the end of the play.
-In context, this reflects the actions that a pass-rusher initially moves towards the quarterback, but is then stopped by the offensive line while the quarterback drops back.
+In context, this reflects the actions that a pass rusher initially moves towards the quarterback, but is then stopped by the offensive line while the quarterback drops back.
 When the quarterback stops dropping, the rusher closes the gap and increases STRAIN, before slowing down later on.
 
 Further, Figure \ref{fig:fig_outcome_curves} shows the positional STRAIN curves by whether a play's outcome is a hit, sack, hurry, or none of those. 
 We clearly see that players tend to generate more STRAIN when a play ends in a hit, sack, or hurry, compared to no outcome.
 Within the three pressure metrics, it is not surprised that a sack corresponds to the highest amount of STRAIN, followed by a hit and hurry.
 
-## Ranking the best pass-rushers {#sec:strainbar}
+## Ranking the Best Pass Rushers {#sec:strainbar}
 
-Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size, as discussed in Section \ref{sec:app}.
-Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass-rushers (NT's and DT's) separately from edge rushers (OLB's and DE's).
+Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size, as discussed in Section \ref{sec:defn}.
+Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass rushers (NT's and DT's) separately from edge rushers (OLB's and DE's).
 Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
 The tables also consist of the total number of hits, hurries, and sacks for each defender.
 
 Our results show many true positives with no surprises.
 Myles Garrett and TJ Watt are known as top-tier edge rushers, while Aaron Donald is undoubtedly the best interior defender in football.
-Rashan Gary, a young rusher with huge potential, ranks first among all pass-rushers according to our metric.
+Rashan Gary, a young rusher with huge potential, ranks first among all pass rushers according to our metric.
 Moreover, our leaderboards largely match the rankings of experts in the field.
 For instance, there is considerable overlap between our lists and PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings released after the 2021 season.
-This ultimately lends credibility to our proposed metric STRAIN as a measure of pass-rushing effectiveness.
+This ultimately lends credibility to our proposed metric STRAIN as a measure of pass rushing effectiveness.
 
 \begin{table}
 \caption{Top 15 edge rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:edge}}
@@ -176,9 +176,14 @@ Below, we attempt the answer these questions, and the following results are for 
 We first investigate the predictability of STRAIN as a measure of pressure.
 In particular, we look at how well our metric correlates with a simple measure of pressure rate, defined as the total hits, sacks and hurries per snap.
 Figure \ref{fig:fig_cor_pressure} is a scatterplot of average STRAIN and pressure rate over the course the provided 8-game sample, which reveals a fairly strong correlation ($r =0.625$) between the quantities.
+Hence, defenders with high STRAIN values also tend to generate more pressure toward the quarterback.
 Furthermore, the average STRAIN for the first 4 weeks of the 2021 season is more predictive of the last 4 weeks' pressure rate ($r=0.322$) than the first 4 weeks' pressure rate ($r=0.097$), as illustrated in Figure \ref{fig:fig_predictability}.
-We also analyze the stability of STRAIN over time by comparing the average STRAIN across all frames played in first and last four weeks of the 2021 NFL regular season.
-It is apparent from Figure \ref{fig:fig_stability} that there is a strong correlation $(r = 0.854)$ for this relationship, illustrating that STRAIN is a stable quantity over the provided 8-week window.
+
+We also analyze the stability of STRAIN over time by comparing the average STRAIN across all frames played for the first and last four weeks of the 2021 NFL regular season.
+It is apparent from Figure \ref{fig:fig_stability} that there is a strong positive correlation $(r = 0.854)$ for this relationship.
+This means that STRAIN is a highly stable football metric over the provided 8-week time window, and pass rushers appear to carry their STRAIN values with them from week to week.
+Overall, STRAIN performs well in both explaining defensive pressure on the field and predicting future performance of pass rushers.
+
 
 ```{r}
 #| label: fig_cor_pressure
@@ -208,7 +213,7 @@ source(here("scripts", "05_fig_stability.R"))
 fig_stability
 ```
 
-## Multilevel Model
+## Multilevel Model Results
 
 [CHECK/EDIT THIS, MAKE SURE WORDING IS CORRECT/NOT CONFUSING]
 

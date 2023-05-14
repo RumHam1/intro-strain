@@ -22,11 +22,14 @@ For complete surveys on how tracking data have transformed sports analytics, see
 
 <!-- We contribute to the growing literature of research based on player tracking data in American football.  -->
 
-In an attempt to foster analytics and innovate the game, the National Football League (NFL) introduced their player tracking system known as [Next Gen Stats (NGS)](https://operations.nfl.com/gameday/technology/nfl-next-gen-stats/) in 2016, using radio frequency identification (RFID) chips placed in players' shoulder pads (and in the ball) to collect data 10 times per second. These NGS tracking data contain information about the on-field locations, speeds, and angles of all 22 players on the field (as well as the ball). While these data were initially only available for teams, media, and vendors, in December 2018 the NFL launched the inaugural edition of their annual [Big Data Bowl (BDB)](https://operations.nfl.com/gameday/analytics/big-data-bowl/past-big-data-bowl-recaps/) competition.  
+In an attempt to foster analytics and innovate the game, the National Football League (NFL) introduced their player tracking system known as Next Gen Stats (NGS) in 2016 [@nfl2023ngs].
+NGS uses radio frequency identification (RFID) chips placed in players' shoulder pads (and in the ball) to collect data at a rate of 10 frames per second.
+The data captures real-time on-field information such as locations, speeds, and accelerations of all 22 players (as well as the ball).
+While these data were initially only available for teams, media, and vendors, in December 2018 the NFL launched the inaugural edition of their annual Big Data Bowl (BDB) competition [@nfl2023big].  
 
-The first BDB led to several contributions largely focused on offensive performance evaluation. For example, one group of finalists introduced an approach for modeling the hypothetical completion probability of a pass aiding in the evaluation of quarterback (QB) decision making [@deshpande2020expected]. The winners of the inaugural BDB focused on identifying receiver routes via clustering techniques [@chu2020route] and convolutional neural networks [@sterken2019routenet]. Along with the BDB competition entries, the public release of NGS data allowed researchers to tackle (pun intended) a variety of other problems such as revisiting fourth down decision making [@lopez2020bigger], annotating pass coverage with Gaussian mixture models [@dutta2020unsupervised], and introducing a continuous-time framework to estimate within-play value [@yurko2020going].  Since its inception, the BDB has chosen a different theme each year leading to new insight about evaluating different positions such as running backs, defensive backs, and special teams. The 2023 edition of the NFL Big Data Bowl asked participants to evaluate linemen on passing plays [@Howard2023NFL].
+The first BDB led to several contributions largely focused on offensive performance evaluation. For example, one group of finalists introduced an approach for modeling the hypothetical completion probability of a pass aiding in the evaluation of quarterback (QB) decision making [@deshpande2020expected]. The winners of the inaugural BDB focused on identifying receiver routes via clustering techniques [@chu2020route] and convolutional neural networks [@sterken2019routenet]. Along with the BDB competition entries, the public release of NGS data allowed researchers to tackle <!-- (pun intended) --> a variety of other problems such as revisiting fourth down decision making [@lopez2020bigger], annotating pass coverage with Gaussian mixture models [@dutta2020unsupervised], and introducing a continuous-time framework to estimate within-play value [@yurko2020going].  Since its inception, the BDB has chosen a different theme each year leading to new insight about evaluating different positions such as running backs, defensive backs, and special teams. The 2023 edition of the NFL Big Data Bowl asked participants to evaluate linemen on passing plays [@Howard2023NFL].
 
-We limit our attention in this manuscript to the defensive side of the ball. There are two main types of defensive linemen in American football: (1) defensive tackles (DTs) located within the interior of the line and (2) defensive ends (DEs) located along the edges (see Figure \ref{fig:formation} (top) for example formation with DTs and DEs). The primary purpose of both positions is to rush the QB on passing plays, with DEs displaying superiority in observed pass rushing ability [@Eager2018nfl]. Additionally, within DTs there are nose tackles (NTs) who directly line up across from the ball at the line of scrimmage (see Figure \ref{fig:formation} (bottom) for example defensive formation with a NT). Typically, teams will employ either one NT or two DTs on the interior with DEs along either side of the defensive line. In addition to defensive lineman, other positions may attempt to rush the QB on blitzing plays such as outside linebackers (OLBs), interior linebackers (ILBs), and potentially members of the secondary (cornerback, free safety, strong safety) who typically play pass coverage.
+In this manuscript, we specifically focus on measuring the performance of defensive linemen in the NFL. There are two main types of defensive linemen in American football: (1) defensive tackles (DTs) located within the interior of the line and (2) defensive ends (DEs) located along the edges (see Figure \ref{fig:formation} (top) for example formation with DTs and DEs). The primary purpose of both positions is to rush the QB on passing plays, with DEs displaying superiority in observed pass rushing ability [@Eager2018nfl]. Additionally, within DTs there are nose tackles (NTs) who directly line up across from the ball at the line of scrimmage (see Figure \ref{fig:formation} (bottom) for example defensive formation with a NT). Typically, teams will employ either one NT or two DTs on the interior with DEs along either side of the defensive line. In addition to defensive lineman, other positions may attempt to rush the QB on blitzing plays such as outside linebackers (OLBs), interior linebackers (ILBs), and potentially members of the secondary (cornerback, free safety, strong safety) who typically play pass coverage.
 
 ```{r formation, fig.width=5, fig.height=4, fig.cap="Two common defensive alignments in football: 4-3 defense (top) and 3-4 defense (bottom). The dashed line represents the line of scrimmage separating the defense and offense."}
 tibble(x = c(3:5, 3:6 - 0.5, c(2, 3.7, 4.3, 6)),
@@ -93,11 +96,11 @@ A hurry represents an instance when a defender successfully disrupts without nec
 These are all simple binary measures of pass rush outcome for any given play.
 However, for plays that do not result in the aforementioned outcomes (in particular, sack), there are still many intermediate defensive actions on the field within the play that are valuable and can be considered successes.
 
-Moreover, the sum of sacks, hits, and hurries is often defined as (QB) pressures.
-This is somewhat better than sacks, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
-Pro football focus (PFF) comes up with a metric called "pass-rush productivity" (PRP), which is a minor modification from the aforementioned pressures metric (see Table \ref{tab:metrics}).
+Moreover, the sum of sacks, hits, and hurries is often defined as pressures.
+This is better than sacks to some extent, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
+Pro football focus (PFF) comes up with a metric called pass-rush productivity (PRP), which is a minor modification from the aforementioned pressures metric (see Table \ref{tab:metrics}).
 In particular, PRP gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures.
-However, the choice of weights is ad-hoc and still only measures binary outcomes, similar to the shortcomings of previously discussed metrics.
+However, the choice of weights is ad-hoc and still only indicates binary outcomes, similar to the shortcomings of previous metrics.
 
 <!-- and are still binary outcomes (i.e. There is a continuum of plays that are not hurries that all counted as simply "not hurries"). -->
 
@@ -110,14 +113,14 @@ However, the choice of weights is ad-hoc and still only measures binary outcomes
 
 <!-- (https://www.pro-football-reference.com/about/advanced_stats.htm) -->
 
-More recently proposed metrics such as time in pocket (TIP), NGS Get Off [@Hermsmeyer2021nfl], and pass rush win rate (PRWR) [@Burke2018Created] are substantial improvements over the less sophisticated counting statistics, but nevertheless are still imperfect.
+More recently proposed metrics such as time in pocket (TIP), NGS get off [@Hermsmeyer2021nfl], and pass rush win rate (PRWR) [@Burke2018Created] are substantial improvements over the less sophisticated counting statistics, but nevertheless are still imperfect.
 TIP refers to how long a QB can operate within the protected space behind the offensive line, known as the pocket.
 However, this measure is highly context-dependent, as it can be influenced by a number of factors such as the defensive scheme or type of passing route.
-NGS Get Off is an aggregated statistic, illustrating how quickly a defender can get past the line of scrimmage after the snap on average.
+NGS get off is an aggregated statistic, illustrating how quickly a defender can get past the line of scrimmage after the snap on average.
 PRWR is created using player tracking data, which is at a more granular level than previous measures.
 It demonstrates whether a pass rusher is able to beat their blocking matchup before a fixed time from the snap (2.5 seconds as chosen by ESPN).
 This depends on the rather arbitrary time threshold used to define a pass rush win.
-In addition, once a cutoff is chosen, this metric converts continuous data to a win-loss indicator, becoming binary like most of the metrics discussed above.
+In addition, once a cutoff is chosen, PRWR converts continuous data to a win-loss indicator, becoming dichotomous like most of the metrics discussed above.
 
 <!-- (e.g. deep versus shallow). -->
 
@@ -142,7 +145,7 @@ In addition, once a cutoff is chosen, this metric converts continuous data to a 
 The peer-reviewed literature on measuring the performance of football linemen (either offensive or defensive) is scant.
 @AlamarGould2008 find an association between pass completion rate and successful pass blocking by offensive linemen.
 The data for this study are collected for the first three weeks of the 2007 NFL season, manually recording whether a lineman holds a block and the time it took for quarterback to throw the football.
-@AlamarGoldner2011 later follow up by using manually-tracked data for the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center).
+@AlamarGoldner2011 later follow up by using manually-tracked data for the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g., Chicago Bears' left tackle, Pittsburgh Steelers' center, etc.).
 The paper uses survival analysis to model time in pocket and completion percentage for quarterbacks, before proposing a measure for linemen's contribution to their team's passing in terms of yards gained.
 
 @Wolfson2017Forecasting comment on the two aforementioned articles that "[a]lthough these are exciting preliminary steps, there is still a long way to go before we can provide a comprehensive appraisal of the achievements of an individual lineman."
@@ -168,10 +171,6 @@ We first describe the player tracking data provided by 2023 Big Data Bowl in Sec
 We then introduce the mathematical motivation and definition of our statistic STRAIN and our modeling approach in Section \ref{sec:methods}.
 Next, we present applications of STRAIN and study different statistical properties of the metric in Section \ref{sec:results}.
 We close with our discussion of future directions related to this work in Section \ref{sec:discussion}.
-
-
-
-
 
 
 <!-- : They talk about how there is no data available to measure offensive line performance.  1259 plays, 20 teams, 2010 season.  Success of each offensive lineman was evaluated using the best judgement of the observer.   Collected time in pocket.  They collected a bunch of binary variables and did this all by HAND!  Estimate a survival model for each position on the offensive line.  They don't rank individuals, but rather positions on a team.  They then use the predicted probability as a covariate in a model to predict completion.  -->

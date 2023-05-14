@@ -1,6 +1,6 @@
 # Methods {#sec:methods}
 
-## Strain rate in materials science
+## Motivation and Definition of STRAIN {#sec:defn}
 
 In materials science, strain is the deformation of a material from stress, showing the rate of change in a material's length relative to its original length.
 Formally, let $L(t)$ be the distance between any given two points of interest within a material at time $t$, and $L_0$ be the initial distance between those two points.
@@ -18,8 +18,6 @@ s'(t) = \frac{ds}{dt} = \frac{v(t)}{L_{0}},
 \end{equation}
 where $v(t)$ is the velocity at which the two points of interest within the material are moving away from or towards each other.
 Whereas strain has no units, the strain rate is measured in inverse of time, usually 1/second.
-
-## Application to pass rush in football {#sec:app}
 
 Motivated by its scientific definition, we draw a delightful analogy between strain rate and pass rushing in football.
 Just as strain rate is a measure of deformation in materials science, a pass rusher's efforts involve the application of deformation against the offensive line, with the ultimate goal of breaking through the protection to reach the quarterback.
@@ -65,10 +63,10 @@ Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass ru
 \begin{equation}
 \overline{\text{STRAIN}}_{j} = \frac{1}{T_j} \sum_{t=1}^{T_j} \widehat{\text{STRAIN}}_{j}(t).
 \end{equation}
-This can be helpful for player evaluation, as we determine the most effective pass-rushers based on their average STRAIN values in Section \ref{sec:strainbar}.
-We also use average STRAIN to assess statistical properties of our metric in Section \ref{sec:statprop}.
+This can be helpful for player evaluation, as we determine the most effective pass rushers based on their average STRAIN values in Section \ref{sec:strainbar}.
+We also use average STRAIN to assess different statistical properties of our metric in Section \ref{sec:statprop}.
 
-## Multilevel model of play-level STRAIN
+## Multilevel Model for Play-Level STRAIN
 
 <!-- While average STRAIN appears to be positively correlated with pass rusher ability -->
 
