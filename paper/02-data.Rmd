@@ -7,7 +7,7 @@ pass_rush %>% select(gameId, playId, frameId) %>% n_distinct()
 
 In the forthcoming analysis, we rely on the data from the 2023 NFL Big Data Bowl provided by the NFL Next Gen Stats tracking system.
 The data corresponds to 8,557 passing plays across 122 games in the first eight weeks of the 2021 NFL regular season. 
-For each play, we have information on the on-field location, speed, angle, direction, and orientation of each player on the field and the football at a rate of 10 Hz, along with event annotations for each frame such as ball snap, pass forward, and quarterback sack, to name a few.
+For each play, we have information on the on-field location, speed, angle, direction, and orientation of each player on the field and the football at a rate of 10 Hz (i.e. ten measurements per second), along with event annotations for each frame such as ball snap, pass forward, and quarterback sack, to name a few.
 
 For our investigation, we consider only the frames between the ball snap and when a pass forward or quarterback sack is recorded for each play.
 We also remove all plays with multiple quarterbacks on the field, since we need a uniquely defined quarterback to compute our metric.
@@ -16,7 +16,7 @@ After preprocessing, there are 251,060 unique frames corresponding to moments of
 Table \ref{tab:track} displays a tracking data example for a play from the 2021 NFL regular season week six matchup between the Las Vegas Raiders and Denver Broncos, which ends with Broncos QB Teddy Bridgewater getting sacked by Raiders DE Maxx Crosby[^crosbysack].
 In addition, Figure \ref{fig:fig_field_raw} presents the locations of every Las Vegas (in black) and Denver (in orange) player on the field from this play at 1, 2, 3 and 4 seconds after the ball snap, with Maxx Crosby highlighted in blue. 
 
-[^crosbysack]: A real-game footage of this play is available at https://www.raiders.com/video/de-maxx-crosby-sacks-qb-teddy-bridgewater-for-a-loss-of-6-yards-nfl
+[^crosbysack]: Game footage of this play is available at https://www.raiders.com/video/de-maxx-crosby-sacks-qb-teddy-bridgewater-for-a-loss-of-6-yards-nfl
 
 \begin{table}
 \caption{Example of tracking data for a play during the Las Vegas Raiders versus Denver Broncos NFL game on October 17, 2021. The data shown here are for Raiders DE Maxx Crosby, and the frames included are between the ball snap and when the sack by Crosby is recorded. \label{tab:track}}
@@ -45,14 +45,14 @@ fig_field_raw
 
 Along with the tracking information, the 2023 BDB includes scouting data provided by Pro Football Focus (PFF). 
 This contains manually-collected player-level information, such as the player's role (e.g., whether they are a pass rusher and pass blocker) and credited events (e.g., player is credited with hitting the QB on the play).
-In this manuscript, we use the PFF data to identify 36,362 unique players designated in the "pass rush" role across all plays.
+In this manuscript, we use the PFF data to identify 36,362 unique pass rushing attempts by players designated in the "pass rush" role across all plays.  <!-- Need to reword this.  There aren't 36,362 unique players.  It's like players by rushes or something like that.  -->
 For context, Figure \ref{fig:pass_rushers_count} displays the distribution of the number of observed pass rushers involved in a play, ranging from 1 to 8 with 4 pass rushers (i.e. 4-man rush formation) as the most common value.
 We also leverage the PFF scouting data to count how many hits, hurries, and sacks each pass rusher is credited with across the span of observed data. 
 Additionally, we use the PFF player roles to identify the blocking matchup for each pass rusher in order to adjust for opponent strength, as discussed in Section \ref{sec:methods}.
 
 ```{r}
 #| label: pass_rushers_count
-#| fig.cap: "Distribution of the number of pass rushers in a play."
+#| fig.cap: "Distribution of the number of pass rushers on passing plays."
 #| fig.width: 4.5
 #| fig.height: 3
 source(here("scripts", "12_fig_pass_rushers_count.R"))
