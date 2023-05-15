@@ -88,7 +88,7 @@ Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 secon
 Perhaps the most commonly-known statistics for evaluating defensive linemen on pass rush plays are sacks, hits, and hurries, which are discretely observed at the play-level.
 Officially tracked by the NFL since 1982, a sack is recorded when a defender tackles the QB behind the line of scrimmage before the QB releases a pass. 
 Other traditional box score statistics such as hits and hurries are collected by various outlets. 
-A hit is a collision between a defender and the opposing team's quarterback while the QB is in possession of the ball.  <!-- This is a sack, right? -->
+A hit is a collision between a defender and the opposing team's quarterback after the quarterback makes a throw.  
 A hurry represents an instance when a defender successfully disrupts without necessarily making direct contact with the QB and forces the QB to make a throw earlier than expected.
 These are all simple binary measures of pass rush outcome for any given play.
 However, for plays that do not result in the aforementioned outcomes (in particular, sack), there are still many intermediate defensive actions on the field within the play that are valuable and can be considered positive achievements.
