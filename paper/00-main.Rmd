@@ -85,7 +85,7 @@ library(tidyverse)
 
 # Acknowledgements {-}
 
-We thank the organizers of the 2023 NFL Big Data Bowl for hosting the competition and providing access to the data.
+We thank the organizers of the NFL Big Data Bowl 2023 for hosting the competition and providing access to the data.
 
 \bigskip
 \begin{center}

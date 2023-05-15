@@ -94,10 +94,10 @@ Other traditional box score statistics such as hits and hurries are collected by
 A hit is a collision between a defender and the opposing team's quarterback while the QB is in possession of the ball.
 A hurry represents an instance when a defender successfully disrupts without necessarily making direct contact with the QB and forces the QB to make a throw earlier than expected.
 These are all simple binary measures of pass rush outcome for any given play.
-However, for plays that do not result in the aforementioned outcomes (in particular, sack), there are still many intermediate defensive actions on the field within the play that are valuable and can be considered successes.
+However, for plays that do not result in the aforementioned outcomes (in particular, sack), there are still many intermediate defensive actions on the field within the play that are valuable and can be considered positive achievements.
 
 Moreover, the sum of sacks, hits, and hurries is often defined as pressures.
-This is better than sacks to some extent, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
+This is better than the individual counts to some extent, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
 Pro football focus (PFF) comes up with a metric called pass-rush productivity (PRP), which is a minor modification from the aforementioned pressures metric (see Table \ref{tab:metrics}).
 In particular, PRP gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures.
 However, the choice of weights is ad-hoc and still only indicates binary outcomes, similar to the shortcomings of previous metrics.
@@ -151,7 +151,7 @@ The paper uses survival analysis to model time in pocket and completion percenta
 @Wolfson2017Forecasting comment on the two aforementioned articles that "[a]lthough these are exciting preliminary steps, there is still a long way to go before we can provide a comprehensive appraisal of the achievements of an individual lineman."
 The challenge here is fundamental, since there were not enough public data at the time to develop any meaningful metric for linemen in football, as also noted by @AlamarGould2008.
 However, with the granularity of player tracking data, we have access to data not only for the linemen but also for every player on the field.
-This provides us with a great opportunity to assess the performance of linemen in football.
+This provides us with a great opportunity to study and gain better insights into linemen performance in football.
 
 <!-- The academic literature on the performance of linemen, either offensive or defensive in football is scant. @AlamarGould2008 studied the the relationship between pass completion rate and performance of offensive linemen in terms of how successful they were at blocking.  The data for this study was collecting essentially by hand by watching and charting the performance of each lineman on a play.  This was done using games from the beginning 2007 season for seven teams and their first three games each.  The authors note that there is not much research on linemen saying "One of the principal reasons for this lack of study is the absence of publicly available data that is needed in order to track the performance of a specific lineman."  -->
 
