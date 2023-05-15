@@ -2,7 +2,7 @@
 
 ## Motivation and Definition of STRAIN {#sec:defn}
 
-In materials science, strain is the deformation of a material from stress, showing the rate of change in a material's length relative to its original length [@strain].
+In materials science, strain is the deformation of a material from stress, showing the rate of change in a material's length relative to its original length [@callister2009materials].
 Formally, let $L(t)$ be the distance between any given two points of interest within a material at time $t$, and $L_0$ be the initial distance between those two points.
 The **strain** for a material at time $t$ is defined as 
 \begin{equation}
