@@ -155,7 +155,7 @@ This provides us with a great opportunity to study and gain better insights into
 ## Our Contribution
 
 In this paper, we focus on the evaluation of defensive linemen in football.
-We propose STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science.
+We propose STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science [@callister2009materials].
 Our metric gives a continuous measure of pressure for every pass rusher on the football field over the course of an entire play.
 This allows for the assessment of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
 We view this as a major step forward for accurately evaluating defensive linemen performance.
