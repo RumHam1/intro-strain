@@ -115,8 +115,7 @@ However, this measure is highly context-dependent, as it can be influenced by a 
 NGS get off is an aggregated statistic, illustrating how quickly a defender can get past the line of scrimmage after the snap on average.
 PRWR is created using player tracking data, which is at a more granular level than previous measures.
 It demonstrates whether a pass rusher is able to beat their blocking matchup before a fixed time from the snap (2.5 seconds as chosen by ESPN).
-This depends on the rather arbitrary time threshold used to define a pass rush win.
-In addition, once a cutoff is chosen, PRWR converts continuous data to a win-loss indicator, becoming dichotomous like most of the metrics discussed above.
+However, this depends on the rather arbitrary time threshold used to define a pass rush win.  In addition, once a cutoff is chosen, PRWR converts continuous data to a win-loss indicator, becoming dichotomous like most of the metrics discussed above.  
 
 <!-- (e.g. deep versus shallow). -->
 
@@ -142,7 +141,7 @@ The peer-reviewed literature on measuring the performance of football linemen (e
 @AlamarGould2008 find an association between pass completion rate and successful pass blocking by offensive linemen.
 The data for this study are collected for the first three weeks of the 2007 NFL season, manually recording whether a lineman holds a block and the time it took for quarterback to throw the football.
 @AlamarGoldner2011 later follow up by using manually-tracked data for the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g., Chicago Bears' left tackle, Pittsburgh Steelers' center, etc.).
-The paper uses survival analysis to model time in pocket and completion percentage for quarterbacks, before proposing a measure for linemen's contribution to their team's passing in terms of yards gained.
+The paper uses survival analysis to model time in pocket and completion percentage for quarterbacks before proposing a measure for linemen's contribution to their team's passing in terms of yards gained.
 
 @Wolfson2017Forecasting comment on the two aforementioned articles that "[a]lthough these are exciting preliminary steps, there is still a long way to go before we can provide a comprehensive appraisal of the achievements of an individual lineman."
 The challenge here is fundamental, since there were not enough public data at the time to develop any meaningful metric for linemen in football, as also noted by @AlamarGould2008.
@@ -156,7 +155,7 @@ This provides us with a great opportunity to study and gain better insights into
 ## Our Contribution
 
 In this paper, we focus on the evaluation of defensive linemen in football.
-We devise STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science.
+We propose STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science.
 Our metric gives a continuous measure of pressure for every pass rusher on the football field over the course of an entire play.
 This allows for the assessment of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
 We view this as a major step forward for accurately evaluating defensive linemen performance.
