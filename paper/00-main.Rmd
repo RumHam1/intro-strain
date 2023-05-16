@@ -1,6 +1,6 @@
 ---
 title: |
-  | \Large Bearing the STRAIN: Analyzing Pass Rush in American Football with Player Tracking Data
+  | Get Strained: Analyzing Pass Rush in American Football with Player Tracking Data
   
 # Deforming the line:
 # Straining the line:
@@ -14,7 +14,7 @@ title: |
 # from strain to gain
 # Bearing the Strain:
 # Straining the trenches:
-
+# Bearing the STRAIN
 
 # to produce blinded version set to 1
 blinded: 0
@@ -59,7 +59,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   fig.align = "center",
-  # fig.pos = "p",
+  # fig.pos = "ht",
   cache = TRUE
 )
 library(here)

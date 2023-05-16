@@ -24,7 +24,7 @@ For complete surveys on how tracking data have transformed sports analytics, see
 
 In an attempt to foster analytics and innovate the game, the National Football League (NFL) introduced their player tracking system known as Next Gen Stats (NGS) in 2016 [@nfl2023ngs].
 NGS uses radio frequency identification (RFID) chips placed in players' shoulder pads (and in the ball) to collect data at a rate of 10 frames per second.
-The data captures real-time on-field information such as locations, speeds, and accelerations of all 22 players (as well as the ball).
+The data captures real-time on-field information such as locations, speeds, and accelerations of all 22 players (and also the football).
 While these data were initially only available for teams, media, and vendors, in December 2018 the NFL launched the inaugural edition of their annual Big Data Bowl (BDB) competition [@nfl2023big].  
 
 The first BDB led to several contributions largely focused on offensive performance evaluation. For example, one group of finalists introduced an approach for modeling the hypothetical completion probability of a pass aiding in the evaluation of quarterback (QB) decision making [@deshpande2020expected]. The winners of the inaugural BDB focused on identifying receiver routes via clustering techniques [@chu2020route] and convolutional neural networks [@sterken2019routenet]. Along with the BDB competition entries, the public release of NGS data allowed researchers to tackle <!-- (pun intended.  #eyeroll) --> a variety of other problems such as revisiting fourth down decision making [@lopez2020bigger], annotating pass coverage with Gaussian mixture models [@dutta2020unsupervised], and introducing a continuous-time framework to estimate within-play value [@yurko2020going].  Since its inception, the BDB has chosen a different theme each year leading to new insight about evaluating different positions such as running backs, defensive backs, and special teams. The 2023 edition of the NFL Big Data Bowl asked participants to evaluate linemen on passing plays [@Howard2023NFL].
@@ -161,14 +161,16 @@ This provides us with a great opportunity to study and gain better insights into
 
 In this paper, we focus on the evaluation of defensive linemen in football.
 We propose STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science.
-Our metric gives a continuous measure of pressure for every pass rusher on the football field over the course of an entire play.
+Our statistic gives a continuous measure of pressure for every pass rusher on the football field over the course of an entire play.
 This allows for the assessment of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
 We view this as a major step forward for accurately evaluating defensive linemen performance.
-Further, we note that although our focus in this paper is on defensive linemen, our proposed approach can be extended to the evaluation of offensive linemen in American football.  
+We also demonstrate that STRAIN is a stable quantity over time and predictive of defensive pressure.
+Additionally, we consider a multilevel model to estimate every pass rusher's contribution to the average STRAIN in a play while controlling for other positions like QB and pass blocker as well as various play-level information.
+We note that although our focus in this paper is on pass rushers, our proposed approach can be extended to the evaluation of pass blockers in American football.  
 
 The remainder of this manuscript is outlined as follows.
 We first describe the player tracking data provided by the Big Data Bowl 2023 in Section \ref{sec:data}.
-We then introduce the mathematical motivation and definition of our statistic STRAIN and our modeling approach in Section \ref{sec:methods}.
+We then introduce the mathematical motivation and definition of our measure STRAIN and our modeling approach in Section \ref{sec:methods}.
 Next, we present applications of STRAIN and study different statistical properties of the metric in Section \ref{sec:results}.
 We close with our discussion of future directions related to this work in Section \ref{sec:discussion}.
 
