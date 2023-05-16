@@ -87,7 +87,7 @@ The coefficients $\boldsymbol \beta$ for covariate vector $\mathbf{x_{ij}}$ for 
 Our model for the average STRAIN by pass rusher $j$ on play $i$ is as follows.
 \begin{equation}
 \begin{aligned}
-\overline{\text{STRAIN}}_{ij} &\sim N(R_{j[i]} + B_{b[ij]} + Q_{q[i]} + \mathbf{x_{ij}} \cdot \boldsymbol{\beta}, \sigma^2), \text{ for } i = 1, \dots, n \text{ plays} \\
+\overline{\text{STRAIN}}_{ij} &\sim N(R_{j[i]} + B_{b[ij]} + Q_{q[i]} + \mathbf{x_{ij}} \boldsymbol{\beta}, \sigma^2), \text{ for } i = 1, \dots, n \text{ plays} \\
 R_{j} &\sim N(\mu_R, \sigma^2_R), \text{ for } j = 1, \cdots, \text{ \# of pass rushers}, \\
 B_{b} &\sim N(\mu_B, \sigma^2_B), \text{ for } b = 1, \cdots, \text{ \# of pass blockers}, \\
 Q_{q} &\sim N(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
