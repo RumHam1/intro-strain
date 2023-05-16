@@ -1,18 +1,18 @@
 # Discussion {#sec:discussion}
 
 
-In this work, we have proposed STRAIN - a simple and interpretable statistic for evaluating pass-rushers, with higher STRAIN values corresponding to greater pass-rushing ability. We demonstrated that a pass rusher's average STRAIN is both stable and more predictive of future pressure events than using the player's previously observed pressure events. This is analogous to the use of exit velocity in baseball, a predictive measurement that avoids the noisy nature of observed outcomes, emphasizing how the opportunity of working with player-tracking data can lead to the development of novel metrics in American football. Additionally, through our multilevel modeling efforts, we observe that the pass rusher explains more variation in play-level STRAIN than the quarterback or assigned blocker. 
+In this work, we have proposed STRAIN - a simple and interpretable statistic for evaluating pass-rushers, with higher STRAIN values corresponding to greater pass-rushing ability. We demonstrated that a pass rusher's average STRAIN is both stable and more predictive of future pressure events than using the player's previously observed pressure events. This is analogous to the use of exit velocity in baseball, a predictive measurement that avoids the noisy nature of observed outcomes, emphasizing how the opportunity of working with player-tracking data can lead to the development of insightful metrics in American football. 
 
-As for additional future directions, while we focus solely on pass-rushers in this paper, STRAIN can be easily extended to the assessment of pass-blockers as a unit.  This can be accomplished by looking at quantities such as the total STRAIN or the maximum STRAIN per frame aggregated across the entire play. It is also possible to apply STRAIN to assess individual offensive pass-blockers, provided that a method of matching blockers to rushers was developed. Furthermore, compared to existing metrics, STRAIN measures pass-rush effectiveness for every play continuously over time, which is at a much more granular level than considering whether the play resulted in a binary outcome such as a sack.
+Through our multilevel modeling efforts, we observe that the pass rusher explains more variation in play-level STRAIN, followed by the quarterback and then their assigned blocker. This is an intuitive result, consistent with previous literature on pass rushing and pressure. However, we ignore the fact that pass rushers can be teammates working together in the same play leading to some type of correlation structure in their STRAIN values. One way to address this complication, could be with a adjusted plus-minus (APM) regression approach [@matano2023augmenting], with all players accounted for in modeling a total STRAIN quantity. 
 
-or converting continuous data to a binary win/loss. 
+We believe there are other concepts in materials science that could be applied to evaluating pass rushing and pass blocking in American football. One potential idea is a quantity called stress, which measures force over an area. Recall from intro physics that force is mass times acceleration, meaning this quantity would take into account the physical size of a pass rusher in the computation of force. You could then somehow divide this force over the "area" of the pocket formed by pass blockers to compute stress.
 
 
-Summary
+As for additional future directions, athough we focus solely on pass-rushers in this paper, STRAIN can be easily extended to the assessment of pass-blockers as a unit.  This can be accomplished through the aforementioned APM regression or by simply looking at quantities such as the total STRAIN or the maximum STRAIN per frame aggregated across the entire play. It is also possible to apply STRAIN to assess individual offensive pass-blockers, provided that a method of matching blockers to rushers was developed.
 
-Critique/Limitations
 
-Future work rapm
+Furthermore, compared to existing metrics, STRAIN measures pass-rush effectiveness for every play continuously over time, which is at a much more granular level than considering whether the play resulted in a binary outcome such as a sack. There is ample opportunity for working with the complete STRAIN trajectories via functional data analysis techniques to help understand how STRAIN affects offensive production. 
+
 
 <!-- 
 
