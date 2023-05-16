@@ -5,9 +5,9 @@ pass_rush <- read_csv(here("data", "pass_rush.csv.gz"))
 pass_rush %>% select(gameId, playId, frameId) %>% n_distinct()
 ```
 
-In the forthcoming analysis, we rely on the data from the 2023 NFL Big Data Bowl provided by the NFL Next Gen Stats tracking system.
+In the forthcoming analysis, we rely on the data from the NFL Big Data Bowl 2023 provided by the NFL Next Gen Stats tracking system.
 The data corresponds to 8,557 passing plays across 122 games in the first eight weeks of the 2021 NFL regular season. 
-For each play, we have information on the on-field location, speed, angle, direction, and orientation of each player on the field and the football at a rate of 10 Hz (i.e. ten measurements per second), along with event annotations for each frame such as ball snap, pass forward, and quarterback sack, to name a few.
+For each play, we have information on the on-field location, speed, angle, direction, and orientation of each player on the field and the football at a rate of 10 Hz (i.e. 10 measurements per second), along with event annotations for each frame such as ball snap, pass forward, and quarterback sack, to name a few.
 
 For our investigation, we consider only the frames between the ball snap and when a pass forward or quarterback sack is recorded for each play.
 We also remove all plays with multiple quarterbacks on the field, since we need a uniquely defined quarterback to compute our metric.
@@ -45,7 +45,7 @@ fig_field_raw
 
 Along with the tracking information, the 2023 BDB includes scouting data provided by Pro Football Focus (PFF). 
 This contains manually-collected player-level information, such as the player's role (e.g., whether they are a pass rusher and pass blocker) and credited events (e.g., player is credited with hitting the QB on the play).
-In this manuscript, we use the PFF data to identify 36,362 unique pass rushing attempts by players designated in the "pass rush" role across all plays.  <!-- Need to reword this.  There aren't 36,362 unique players.  It's like players by rushes or something like that.  -->
+In this manuscript, we use the PFF data to identify 36,362 unique pass rush attempts by players designated in the "pass rush" role across all plays.
 For context, Figure \ref{fig:pass_rushers_count} displays the distribution of the number of observed pass rushers involved in a play, ranging from 1 to 8 with 4 pass rushers (i.e. 4-man rush formation) as the most common value.
 We also leverage the PFF scouting data to count how many hits, hurries, and sacks each pass rusher is credited with across the span of observed data. 
 Additionally, we use the PFF player roles to identify the blocking matchup for each pass rusher in order to adjust for opponent strength, as discussed in Section \ref{sec:methods}.

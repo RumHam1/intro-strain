@@ -91,12 +91,14 @@ Within the three pressure metrics, it is not surprised that a sack corresponds t
 Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size, as discussed in Section \ref{sec:defn}.
 Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass rushers (NT's and DT's) separately from edge rushers (OLB's and DE's).
 Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
-The tables also consist of the total number of hits, hurries, and sacks for each defender.
+The tables also consist of the total number of hits, hurries, and sacks (determined from PFF scouting data) for each defender.
 
 <!-- Our results show many true positives with no surprises. -->
-Our results are mostly consistent with conventional rankings of rushers.  For instance, Myles Garrett and TJ Watt are known as top-tier edge rushers and both show up in our top ten edge rushers. Additionally, Aaron Donald is nearly universally considered the best interior defender in football, and he appears at the top of our rankings of interior rushers.   
 <!-- Rashan Gary, a young rusher with huge potential, ranks first among all pass rushers according to our metric over the period of time observed. -->
-Moreover, our leader boards largely match the rankings of experts in the field.
+
+Our results are mostly consistent with conventional rankings of rushers.
+Notably, Myles Garrett and TJ Watt are widely recognized as top-tier edge rushers and both show up in our top edge rusher list; whereas Aaron Donald, who is undoubtedly the best interior defender in football, appears at the top of our interior rusher rankings.
+Moreover, our leaderboards largely match the rankings of experts in the field.
 For instance, there is considerable overlap between our lists and PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings released after the 2021 season.
 This ultimately lends credibility to our proposed metric STRAIN as a measure of pass rushing effectiveness.
 
@@ -168,7 +170,7 @@ Independence: Does the metric provide new information?
 Next, we examine different statistical properties of our proposed metric STRAIN.
 Our focus here is to understand the stability and predictability of STRAIN, and we pose the following question:
 How much does our metric vary from week to week?
-In other words, is previous performance as measured by our metric predictive of future performance based on our metric?
+In other words, is previous performance predictive of future performance based on our metric?
 Below, we attempt the answer these questions, and the following results are for pass rushers with at least 100 snaps played during the first 8 weeks of the 2021 NFL regular season.
 
 We first investigate the predictability of STRAIN as a measure of pressure.

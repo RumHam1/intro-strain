@@ -15,11 +15,14 @@ textual citation (\citet): @Baumer2023Big
 parenthetical citation (\citep): [@Baumer2023Big]
 -->
 
-In recent years, tracking data have replaced traditional box-score statistics and play-by-play data as the state-of-the-art in sports analytics.  Numerous sports are collecting and releasing data on player and ball locations on the playing surface over the course of a game. This spatio-temporal multi-resolution source of data has provided exceptional opportunities for researchers to perform advanced studies at a more granular level to deepen our understanding of different sports.  For complete surveys on how tracking data have transformed sports analytics, see @Macdonald2020Recreating, @Baumer2023Big, and @Kovalchik2023Player.
+In recent years, tracking data have replaced traditional box-score statistics and play-by-play data as the state of the art in sports analytics.
+Numerous sports are collecting and releasing data on player and ball locations on the playing surface over the course of a game.
+This spatio-temporal multi-resolution source of data has provided exceptional opportunities for researchers to perform advanced studies at a more granular level to deepen our understanding of different sports.
+For complete surveys on how tracking data have transformed sports analytics, see @Macdonald2020Recreating, @Baumer2023Big, and @Kovalchik2023Player.
 
 <!-- We contribute to the growing literature of research based on player tracking data in American football.  -->
 
-In an attempt to further develop analytics and innovate the game, the National Football League (NFL) introduced their player tracking system known as Next Gen Stats (NGS) in 2016 [@nfl2023ngs].
+In an attempt to foster analytics and innovate the game, the National Football League (NFL) introduced their player tracking system known as Next Gen Stats (NGS) in 2016 [@nfl2023ngs].
 NGS uses radio frequency identification (RFID) chips placed in players' shoulder pads (and in the ball) to collect data at a rate of 10 frames per second.
 The data captures real-time on-field information such as locations, speeds, and accelerations of all 22 players (as well as the ball).
 While these data were initially only available for teams, media, and vendors, in December 2018 the NFL launched the inaugural edition of their annual Big Data Bowl (BDB) competition [@nfl2023big].  
@@ -72,13 +75,13 @@ We now highlight what these quantities describe as well as their limitations.
 \hline
 Metric & Description \\ 
 \hline
-Sacks & A defender tackles the QB behind the line of scrimmage before the QB is able to throw a pass \\
-Hits & A defender tackles the QB behind the line of scrimmage after the QB is able to throw a pass. \\
-Hurries & A defender pressures the QB behind the line of scrimmage forcing the QB to throw the ball prior sooner than intended. \\
+Sacks & A defender tackles the QB behind the line of scrimmage before a QB throw \\
+Hits & A defender tackles the QB behind the line of scrimmage after a QB throw \\
+Hurries & A defender pressures the QB behind the line of scrimmage forcing the QB to throw the ball sooner than intended \\
 Pressures & $\text{Hurries} + \text{ Hits } + \text{ Sacks}$ \\
 Pass-Rush Productivity & $\displaystyle \frac{(\text{Hurries} + \text{Hits})/2 + \text{Sacks}}{\text{ Pass Rush Snaps}}$\\
 Time In Pocket & Time (in seconds) between ball snap and throw or pocket collapse for a QB \\
-NGS Get Off & Average time (in seconds) required for a defender to cross the line of scrimmage after the ball snap.\\
+NGS Get Off & Average time (in seconds) required for a defender to cross the line of scrimmage after the ball snap\\
 Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 seconds after ball snap\\
 \hline
 \end{tabular}
@@ -86,17 +89,18 @@ Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 secon
 
 
 Perhaps the most commonly-known statistics for evaluating defensive linemen on pass rush plays are sacks, hits, and hurries, which are discretely observed at the play-level.
-Officially tracked by the NFL since 1982, a sack is recorded when a defender tackles the QB behind the line of scrimmage before the QB releases a pass. 
-Other traditional box score statistics such as hits and hurries are collected by various outlets. 
-A hit is a collision between a defender and the opposing team's quarterback after the quarterback makes a throw.  
+Officially tracked by the NFL since 1982, a sack is recorded when a defender tackles the QB behind the line of scrimmage before the QB releases a pass.
+Other traditional box score statistics such as hits and hurries are collected by various outlets.
+A hit is a collision between a defender and the opposing team's quarterback after the quarterback makes a throw.
 A hurry represents an instance when a defender successfully disrupts without necessarily making direct contact with the QB and forces the QB to make a throw earlier than expected.
 These are all simple binary measures of pass rush outcome for any given play.
 However, for plays that do not result in the aforementioned outcomes (in particular, sack), there are still many intermediate defensive actions on the field within the play that are valuable and can be considered positive achievements.
 
-In addition to these individual binary metrics, the sum of sacks, hits, and hurries is often defined as pressures.
+In addition, the sum of sacks, hits, and hurries is often defined as pressures.
 This is better than the individual counts to some extent, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
 Pro football focus (PFF) defines a metric called pass-rush productivity (PRP), which is a minor modification from the aforementioned pressures metric (see Table \ref{tab:metrics}).
-In particular, PRP gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures, however, the choice of weights is ad-hoc and still only copnsiders binary outcomes, similar to the shortcomings of previous metrics.
+In particular, PRP gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures.
+However, the choice of weights is ad-hoc and still only considers binary outcomes, similar to the shortcomings of previous metrics.
 
 <!-- and are still binary outcomes (i.e. There is a continuum of plays that are not hurries that all counted as simply "not hurries"). -->
 
@@ -115,7 +119,8 @@ However, this measure is highly context-dependent, as it can be influenced by a 
 NGS get off is an aggregated statistic, illustrating how quickly a defender can get past the line of scrimmage after the snap on average.
 PRWR is created using player tracking data, which is at a more granular level than previous measures.
 It demonstrates whether a pass rusher is able to beat their blocking matchup before a fixed time from the snap (2.5 seconds as chosen by ESPN).
-However, this depends on the rather arbitrary time threshold used to define a pass rush win.  In addition, once a cutoff is chosen, PRWR converts continuous data to a win-loss indicator, becoming dichotomous like most of the metrics discussed above.  
+However, this depends on the rather arbitrary time threshold used to define a pass rush win.
+Besides, once a cutoff is chosen, PRWR converts continuous data to a win-loss indicator, becoming dichotomous like most of the metrics discussed above.  
 
 <!-- (e.g. deep versus shallow). -->
 
@@ -155,14 +160,14 @@ This provides us with a great opportunity to study and gain better insights into
 ## Our Contribution
 
 In this paper, we focus on the evaluation of defensive linemen in football.
-We propose STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science [@callister2009materials].
+We propose STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science.
 Our metric gives a continuous measure of pressure for every pass rusher on the football field over the course of an entire play.
 This allows for the assessment of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
 We view this as a major step forward for accurately evaluating defensive linemen performance.
 Further, we note that although our focus in this paper is on defensive linemen, our proposed approach can be extended to the evaluation of offensive linemen in American football.  
 
 The remainder of this manuscript is outlined as follows.
-We first describe the player tracking data provided by 2023 Big Data Bowl in Section \ref{sec:data}.
+We first describe the player tracking data provided by the Big Data Bowl 2023 in Section \ref{sec:data}.
 We then introduce the mathematical motivation and definition of our statistic STRAIN and our modeling approach in Section \ref{sec:methods}.
 Next, we present applications of STRAIN and study different statistical properties of the metric in Section \ref{sec:results}.
 We close with our discussion of future directions related to this work in Section \ref{sec:discussion}.
