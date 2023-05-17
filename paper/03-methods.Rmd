@@ -83,7 +83,7 @@ To this end, we fit a multilevel model to evaluate pass rushers' impact on the a
 We identify the pass blocker linked with the pass rusher of interest using the data provided by PFF.
 Since there can be multiple blockers matching up with a rusher, for simplicity, we consider the nearest blocker positioned to the pass rusher at the start of the play.
 We use random intercepts for the three player groups: (1) pass rushers as $R$, (2) nearest pass blockers as $B$, and (3) QBs as $Q$.
-The coefficients $\boldsymbol \beta$ for covariate vector $\mathbf{x_{ij}}$ for pass rusher $j$ in play $i$ are estimated as fixed-effects. 
+The coefficients $\boldsymbol \beta$ associated with covariate vector $\mathbf{x_{ij}}$ for pass rusher $j$ in play $i$ are estimated as fixed-effects. 
 Our model for the average STRAIN by pass rusher $j$ on play $i$ is as follows.
 \begin{equation}
 \begin{aligned}
