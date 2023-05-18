@@ -2,6 +2,8 @@
 
 Repository for the paper "Here Comes the STRAIN: Analyzing Defensive Pass Rush in American Football with Player Tracking Data" by [Quang Nguyen](https://github.com/qntkhvn/), [Ronald Yurko](https://github.com/ryurko), and [Gregory J. Matthews](https://github.com/gjm112).
 
+A preprint is available at https://arxiv.org/abs/2305.10262.
+
 # Abstract
 
 In American football, a pass rush is an attempt by the defensive team to disrupt
