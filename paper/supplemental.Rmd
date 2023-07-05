@@ -1,0 +1,22 @@
+---
+title: |
+  | Supplementary materials for
+  | "Here Comes the STRAIN: Analyzing Defensive Pass Rush in American Football with Player Tracking Data"
+blinded: 0
+bibliography: bibliography.bib
+output: rticles::asa_article
+---
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.pos = "p"
+)
+library(here)
+library(tidyverse)
+```
