@@ -43,3 +43,28 @@ fig_pos_curves <- pass_rush |>
         axis.text = element_text(size = rel(0.8)),
         legend.title = element_text(size = rel(1)),
         legend.text = element_text(size = rel(0.8)))
+
+fig_pos_curves_bw <- pass_rush |> 
+  filter(team == defensiveTeam,
+         officialPosition %in% c("OLB", "NT", "DE", "DT"),
+         frameId_snap_corrected <= 40) |> 
+  group_by(officialPosition, frameId_snap_corrected) |> 
+  summarise(mn = mean(strain, na.rm = TRUE)) |> 
+  bind_rows(mutate(avg_strain_all, officialPosition = "Average")) |>
+  mutate(officialPosition = factor(officialPosition, levels = c("OLB", "DE", "Average", "DT", "NT"))) |> 
+  ggplot(aes(frameId_snap_corrected, mn, 
+             color = officialPosition, 
+             group = officialPosition, 
+             linetype = officialPosition)) +
+  geom_smooth(se = FALSE, span = 0.3, linewidth = 1) +
+  scale_x_continuous(breaks = seq(0, 40, 10), labels = 0:4) +
+  scale_linetype_manual(values = c("solid", "dashed", "twodash", "dotdash", "dotted"), name = "Position") +
+  scale_color_manual(values = c("black", "black", "gray90", "gray60", "gray60"), name = "Position") +
+  labs(y = "STRAIN",
+       x = "Time since snap (seconds)") +
+  theme_light() +
+  theme(legend.key.width = unit(2, "cm"),
+        axis.title = element_text(size = rel(1)),
+        axis.text = element_text(size = rel(0.8)),
+        legend.title = element_text(size = rel(1)),
+        legend.text = element_text(size = rel(0.8)))

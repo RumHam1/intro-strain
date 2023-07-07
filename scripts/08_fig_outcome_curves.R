@@ -82,3 +82,30 @@ fig_outcome_curves <- hit |>
         legend.text = element_text(size = rel(0.8)))
 
 
+fig_outcome_curves_bw <- hit |> 
+  bind_rows(sack) |> 
+  bind_rows(hurry) |> 
+  bind_rows(none) |> 
+  mutate(officialPosition = factor(officialPosition, levels = c("OLB", "DE", "DT", "NT")),
+         outcome = factor(outcome, levels = c("Sack", "Hit", "Hurry", "None"))) |> 
+  ggplot(aes(frameId_snap_corrected, mn, 
+             color = officialPosition, 
+             group = officialPosition,
+             linetype = officialPosition)) +
+  geom_smooth(se = FALSE, span = 0.4, linewidth = 1) +
+  scale_x_continuous(breaks = seq(0, 40, 10), labels = 0:4) +
+  scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted"), name = "Position") +
+  scale_color_manual(values = c("black", "black", "gray60", "gray60"), name = "Position") +
+  expand_limits(y = 2.3) +
+  labs(y = "STRAIN",
+       x = "Time since snap (seconds)") +
+  theme_light() +
+  facet_wrap(~ outcome, nrow = 1) +
+  theme(legend.key.width = unit(2, "cm"),
+        legend.position = "bottom",
+        axis.title = element_text(size = rel(1)),
+        axis.text = element_text(size = rel(0.8)),
+        legend.title = element_text(size = rel(1)),
+        legend.text = element_text(size = rel(0.8)))
+
+
