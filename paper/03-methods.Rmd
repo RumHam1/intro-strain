@@ -6,7 +6,7 @@ In materials science, strain [@callister2018materials] is the deformation of a m
 Formally, let $L(t)$ be the distance between any given two points of interest within a material at time $t$, and $L_0$ be the initial distance between those two points.
 The strain for a material at time $t$ is defined as 
 \begin{equation}
-s(t)= \frac{L(t)-L_{0}}{L_{0}}.
+\varepsilon(t)= \frac{L(t) - L_{0}}{L_{0}}.
 \end{equation}
 Notice that this measure is unitless due to being a ratio of two quantities having the same dimension.
 
@@ -14,7 +14,7 @@ Accordingly, the strain rate [@callister2018materials] of a material measures th
 Mathematically, the strain rate of a material can be expressed as the derivative of its strain.
 That is,
 \begin{equation}
-s'(t) = \frac{ds}{dt} = \frac{v(t)}{L_{0}},
+\varepsilon'(t) = \frac{d \varepsilon}{dt} = \frac{v(t)}{L_{0}},
 \end{equation}
 where $v(t)$ is the velocity at which the two points of interest within the material are moving away from or towards each other.
 Whereas strain has no units, the strain rate is measured in inverse of time, usually 1/second.
@@ -28,15 +28,15 @@ Let $(x_{ijt}, y_{ijt})$ be the $(x, y)$ location on the field of pass rusher $j
 
 *   The distance between pass rusher $j$ and the quarterback at frame $t$ during play $i$ is 
 \begin{equation}
-f_{d_{ij}}(t) = \sqrt{(x_{ijt} - x^{QB}_{it})^2 + (y_{ijt} - y^{QB}_{it})^2}.
+s_{ij}(t) = \sqrt{(x_{ijt} - x^{QB}_{it})^2 + (y_{ijt} - y^{QB}_{it})^2}.
 \end{equation}
 *   The velocity at which pass rusher $j$ is moving towards the quarterback at frame $t$ during play $i$ is 
 \begin{equation}
-f'_{d_{ij}}(t) = \frac{df_{d_{ij}}(t)}{dt}.
+v_{ij}(t) = s'_{ij}(t) = \frac{ds_{ij}(t)}{dt}.
 \end{equation}
 *   The STRAIN for pass rusher $j$ at frame $t$ during play $i$ is 
 \begin{equation}
-\text{STRAIN}_{ij}(t) = \frac{-f'_{d_{ij}}(t)}{f_{d_{ij}}(t)}.
+\text{STRAIN}_{ij}(t) = \frac{v_{ij}(t)}{s_{ij}(t)}.
 \end{equation}
 
 Note that to distinguish our metric from strain and strain rate in materials science, we write it in capital letters (STRAIN) for the remainder of this manuscript.
@@ -49,7 +49,7 @@ This gives us the STRAIN for each frame throughout a play.
 
 Since we only observe the distance and velocity quantities discretely in increments of 10 frames/second, a point estimate for our proposed metric STRAIN for pass rusher $j$ at frame $t$ during play $i$ is 
 \begin{equation}
-\widehat{\text{STRAIN}}_{ij}(t) = \cfrac{-\cfrac{f_{d_{ij}}(t) - f_{d_{ij}}(t - 1)}{0.1}}{f_{d_{ij}}(t)}.
+\widehat{\text{STRAIN}}_{ij}(t) = \cfrac{-\cfrac{s_{ij}(t) - s_{ij}(t - 1)}{0.1}}{s_{ij}(t)}.
 \end{equation}
 Notice that this quantity increases in two ways: 1) the rate at which the rusher is moving towards the quarterback increases, and 2) the distance between the rusher and the quarterback decreases.
 Both of these are indications of an effective pass rush attempt.
