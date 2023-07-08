@@ -24,6 +24,7 @@ library(here)
 #   summarize(n_plays = n_distinct(playId))
 # write_rds(pass_block_snaps, here("data", "pass_block_snaps.rds"))
 
+games <- read_csv(here("data", "games.csv"))
 plays <- read_csv(here("data", "plays.csv"))
 players <- read_csv(here("data", "players.csv"))
 pff <- read_csv(here("data", "pffScoutingData.csv"))
@@ -231,6 +232,14 @@ summary(strain_fit_new)$coef
 broom.mixed::tidy(strain_fit_new, conf.int=TRUE)
 
 
+
+strain_fit_new |> 
+  ranef() |> 
+  pluck("possessionTeam") |> 
+  as.data.frame() |> 
+  arrange(`(Intercept)`)
+
+
 strain_fit_new |> 
   VarCorr() |> 
   as_tibble() |> 
@@ -261,3 +270,118 @@ strain_eff_new |>
   coord_flip() +
   theme_light() +
   labs(x = NULL, y = "intercept")
+
+
+
+
+
+
+
+
+
+# lowocv ------------------------------------------------------------------
+
+mod_df_final <- mod_df_final |> 
+  left_join(select(games, gameId, week))
+
+strain_loocv_initial <- function(w) {
+  
+  train <- filter(mod_df_final, week != w)
+  test <- filter(mod_df_final, week == w)
+  
+  fit <- lmer(
+    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | passer) + play_len + rush_pos + block_pos + n_blockers,
+    data = train
+  )
+  
+  out <- tibble(
+    pred = predict(fit, newdata = test, allow.new.levels = TRUE),
+    obs = pull(test, avg_strain),
+    week = w
+  )
+  return(out)
+}
+
+strain_loocv_initial_df <- map(1:8, strain_loocv_initial) |> 
+  list_rbind()
+
+library(yardstick)
+strain_loocv_initial_rmse <- strain_loocv_initial_df |>
+  group_by(week) |> 
+  rmse(obs, pred)
+
+
+# strain_loocv_initial_df |>
+#   mutate(resid = obs - pred,
+#          sq_err = resid ^ 2) |>
+#   group_by(week) |>
+#   summarize(mse = mean(sq_err, na.rm = TRUE),
+#             # lower = quantile(sq_err, 0.025, na.rm = TRUE),
+#             # upper = quantile(sq_err, 0.975, na.rm = TRUE),
+#             se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
+#             type = "no team eff") |>
+#   bind_rows(
+#     strain_loocv_new_df |>
+#       mutate(resid = obs - pred,
+#              sq_err = resid ^ 2) |>
+#       group_by(week) |>
+#       summarize(mse = mean(sq_err, na.rm = TRUE),
+#                 # lower = quantile(sq_err, 0.025, na.rm = TRUE),
+#                 # upper = quantile(sq_err, 0.975, na.rm = TRUE),
+#                 se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
+#                 type = "with team eff")
+#   ) |>
+#   mutate(lower = mse - 2*se, upper = mse + 2*se) |> 
+#   ggplot(aes(week, mse, color = type)) +
+#   #geom_col() +
+#   geom_point() +
+#   geom_line() +
+#   geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2) +
+#   facet_wrap(~ type)
+
+
+strain_loocv_new <- function(w) {
+  
+  train <- filter(mod_df_final, week != w)
+  test <- filter(mod_df_final, week == w)
+  
+  fit <- lmer(
+    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
+      play_len + rush_pos + block_pos + n_blockers,
+    data = mod_df_final
+  )
+  
+  out <- tibble(
+    pred = predict(fit, newdata = test, allow.new.levels = TRUE),
+    obs = pull(test, avg_strain),
+    week = w
+  )
+  return(out)
+}
+
+strain_loocv_new_df <- map(1:8, strain_loocv_new) |> 
+  list_rbind()
+
+strain_loocv_new_rmse <- strain_loocv_new_df |>
+  group_by(week) |> 
+  rmse(obs, pred)
+
+mean(strain_loocv_initial_rmse$.estimate)
+mean(strain_loocv_new_rmse$.estimate)
+
+# 0.2078105
+# 0.2023256
+# 0.005484809 decrease
+# -2.64% % change
+
+mutate(strain_loocv_initial_rmse, team_eff = "No") |>
+  bind_rows(mutate(strain_loocv_new_rmse, team_eff = "Yes")) |> 
+  ggplot(aes(week, .estimate, color = team_eff)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Left-out week",
+       y = "RMSE",
+       color = "Team effects?") +
+  scale_x_continuous(breaks = 1:8) +
+  theme_light() 
+  
