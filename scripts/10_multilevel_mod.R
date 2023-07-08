@@ -126,7 +126,8 @@ mod_df_final <- mod_df |>
   left_join(n_blockers) |> 
   mutate(block_pos = relevel(factor(block_pos), "T"),
          rush_pos = relevel(factor(rush_pos), "DE"),
-         play_len = play_len / 10)
+         play_len = play_len / 10) |> 
+  left_join(select(plays, gameId:playId, possessionTeam:defensiveTeam))
 
 
 library(lme4)  
@@ -212,7 +213,50 @@ fig_rankings_boot <- strain_eff |>
   geom_point(aes(y = mean)) +
   geom_errorbar(aes(ymin = mean - 2 * sd,
                     ymax = mean + 2 * sd)) +
-  facet_wrap(~officialPosition, ncol = 1, scales = "free_y") +
+  facet_wrap(~ officialPosition, ncol = 1, scales = "free_y") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  coord_flip() +
+  theme_light() +
+  labs(x = NULL, y = "intercept")
+
+# revised model -----------------------------------------------------------
+
+strain_fit_new <- lmer(
+  avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
+    play_len + rush_pos + block_pos + n_blockers,
+  data = mod_df_final
+)
+
+summary(strain_fit_new)$coef
+broom.mixed::tidy(strain_fit_new, conf.int=TRUE)
+
+
+strain_fit_new |> 
+  VarCorr() |> 
+  as_tibble() |> 
+  mutate(icc = vcov / sum(vcov)) |> 
+  select(grp, icc)
+
+strain_eff_new <- merTools::REsim(strain_fit_new, n.sims = 10000, seed = 101)
+
+# strain_eff_new |>
+#   merTools::plotREsim()
+
+strain_eff_new |> 
+  as_tibble() |> 
+  filter(groupFctr == "nflId") |> 
+  mutate(nflId = as.double(groupID)) |> 
+  left_join(players) |> 
+  filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
+  filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
+  group_by(officialPosition) |> 
+  arrange(desc(mean)) |>
+  slice(1:10) |>
+  ggplot(aes(x = reorder(displayName, mean))) +
+  geom_point(aes(y = mean)) +
+  geom_errorbar(aes(ymin = mean - 2 * sd,
+                    ymax = mean + 2 * sd)) +
+  facet_wrap(~ officialPosition, ncol = 1, scales = "free_y") +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
   coord_flip() +
   theme_light() +
