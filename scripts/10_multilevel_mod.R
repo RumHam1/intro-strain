@@ -379,8 +379,8 @@ strain_loocv_initial_df |>
   ) |>
   mutate(lower = mse - 2*se, upper = mse + 2*se) |>
   ggplot(aes(week, mse, color = type)) +
-  geom_errorbar(aes(ymin = lower, ymax = upper), position = position_dodge(width = 0.5), width = 0.5, linewidth = 1) +
-  geom_point(position = position_dodge(width = 0.5), size = 2.5) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), position = position_dodge(width = 0.5), width = 0.5) +
+  geom_point(position = position_dodge(width = 0.5), size = 2) +
   scale_x_continuous(breaks = 1:8) +
   labs(x = "Left-out week",
        y = "MSE",
