@@ -260,7 +260,7 @@ strain_eff_new |>
   filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
   group_by(officialPosition) |> 
   arrange(desc(mean)) |>
-  slice(1:10) |>
+  slice(1:8) |>
   ggplot(aes(x = reorder(displayName, mean))) +
   geom_point(aes(y = mean)) +
   geom_errorbar(aes(ymin = mean - 2 * sd,
@@ -311,35 +311,6 @@ strain_loocv_initial_rmse <- strain_loocv_initial_df |>
   rmse(obs, pred)
 
 
-# strain_loocv_initial_df |>
-#   mutate(resid = obs - pred,
-#          sq_err = resid ^ 2) |>
-#   group_by(week) |>
-#   summarize(mse = mean(sq_err, na.rm = TRUE),
-#             # lower = quantile(sq_err, 0.025, na.rm = TRUE),
-#             # upper = quantile(sq_err, 0.975, na.rm = TRUE),
-#             se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
-#             type = "no team eff") |>
-#   bind_rows(
-#     strain_loocv_new_df |>
-#       mutate(resid = obs - pred,
-#              sq_err = resid ^ 2) |>
-#       group_by(week) |>
-#       summarize(mse = mean(sq_err, na.rm = TRUE),
-#                 # lower = quantile(sq_err, 0.025, na.rm = TRUE),
-#                 # upper = quantile(sq_err, 0.975, na.rm = TRUE),
-#                 se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
-#                 type = "with team eff")
-#   ) |>
-#   mutate(lower = mse - 2*se, upper = mse + 2*se) |> 
-#   ggplot(aes(week, mse, color = type)) +
-#   #geom_col() +
-#   geom_point() +
-#   geom_line() +
-#   geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2) +
-#   facet_wrap(~ type)
-
-
 strain_loocv_new <- function(w) {
   
   train <- filter(mod_df_final, week != w)
@@ -383,5 +354,36 @@ mutate(strain_loocv_initial_rmse, team_eff = "No") |>
        y = "RMSE",
        color = "Team effects?") +
   scale_x_continuous(breaks = 1:8) +
-  theme_light() 
-  
+  theme_light()
+
+
+strain_loocv_initial_df |>
+  mutate(resid = obs - pred,
+         sq_err = resid ^ 2) |>
+  group_by(week) |>
+  summarize(mse = mean(sq_err, na.rm = TRUE),
+            # lower = quantile(sq_err, 0.025, na.rm = TRUE),
+            # upper = quantile(sq_err, 0.975, na.rm = TRUE),
+            se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
+            type = "No") |>
+  bind_rows(
+    strain_loocv_new_df |>
+      mutate(resid = obs - pred,
+             sq_err = resid ^ 2) |>
+      group_by(week) |>
+      summarize(mse = mean(sq_err, na.rm = TRUE),
+                # lower = quantile(sq_err, 0.025, na.rm = TRUE),
+                # upper = quantile(sq_err, 0.975, na.rm = TRUE),
+                se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
+                type = "Yes")
+  ) |>
+  mutate(lower = mse - 2*se, upper = mse + 2*se) |>
+  ggplot(aes(week, mse, color = type)) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), position = position_dodge(width = 0.5), width = 0.5, linewidth = 1) +
+  geom_point(position = position_dodge(width = 0.5), size = 2.5) +
+  scale_x_continuous(breaks = 1:8) +
+  labs(x = "Left-out week",
+       y = "MSE",
+       color = "Team effects?") +
+  theme_light() +
+  theme(panel.grid.minor = element_blank())
