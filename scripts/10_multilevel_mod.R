@@ -102,6 +102,10 @@ mod_df <- pff |>
 # mod_df |> 
 #   count(block_pos)
 
+n_rushers <- pff |> 
+  filter(pff_role == "Pass Rush") |> 
+  count(gameId, playId, name = "n_rushers")
+
 # some rushers are assigned 4 blockers 
 n_blockers <- mod_df |> 
   count(gameId, playId, nflId, name = "n_blockers")
@@ -125,6 +129,7 @@ mod_df_final <- mod_df |>
   slice_min(dis, n = 1) |> 
   ungroup() |> 
   left_join(n_blockers) |> 
+  left_join(n_rushers) |> 
   mutate(block_pos = relevel(factor(block_pos), "T"),
          rush_pos = relevel(factor(rush_pos), "DE"),
          play_len = play_len / 10) |> 
@@ -222,9 +227,9 @@ fig_rankings_boot <- strain_eff |>
 
 # revised model -----------------------------------------------------------
 
+# play_len
 strain_fit_new <- lmer(
-  avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
-    play_len + rush_pos + block_pos + n_blockers,
+  avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + rush_pos + block_pos + n_blockers + n_rushers,
   data = mod_df_final
 )
 
@@ -232,6 +237,11 @@ summary(strain_fit_new)$coef
 broom.mixed::tidy(strain_fit_new, conf.int=TRUE)
 
 
+strain_fit_new |> 
+  ranef() |> 
+  pluck("defensiveTeam") |> 
+  as.data.frame() |> 
+  arrange(-`(Intercept)`)
 
 strain_fit_new |> 
   ranef() |> 
@@ -317,8 +327,7 @@ strain_loocv_new <- function(w) {
   test <- filter(mod_df_final, week == w)
   
   fit <- lmer(
-    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
-      play_len + rush_pos + block_pos + n_blockers,
+    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + rush_pos + block_pos + n_blockers + n_rushers,
     data = mod_df_final
   )
   
@@ -387,3 +396,76 @@ strain_loocv_initial_df |>
        color = "Team effects?") +
   theme_light() +
   theme(panel.grid.minor = element_blank())
+
+
+# resampling --------------------------------------------------------------
+
+
+strain_boot <- function(b) {
+  boot_df <- mod_df_final |> 
+    group_by(gameId, playId) |> 
+    nest() |> 
+    ungroup() |> 
+    group_by(gameId) |> 
+    slice_sample(prop = 1, replace = TRUE) |> 
+    ungroup() |> 
+    unnest(cols = data)
+  
+  fit <- lmer(
+    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + rush_pos + block_pos + n_blockers,
+    data = boot_df
+  )
+  
+  res <- ranef(fit)
+  
+  rushers <- res |> 
+    pluck("nflId") |> 
+    as_tibble() |> 
+    transmute(nflId = rownames(res$nflId),
+              intercept = `(Intercept)`,
+              boot = b)
+  return(rushers)
+}
+
+library(furrr)
+plan(multisession, workers = 5)
+set.seed(101)
+tictoc::tic()
+n_boots <- 1000
+strain_boot_eff <- seq_len(n_boots) |> 
+  future_map(strain_boot) |> 
+  list_rbind()
+tictoc::toc()
+
+top_rushers <- strain_boot_eff |> 
+  group_by(nflId) |> 
+  summarize(med_intercept = median(intercept, na.rm = TRUE)) |> 
+  filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
+  mutate(nflId = as.double(nflId)) |> 
+  left_join(players) |> 
+  filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
+  group_by(officialPosition) |> 
+  slice_max(med_intercept, n = 10)
+  
+
+
+strain_boot_eff |> 
+  mutate(nflId = as.double(nflId)) |> 
+  filter(nflId %in% top_rushers$nflId) |> 
+  left_join(players) |> 
+  group_by(nflId) |> 
+  left_join(top_rushers) |> 
+  mutate(officialPosition = factor(officialPosition, levels = c("DE", "OLB", "DT", "NT"))) |> 
+  ggplot(aes(intercept, reorder(displayName, med_intercept))) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
+  ggridges::geom_density_ridges(quantile_lines = TRUE, quantiles = 0.5, rel_min_height = 0.01) +
+  facet_wrap(~ officialPosition, scales = "free") +
+  labs(x = "Varying intercept",
+       y = NULL) +
+  theme_light()
+
+
+# res |> 
+#   pluck("nflId") |> 
+#   rownames_to_column() |> 
+#   rename(a = 1)
