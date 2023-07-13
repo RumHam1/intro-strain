@@ -57,7 +57,7 @@ fig_crosby_curves_unsucess
 
 ```{r}
 #| label: fig_pos_curves
-#| fig.cap: "STRAIN curves for different positions. Edge rushers (OLB and DE) tend to generate more STRAIN than interior rushers (DT and NT). The dotted gray line represents the average STRAIN curve for all players without accounting for position."
+#| fig.cap: "STRAIN curves for different positions computed by averaging STRAIN values across all players of a particular position and all plays. Edge rushers (OLB and DE) tend to generate more STRAIN than interior rushers (DT and NT). The dotted gray line represents the average STRAIN curve for all players without accounting for position."
 #| fig.width: 4.5
 #| fig.height: 3
 source(here("scripts", "03_fig_pos_curves.R"))
