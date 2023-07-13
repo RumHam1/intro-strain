@@ -73,7 +73,7 @@ source(here("scripts", "08_fig_outcome_curves.R"))
 fig_outcome_curves
 ```
 
-Figure \ref{fig:fig_pos_curves} displays the average STRAIN by position for the first 40 frames (4 seconds) after the snap.  For each frame, this curve is calculated by averaging across all players of a particular position (where position is defined by pro football focus) and all plays that lasted at least as long as the particular frame of interest meaning that the sample size used to compute these curves diminishes for frames that are chronologically later than frames at the beginning of the play.    
+Figure \ref{fig:fig_pos_curves} displays the average STRAIN by position for the first 40 frames (4 seconds) after the snap.  For each frame, this curve is calculated by averaging across all players of a particular position (where position is defined by the NFL) and all plays that lasted at least as long as the particular frame of interest meaning that the sample size used to compute these curves diminishes for frames that are chronologically later than frames at the beginning of the play.    
 
 We observe a clear difference in STRAIN between edge rushers (OLBs and DEs) and interior linemen (DTs and NTs).
 Specifically, edge rushers have higher STRAIN than interior linemen on average, as they are more easily able to approach the quarterback on the edge of the pocket versus, for instance, a nose tackle attacking the line head on.
