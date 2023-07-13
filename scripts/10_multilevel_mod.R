@@ -236,7 +236,6 @@ strain_fit_new <- lmer(
 summary(strain_fit_new)$coef
 broom.mixed::tidy(strain_fit_new, conf.int=TRUE)
 
-
 strain_fit_new |> 
   ranef() |> 
   pluck("defensiveTeam") |> 
@@ -249,44 +248,11 @@ strain_fit_new |>
   as.data.frame() |> 
   arrange(`(Intercept)`)
 
-
 strain_fit_new |> 
   VarCorr() |> 
   as_tibble() |> 
   mutate(icc = vcov / sum(vcov)) |> 
   select(grp, icc)
-
-strain_eff_new <- merTools::REsim(strain_fit_new, n.sims = 10000, seed = 101)
-
-# strain_eff_new |>
-#   merTools::plotREsim()
-
-strain_eff_new |> 
-  as_tibble() |> 
-  filter(groupFctr == "nflId") |> 
-  mutate(nflId = as.double(groupID)) |> 
-  left_join(players) |> 
-  filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
-  filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
-  group_by(officialPosition) |> 
-  arrange(desc(mean)) |>
-  slice(1:8) |>
-  ggplot(aes(x = reorder(displayName, mean))) +
-  geom_point(aes(y = mean)) +
-  geom_errorbar(aes(ymin = mean - 2 * sd,
-                    ymax = mean + 2 * sd)) +
-  facet_wrap(~ officialPosition, ncol = 1, scales = "free_y") +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
-  coord_flip() +
-  theme_light() +
-  labs(x = NULL, y = "intercept")
-
-
-
-
-
-
-
 
 
 # lowocv ------------------------------------------------------------------
@@ -400,7 +366,6 @@ strain_loocv_initial_df |>
 
 # resampling --------------------------------------------------------------
 
-
 strain_boot <- function(b) {
   boot_df <- mod_df_final |> 
     group_by(gameId, playId) |> 
@@ -430,12 +395,10 @@ strain_boot <- function(b) {
 library(furrr)
 plan(multisession, workers = 5)
 set.seed(101)
-tictoc::tic()
 n_boots <- 1000
 strain_boot_eff <- seq_len(n_boots) |> 
   future_map(strain_boot) |> 
   list_rbind()
-tictoc::toc()
 
 top_rushers <- strain_boot_eff |> 
   group_by(nflId) |> 
@@ -447,8 +410,6 @@ top_rushers <- strain_boot_eff |>
   group_by(officialPosition) |> 
   slice_max(med_intercept, n = 10)
   
-
-
 strain_boot_eff |> 
   mutate(nflId = as.double(nflId)) |> 
   filter(nflId %in% top_rushers$nflId) |> 
@@ -463,7 +424,6 @@ strain_boot_eff |>
   labs(x = "Varying intercept",
        y = NULL) +
   theme_light()
-
 
 # res |> 
 #   pluck("nflId") |> 
