@@ -236,27 +236,27 @@ This emphasizes how STRAIN is mostly attributable to pass rushers, but is necess
 
 <!-- reference levels: DE (rush), T (block) -->
 
-\begin{table}
-\caption{Fixed-effects coefficient estimates for the multilevel model for average STRAIN. Note that the reference pass rusher level is defensive end (DE), denoted R:DE; and the reference pass blocker level is tackle (T), denoted B:T. \label{tab:fixedeff}}
-\centering
-\begin{tabular}{lrrrr}
-\hline
-& estimate & se & $t$-statistic & $p$-value \\ 
-\hline
-Intercept & 0.378 & 0.009 & 43.310 & 0.000 \\ 
-Length of play & -0.042 & 0.001 & -38.214 & 0.000 \\
-Number of blockers & -0.064 & 0.003 & -24.788 & 0.000 \\
-$I_{\text{\{R:DT\}}}$ & -0.081 & 0.008 & -10.340 & 0.000 \\
-$I_{\text{\{R:interior\}}}$ & 0.058 & 0.011 & 5.332 & 0.000 \\
-$I_{\text{\{R:NT\}}}$ & -0.106 & 0.012 & -9.174 & 0.000 \\
-$I_{\text{\{R:OLB\}}}$ & 0.062 & 0.008 & 7.695 & 0.000 \\
-$I_{\text{\{R:secondary\}}}$ & 0.145 & 0.012 & 12.328 & 0.000 \\
-$I_{\text{\{B:C\}}}$ & -0.023 & 0.006 & -3.625 & 0.000 \\
-$I_{\text{\{B:G\}}}$ & -0.011 & 0.005 & -2.290 & 0.023 \\ 
-$I_{\text{\{B:other\}}}$ & -0.013 & 0.007 & -1.911 & 0.056 \\
-\hline
-\end{tabular}
-\end{table}
+<!-- \begin{table} -->
+<!-- \caption{Fixed-effects coefficient estimates for the multilevel model for average STRAIN. Note that the reference pass rusher level is defensive end (DE), denoted R:DE; and the reference pass blocker level is tackle (T), denoted B:T. \label{tab:fixedeff}} -->
+<!-- \centering -->
+<!-- \begin{tabular}{lrrrr} -->
+<!-- \hline -->
+<!-- & estimate & se & $t$-statistic & $p$-value \\  -->
+<!-- \hline -->
+<!-- Intercept & 0.378 & 0.009 & 43.310 & 0.000 \\  -->
+<!-- Length of play & -0.042 & 0.001 & -38.214 & 0.000 \\ -->
+<!-- Number of blockers & -0.064 & 0.003 & -24.788 & 0.000 \\ -->
+<!-- $I_{\text{\{R:DT\}}}$ & -0.081 & 0.008 & -10.340 & 0.000 \\ -->
+<!-- $I_{\text{\{R:interior\}}}$ & 0.058 & 0.011 & 5.332 & 0.000 \\ -->
+<!-- $I_{\text{\{R:NT\}}}$ & -0.106 & 0.012 & -9.174 & 0.000 \\ -->
+<!-- $I_{\text{\{R:OLB\}}}$ & 0.062 & 0.008 & 7.695 & 0.000 \\ -->
+<!-- $I_{\text{\{R:secondary\}}}$ & 0.145 & 0.012 & 12.328 & 0.000 \\ -->
+<!-- $I_{\text{\{B:C\}}}$ & -0.023 & 0.006 & -3.625 & 0.000 \\ -->
+<!-- $I_{\text{\{B:G\}}}$ & -0.011 & 0.005 & -2.290 & 0.023 \\  -->
+<!-- $I_{\text{\{B:other\}}}$ & -0.013 & 0.007 & -1.911 & 0.056 \\ -->
+<!-- \hline -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
 
 <!-- (Intercept) & 0.378 & 0.009 & 43.310 & 0.000 \\  -->
 <!--   play\_len & -0.004 & 0.000 & -38.214 & 0.000 \\  -->
@@ -269,6 +269,55 @@ $I_{\text{\{B:other\}}}$ & -0.013 & 0.007 & -1.911 & 0.056 \\
 <!--   block\_posG & -0.011 & 0.005 & -2.290 & 0.023 \\  -->
 <!--   block\_posother & -0.013 & 0.007 & -1.911 & 0.056 \\  -->
 <!--   n\_blockers & -0.064 & 0.003 & -24.788 & 0.000 \\  -->
+
+
+\begin{table}
+\caption{Fixed-effects coefficient estimates for the multilevel model for average STRAIN. Note that the reference down level is first down, the reference pass rusher level is defensive end (DE), denoted R:DE; the reference pass blocker level is tackle (T), denoted B:T. \label{tab:fixedeff}}
+\centering
+\begin{tabular}{lrrrr}
+\hline
+& estimate & se & $t$-statistic & $p$-value \\ 
+\hline
+Intercept & 1.800 & 0.099 & 18.172 & 0.000 \\ 
+Number of blockers & -0.737 & 0.026 & -28.415 & 0.000 \\
+Yards to go & 0.049 & 0.003 & 14.901 & 0.000 \\
+Current yardline & 0.000 & 0.000 & 0.184 & 0.854 \\
+$I_{\text{\{2nd down\}}}$ & 0.514 & 0.029 & 17.744 & 0.000 \\
+$I_{\text{\{3rd down\}}}$ & 0.918 & 0.032 & 28.361 & 0.000 \\
+$I_{\text{\{4th down\}}}$ & 0.465 & 0.077 & 6.064 & 0.000 \\
+$I_{\text{\{2pt conversion\}}}$ & -0.138 & 0.180 & -0.770 & 0.441 \\
+$I_{\text{\{R:DT\}}}$ & -0.717 & 0.068 & -10.566 & 0.000 \\
+$I_{\text{\{R:interior\}}}$ & 0.561 & 0.100 & 5.614 & 0.000 \\
+$I_{\text{\{R:NT\}}}$ & -0.943 & 0.102 & -9.234 & 0.000 \\
+$I_{\text{\{R:OLB\}}}$ & 0.557 & 0.073 & 7.674 & 0.000 \\
+$I_{\text{\{R:secondary\}}}$ & 1.425 & 0.111 & 12.790 & 0.000 \\
+$I_{\text{\{B:C\}}}$ & -0.298 & 0.059 & -5.024 & 0.000 \\
+$I_{\text{\{B:G\}}}$ & -0.155 & 0.047 & -3.285 & 0.001 \\ 
+$I_{\text{\{B:other\}}}$ & -0.126 & 0.065 & -1.951 & 0.051 \\
+\hline
+\end{tabular}
+\end{table}
+
+```{r, eval=FALSE}
+                       Estimate Std. Error t value Pr(>|t|)
+(Intercept)               1.800      0.099  18.172    0.000
+rush_posDT               -0.717      0.068 -10.566    0.000
+rush_posinteriorLB        0.561      0.100   5.614    0.000
+rush_posNT               -0.943      0.102  -9.234    0.000
+rush_posOLB               0.557      0.073   7.674    0.000
+rush_possecondary         1.425      0.111  12.790    0.000
+block_posC               -0.298      0.059  -5.024    0.000
+block_posG               -0.155      0.047  -3.285    0.001
+block_posother           -0.126      0.065  -1.951    0.051
+n_blockers               -0.737      0.026 -28.415    0.000
+down0                    -0.138      0.180  -0.770    0.441
+down2                     0.514      0.029  17.744    0.000
+down3                     0.918      0.032  28.361    0.000
+down4                     0.465      0.077   6.064    0.000
+yardsToGo                 0.049      0.003  14.901    0.000
+absoluteYardlineNumber    0.000      0.000   0.184    0.854
+```
+
 
 
 \begin{table}[ht]

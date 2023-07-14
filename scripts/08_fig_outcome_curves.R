@@ -20,7 +20,11 @@ hit <- pass_rush |>
          officialPosition %in% c("OLB", "NT", "DE", "DT"),
          frameId_snap_corrected <= 40) |> 
   group_by(officialPosition, frameId_snap_corrected) |> 
-  summarise(mn = mean(strain, na.rm = TRUE)) |> 
+  summarize(
+    strain = sum(strain),
+    n = n()
+  ) |>
+  mutate(mn = 10 * strain / n) |> 
   mutate(outcome = "Hit")
 
 sack <- pass_rush |> 
@@ -30,7 +34,11 @@ sack <- pass_rush |>
          officialPosition %in% c("OLB", "NT", "DE", "DT"),
          frameId_snap_corrected <= 40) |> 
   group_by(officialPosition, frameId_snap_corrected) |> 
-  summarise(mn = mean(strain, na.rm = TRUE)) |> 
+  summarize(
+    strain = sum(strain),
+    n = n()
+  ) |>
+  mutate(mn = 10 * strain / n) |> 
   mutate(outcome = "Sack")
 
 
@@ -41,7 +49,11 @@ hurry <- pass_rush |>
          officialPosition %in% c("OLB", "NT", "DE", "DT"),
          frameId_snap_corrected <= 40) |> 
   group_by(officialPosition, frameId_snap_corrected) |> 
-  summarise(mn = mean(strain, na.rm = TRUE)) |> 
+  summarize(
+    strain = sum(strain),
+    n = n()
+  ) |>
+  mutate(mn = 10 * strain / n) |> 
   mutate(outcome = "Hurry")
 
 none <- pass_rush |> 
@@ -52,7 +64,11 @@ none <- pass_rush |>
          officialPosition %in% c("OLB", "NT", "DE", "DT"),
          frameId_snap_corrected <= 40) |> 
   group_by(officialPosition, frameId_snap_corrected) |> 
-  summarise(mn = mean(strain, na.rm = TRUE)) |> 
+  summarize(
+    strain = sum(strain),
+    n = n()
+  ) |>
+  mutate(mn = 10 * strain / n) |> 
   mutate(outcome = "None")
 
 

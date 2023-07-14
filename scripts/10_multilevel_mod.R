@@ -59,17 +59,23 @@ get_avg_strain <- pass_rush |>
 #   geom_histogram()
 
 # get qb and play info from nflfastR
-d <- nflfastR::load_pbp(2021)
+# d <- nflfastR::load_pbp(2021)
+# 
+# pass_plays <- plays |> 
+#   transmute(game_play_id = str_c(gameId, playId, sep = "_")) |> 
+#   pull()
+# 
+# get_qb <- d |> 
+#   select(gameId = old_game_id, playId = play_id, passer, half_seconds_remaining,
+#          yardline_100, down, ydstogo, posteam_timeouts_remaining, defteam_timeouts_remaining) |> 
+#   filter(str_c(gameId, playId, sep = "_") %in% pass_plays) |> 
+#   mutate(gameId = as.double(gameId))
 
-pass_plays <- plays |> 
-  transmute(game_play_id = str_c(gameId, playId, sep = "_")) |> 
-  pull()
 
-get_qb <- d |> 
-  select(gameId = old_game_id, playId = play_id, passer, half_seconds_remaining,
-         yardline_100, down, ydstogo, posteam_timeouts_remaining, defteam_timeouts_remaining) |> 
-  filter(str_c(gameId, playId, sep = "_") %in% pass_plays) |> 
-  mutate(gameId = as.double(gameId))
+get_qb <- pff |> 
+  filter(pff_role == "Pass") |> 
+  select(gameId, playId, passer = nflId)
+
 
 get_play_len <- pass_rush |> 
   distinct(gameId, playId, snap_frame, end_frame) |> 
@@ -137,7 +143,8 @@ mod_df_final <- mod_df |>
   mutate(block_pos = relevel(factor(block_pos), "T"),
          rush_pos = relevel(factor(rush_pos), "DE"),
          play_len = play_len / 10) |> 
-  left_join(select(plays, gameId:playId, down:defensiveTeam, absoluteYardlineNumber))
+  left_join(select(plays, gameId:playId, down:defensiveTeam, absoluteYardlineNumber)) |>
+  mutate(down = factor(down, levels = c(1, 0, 2:4)))
 
 
 
@@ -233,15 +240,18 @@ fig_rankings_boot <- strain_eff |>
 
 # revised model -----------------------------------------------------------
 
-# play_len
+# library(lmerTest)
+
 strain_fit_new <- lmer(
   avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
-    rush_pos + block_pos + n_blockers + down * ydstogo + absoluteYardlineNumber,
+    rush_pos + block_pos + n_blockers + down + yardsToGo + absoluteYardlineNumber,
   data = mod_df_final
 )
 
 summary(strain_fit_new)$coef
 broom.mixed::tidy(strain_fit_new, conf.int=TRUE)
+
+
 
 # strain_fit_new |> 
 #   ranef() |> 
@@ -301,7 +311,7 @@ strain_loocv_new <- function(w) {
   
   fit <- lmer(
     avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
-      rush_pos + block_pos + n_blockers + down * ydstogo + absoluteYardlineNumber,
+      rush_pos + block_pos + n_blockers + down + yardsToGo + absoluteYardlineNumber,
     data = mod_df_final
   )
   
@@ -320,13 +330,9 @@ strain_loocv_new_rmse <- strain_loocv_new_df |>
   group_by(week) |> 
   rmse(obs, pred)
 
-mean(strain_loocv_initial_rmse$.estimate)
-mean(strain_loocv_new_rmse$.estimate)
+mean(strain_loocv_initial_rmse$.estimate ^ 2)
+mean(strain_loocv_new_rmse$.estimate ^ 2)
 
-# 0.2078105
-# 0.2023256
-# 0.005484809 decrease
-# -2.64% % change
 
 mutate(strain_loocv_initial_rmse, team_eff = "No") |>
   bind_rows(mutate(strain_loocv_new_rmse, team_eff = "Yes")) |> 
@@ -386,7 +392,7 @@ strain_boot <- function(b) {
   
   fit <- lmer(
     avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
-      rush_pos + block_pos + n_blockers + down * ydstogo + absoluteYardlineNumber,
+      rush_pos + block_pos + n_blockers + down + yardsToGo + absoluteYardlineNumber,
     data = boot_df
   )
   
@@ -403,11 +409,18 @@ strain_boot <- function(b) {
 
 library(furrr)
 plan(multisession, workers = 7)
-set.seed(101)
-n_boots <- 200
+n_boots <- 1000
 strain_boot_eff <- seq_len(n_boots) |> 
-  future_map(strain_boot, .progress = TRUE) |> 
+  future_map(strain_boot, 
+             .options = furrr_options(seed = 101),
+             .progress = TRUE)
+  
+strain_boot_eff <- strain_boot_eff |> 
   list_rbind()
+
+write_rds(strain_boot_eff, here("data", "strain_boot_eff.rds"))
+
+strain_boot_eff <- read_rds(here("data", "strain_boot_eff.rds"))
 
 top_rushers <- strain_boot_eff |> 
   group_by(nflId) |> 
@@ -415,7 +428,7 @@ top_rushers <- strain_boot_eff |>
   filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
   mutate(nflId = as.double(nflId)) |> 
   left_join(players) |> 
-  filter(officialPosition %in% c("DE", "OLB", "DT", "NT") & displayName != "Takkarist McKinley") |> 
+  filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
   group_by(officialPosition) |> 
   slice_max(med_intercept, n = 10)
   
@@ -428,11 +441,19 @@ strain_boot_eff |>
   mutate(officialPosition = factor(officialPosition, levels = c("DE", "OLB", "DT", "NT"))) |> 
   ggplot(aes(intercept, reorder(displayName, med_intercept))) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  ggridges::geom_density_ridges(quantile_lines = TRUE, quantiles = 0.5, rel_min_height = 0.01, scale = 1) +
-  facet_wrap(~ officialPosition, scales = "free") +
-  labs(x = "Varying intercept",
+  ggridges::geom_density_ridges(quantile_lines = TRUE, 
+                                quantiles = 0.5, 
+                                rel_min_height = 0.01,
+                                scale = 1.2) +
+  facet_wrap(~ officialPosition, scales = "free_y") +
+  scale_x_continuous(breaks = seq(-0.5, 1.5, 0.5)) +
+  labs(x = "Pass rusher varying intercept",
        y = NULL) +
-  theme_light()
+  theme_light() +
+  theme(panel.grid.minor = element_blank(),
+        axis.title = element_text(size = 14),
+        axis.text = element_text(size = 12),
+        strip.text = element_text(size = 12))
 
 # res |> 
 #   pluck("nflId") |> 
