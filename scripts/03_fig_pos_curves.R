@@ -16,7 +16,11 @@ avg_strain_all <- pass_rush |>
   filter(team == defensiveTeam,
          frameId_snap_corrected <= 40) |> 
   group_by(frameId_snap_corrected) |> 
-  summarise(mn = mean(strain, na.rm = TRUE))
+  summarize(
+    strain = sum(strain),
+    n = n()
+  ) |>
+  mutate(mn = 10 * strain / n)
 
 
 fig_pos_curves <- pass_rush |> 
@@ -24,7 +28,11 @@ fig_pos_curves <- pass_rush |>
          officialPosition %in% c("OLB", "NT", "DE", "DT"),
          frameId_snap_corrected <= 40) |> 
   group_by(officialPosition, frameId_snap_corrected) |> 
-  summarise(mn = mean(strain, na.rm = TRUE)) |> 
+  summarize(
+    strain = sum(strain),
+    n = n()
+  ) |>
+  mutate(mn = 10 * strain / n) |> 
   bind_rows(mutate(avg_strain_all, officialPosition = "Average")) |>
   mutate(officialPosition = factor(officialPosition, levels = c("OLB", "DE", "DT", "NT", "Average"))) |> 
   ggplot(aes(frameId_snap_corrected, mn, 
@@ -49,7 +57,11 @@ fig_pos_curves_bw <- pass_rush |>
          officialPosition %in% c("OLB", "NT", "DE", "DT"),
          frameId_snap_corrected <= 40) |> 
   group_by(officialPosition, frameId_snap_corrected) |> 
-  summarise(mn = mean(strain, na.rm = TRUE)) |> 
+  summarize(
+    strain = sum(strain),
+    n = n()
+  ) |>
+  mutate(mn = 10 * strain / n) |> 
   bind_rows(mutate(avg_strain_all, officialPosition = "Average")) |>
   mutate(officialPosition = factor(officialPosition, levels = c("OLB", "DE", "Average", "DT", "NT"))) |> 
   ggplot(aes(frameId_snap_corrected, mn, 

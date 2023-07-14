@@ -47,7 +47,11 @@ pass_rush <- read_csv(here("data", "pass_rush.csv.gz"))
 get_avg_strain <- pass_rush |> 
   filter(team == defensiveTeam, !is.infinite(strain)) |> 
   group_by(gameId, playId, nflId) |> 
-  summarize(avg_strain = mean(strain, na.rm = TRUE)) |>
+  summarize(
+    strain = sum(strain),
+    n = n()
+  ) |>
+  mutate(avg_strain = 10 * strain / n) |> 
   ungroup()
 
 # get_avg_strain |> 
@@ -133,7 +137,9 @@ mod_df_final <- mod_df |>
   mutate(block_pos = relevel(factor(block_pos), "T"),
          rush_pos = relevel(factor(rush_pos), "DE"),
          play_len = play_len / 10) |> 
-  left_join(select(plays, gameId:playId, possessionTeam:defensiveTeam))
+  left_join(select(plays, gameId:playId, down:defensiveTeam, absoluteYardlineNumber))
+
+
 
 
 library(lme4)  
@@ -229,24 +235,25 @@ fig_rankings_boot <- strain_eff |>
 
 # play_len
 strain_fit_new <- lmer(
-  avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + rush_pos + block_pos + n_blockers + n_rushers,
+  avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
+    rush_pos + block_pos + n_blockers + down * ydstogo + absoluteYardlineNumber,
   data = mod_df_final
 )
 
 summary(strain_fit_new)$coef
 broom.mixed::tidy(strain_fit_new, conf.int=TRUE)
 
-strain_fit_new |> 
-  ranef() |> 
-  pluck("defensiveTeam") |> 
-  as.data.frame() |> 
-  arrange(-`(Intercept)`)
-
-strain_fit_new |> 
-  ranef() |> 
-  pluck("possessionTeam") |> 
-  as.data.frame() |> 
-  arrange(`(Intercept)`)
+# strain_fit_new |> 
+#   ranef() |> 
+#   pluck("defensiveTeam") |> 
+#   as.data.frame() |> 
+#   arrange(-`(Intercept)`)
+# 
+# strain_fit_new |> 
+#   ranef() |> 
+#   pluck("possessionTeam") |> 
+#   as.data.frame() |> 
+#   arrange(`(Intercept)`)
 
 strain_fit_new |> 
   VarCorr() |> 
@@ -293,7 +300,8 @@ strain_loocv_new <- function(w) {
   test <- filter(mod_df_final, week == w)
   
   fit <- lmer(
-    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + rush_pos + block_pos + n_blockers + n_rushers,
+    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
+      rush_pos + block_pos + n_blockers + down * ydstogo + absoluteYardlineNumber,
     data = mod_df_final
   )
   
@@ -377,7 +385,8 @@ strain_boot <- function(b) {
     unnest(cols = data)
   
   fit <- lmer(
-    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + rush_pos + block_pos + n_blockers,
+    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
+      rush_pos + block_pos + n_blockers + down * ydstogo + absoluteYardlineNumber,
     data = boot_df
   )
   
@@ -393,11 +402,11 @@ strain_boot <- function(b) {
 }
 
 library(furrr)
-plan(multisession, workers = 5)
+plan(multisession, workers = 7)
 set.seed(101)
-n_boots <- 1000
+n_boots <- 200
 strain_boot_eff <- seq_len(n_boots) |> 
-  future_map(strain_boot) |> 
+  future_map(strain_boot, .progress = TRUE) |> 
   list_rbind()
 
 top_rushers <- strain_boot_eff |> 
@@ -406,7 +415,7 @@ top_rushers <- strain_boot_eff |>
   filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
   mutate(nflId = as.double(nflId)) |> 
   left_join(players) |> 
-  filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
+  filter(officialPosition %in% c("DE", "OLB", "DT", "NT") & displayName != "Takkarist McKinley") |> 
   group_by(officialPosition) |> 
   slice_max(med_intercept, n = 10)
   
@@ -419,7 +428,7 @@ strain_boot_eff |>
   mutate(officialPosition = factor(officialPosition, levels = c("DE", "OLB", "DT", "NT"))) |> 
   ggplot(aes(intercept, reorder(displayName, med_intercept))) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  ggridges::geom_density_ridges(quantile_lines = TRUE, quantiles = 0.5, rel_min_height = 0.01) +
+  ggridges::geom_density_ridges(quantile_lines = TRUE, quantiles = 0.5, rel_min_height = 0.01, scale = 1) +
   facet_wrap(~ officialPosition, scales = "free") +
   labs(x = "Varying intercept",
        y = NULL) +
