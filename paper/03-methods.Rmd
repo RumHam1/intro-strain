@@ -5,17 +5,17 @@
 In materials science, strain [@callister2018materials] is the deformation of a material from stress, showing the rate of change in a material's length relative to its original length.
 Formally, let $L(t)$ be the distance between any given two points of interest within a material at time $t$, and $L_0$ be the initial distance between those two points.
 The strain for a material at time $t$ is defined as 
-\begin{equation}
+\begin{equation*}
 \varepsilon(t)= \frac{L(t) - L_{0}}{L_{0}}.
-\end{equation}
+\end{equation*}
 Notice that this measure is unitless due to being a ratio of two quantities having the same dimension.
 
 Accordingly, the strain rate of a material measures the change in its deformation with respect to time.
 Mathematically, the strain rate of a material can be expressed as the derivative of its strain.
 That is,
-\begin{equation}
+\begin{equation*}
 \varepsilon'(t) = \frac{d \varepsilon}{dt} = \frac{v(t)}{L_{0}},
-\end{equation}
+\end{equation*}
 where $v(t)$ is the velocity at which the two points of interest within the material are moving away from or towards each other.
 Whereas strain has no units, the strain rate is measured in inverse of time, usually 1/second.
 
@@ -27,17 +27,17 @@ In order to apply strain rate to measure NFL pass rusher effectiveness, we make 
 Let $(x_{ijt}, y_{ijt})$ be the $(x, y)$ location on the field of pass rusher $j = 1, \cdots, J$ at frame $t = 1, \cdots, T_i$ for play $i = 1, \cdots, n$; and $(x^{QB}_{it}, y^{QB}_{it})$ be the $(x, y)$ location of the quarterback at frame $t$ during play $i$.
 
 *   The distance between pass rusher $j$ and the quarterback at frame $t$ during play $i$ is 
-\begin{equation}
+\begin{equation*}
 s_{ij}(t) = \sqrt{(x_{ijt} - x^{QB}_{it})^2 + (y_{ijt} - y^{QB}_{it})^2}.
-\end{equation}
+\end{equation*}
 *   The velocity at which pass rusher $j$ is moving towards the quarterback at frame $t$ during play $i$ is 
-\begin{equation}
+\begin{equation*}
 v_{ij}(t) = s'_{ij}(t) = \frac{ds_{ij}(t)}{dt}.
-\end{equation}
+\end{equation*}
 *   The STRAIN for pass rusher $j$ at frame $t$ during play $i$ is 
-\begin{equation}
+\begin{equation*}
 \text{STRAIN}_{ij}(t) = \frac{v_{ij}(t)}{s_{ij}(t)}.
-\end{equation}
+\end{equation*}
 
 Note that to distinguish our metric from strain and strain rate in materials science, we write it in capital letters (STRAIN) for the remainder of this manuscript.
 
@@ -48,9 +48,9 @@ Additionally, rather than keeping the initial distance ($L_0$ as previously deno
 This gives us the STRAIN for each frame throughout a play.
 
 Since we only observe the distance and velocity quantities discretely in increments of 10 frames/second, a point estimate for our proposed metric STRAIN for pass rusher $j$ at frame $t$ during play $i$ is 
-\begin{equation}
+\begin{equation*}
 \widehat{\text{STRAIN}}_{ij}(t) = \cfrac{-\cfrac{s_{ij}(t) - s_{ij}(t - 1)}{0.1}}{s_{ij}(t)}.
-\end{equation}
+\end{equation*}
 Notice that this quantity increases in two ways: 1) the rate at which the rusher is moving towards the quarterback increases, and 2) the distance between the rusher and the quarterback decreases.
 Both of these are indications of an effective pass rush attempt.
 Finally, our statistic STRAIN is measured in inverse second, similar to strain rate.
@@ -58,9 +58,9 @@ Note that the reciprocal of our metric (1/STRAIN) has an interesting and straigh
 
 Moreover, since we observe STRAIN at every tenth of a second within each play, we can then compute the average STRAIN across all frames played for every pass rusher.
 Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass rusher $j$ involved in $n_j$ total plays across $T_j$ total frames is
-\begin{equation}
+\begin{equation*}
 \overline{\text{STRAIN}}_{j} = \frac{1}{T_j} \sum_{t=1}^{T_j} \widehat{\text{STRAIN}}_{j}(t).
-\end{equation}
+\end{equation*}
 This can be helpful for player evaluation, as we determine the most effective pass rushers based on their average STRAIN values in Section \ref{sec:strainbar}.
 We also use average STRAIN to assess different statistical properties of our metric in Section \ref{sec:statprop}.
 
@@ -71,9 +71,9 @@ We also use average STRAIN to assess different statistical properties of our met
 <!-- While average STRAIN is a simple first step for evaluating the pass rush,  -->
 
 In addition to the average STRAIN over all frames played, we can also calculate pass rusher $j$'s observed average STRAIN on a single play $i$ consisting of $T_i$ total frames,
-\begin{equation}
+\begin{equation*}
 \overline{\text{STRAIN}}_{ij} = \frac{1}{T_i} \sum_{t=1}^{T_i} \widehat{\text{STRAIN}}_{ij}(t).
-\end{equation}
+\end{equation*}
 While this aggregated measure is a simple first step for pass rush evaluation, the observed average STRAIN on a single play is likely due to a convolution of factors.
 Outside of the pass rusher's ability, there is variability in the opposing strength of pass blockers across plays a pass rusher is involved - both at the individual and team level.
 Additionally, based on previous work by PFF, the opposing QB plays an important role on the observed pressure in passing plays [@eager2019pressure]. We also suspect that pass rusher's STRAIN is affected by their defensive teammates as well. 
@@ -85,7 +85,7 @@ Since there can be multiple blockers matching up with a rusher, for simplicity, 
 We use random intercepts for the two player groups: pass rushers as $R$ and nearest pass blockers as $B$, as well as for the two team groups: defense $D$ and offense $O$.
 We also account for attributes about pass rusher $j$ in play $i$ through the covariate vector $\mathbf{x_{ij}}$, and estimate their respective coefficients $\boldsymbol \beta$ as fixed-effects. 
 Our model for the average STRAIN by pass rusher $j$ on play $i$ is as follows.
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
 \overline{\text{STRAIN}}_{ij} &\sim N(R_{j[i]} + B_{b[ij]} + D_{d[i]} + O_{o[i]} + \mathbf{x_{ij}} \boldsymbol{\beta}, \sigma^2), \text{ for } i = 1, \dots, n \text{ plays} \\
 R_{j} &\sim N(\mu_R, \sigma^2_R), \text{ for } j = 1, \cdots, \text{ \# of pass rushers}, \\
@@ -93,7 +93,7 @@ B_{b} &\sim N(\mu_B, \sigma^2_B), \text{ for } b = 1, \cdots, \text{ \# of pass 
 D_{d} &\sim N(\mu_D, \sigma^2_D), \text{ for } d = 1, \cdots, \text{ \# of defensive teams}, \\
 O_{o} &\sim N(\mu_O, \sigma^2_O), \text{ for } o = 1, \cdots, \text{ \# of offensive teams}.
 \end{aligned}
-\end{equation}
+\end{equation*}
 
 We consider a normal distribution to shrink the random intercepts for each player and team toward their respective group means.
 This is a useful property since we do not observe the same number of plays for each player. 
