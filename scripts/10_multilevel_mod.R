@@ -213,30 +213,30 @@ strain_fit |>
   mutate(icc = vcov / sum(vcov)) |> 
   select(grp, icc)
 
-strain_eff <- merTools::REsim(strain_fit, n.sims = 10000, seed = 101)
+# strain_eff <- merTools::REsim(strain_fit, n.sims = 10000, seed = 101)
 
 # strain_eff |> 
 #   merTools::plotREsim()
 
-fig_rankings_boot <- strain_eff |> 
-  as_tibble() |> 
-  filter(groupFctr == "nflId") |> 
-  mutate(nflId = as.double(groupID)) |> 
-  left_join(players) |> 
-  filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
-  filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
-  group_by(officialPosition) |> 
-  arrange(desc(mean)) |>
-  slice(1:10) |>
-  ggplot(aes(x = reorder(displayName, mean))) +
-  geom_point(aes(y = mean)) +
-  geom_errorbar(aes(ymin = mean - 2 * sd,
-                    ymax = mean + 2 * sd)) +
-  facet_wrap(~ officialPosition, ncol = 1, scales = "free_y") +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
-  coord_flip() +
-  theme_light() +
-  labs(x = NULL, y = "intercept")
+# fig_rankings_boot_old <- strain_eff |> 
+#   as_tibble() |> 
+#   filter(groupFctr == "nflId") |> 
+#   mutate(nflId = as.double(groupID)) |> 
+#   left_join(players) |> 
+#   filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
+#   filter(officialPosition %in% c("DE", "OLB", "DT", "NT")) |> 
+#   group_by(officialPosition) |> 
+#   arrange(desc(mean)) |>
+#   slice(1:10) |>
+#   ggplot(aes(x = reorder(displayName, mean))) +
+#   geom_point(aes(y = mean)) +
+#   geom_errorbar(aes(ymin = mean - 2 * sd,
+#                     ymax = mean + 2 * sd)) +
+#   facet_wrap(~ officialPosition, ncol = 1, scales = "free_y") +
+#   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+#   coord_flip() +
+#   theme_light() +
+#   labs(x = NULL, y = "intercept")
 
 # revised model -----------------------------------------------------------
 
@@ -407,18 +407,18 @@ strain_boot <- function(b) {
   return(rushers)
 }
 
-library(furrr)
-plan(multisession, workers = 7)
-n_boots <- 1000
-strain_boot_eff <- seq_len(n_boots) |> 
-  future_map(strain_boot, 
-             .options = furrr_options(seed = 101),
-             .progress = TRUE)
-  
-strain_boot_eff <- strain_boot_eff |> 
-  list_rbind()
-
-write_rds(strain_boot_eff, here("data", "strain_boot_eff.rds"))
+# library(furrr)
+# plan(multisession, workers = 7)
+# n_boots <- 1000
+# strain_boot_eff <- seq_len(n_boots) |> 
+#   future_map(strain_boot, 
+#              .options = furrr_options(seed = 101),
+#              .progress = TRUE)
+#   
+# strain_boot_eff <- strain_boot_eff |> 
+#   list_rbind()
+# 
+# write_rds(strain_boot_eff, here("data", "strain_boot_eff.rds"))
 
 strain_boot_eff <- read_rds(here("data", "strain_boot_eff.rds"))
 
@@ -432,7 +432,7 @@ top_rushers <- strain_boot_eff |>
   group_by(officialPosition) |> 
   slice_max(med_intercept, n = 10)
   
-strain_boot_eff |> 
+fig_rankings_boot <- strain_boot_eff |> 
   mutate(nflId = as.double(nflId)) |> 
   filter(nflId %in% top_rushers$nflId) |> 
   left_join(players) |> 
@@ -450,10 +450,7 @@ strain_boot_eff |>
   labs(x = "Pass rusher varying intercept",
        y = NULL) +
   theme_light() +
-  theme(panel.grid.minor = element_blank(),
-        axis.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        strip.text = element_text(size = 12))
+  theme(panel.grid.minor = element_blank())
 
 # res |> 
 #   pluck("nflId") |> 

@@ -57,7 +57,7 @@ fig_crosby_curves_unsucess
 
 ```{r}
 #| label: fig_pos_curves
-#| fig.cap: "STRAIN curves for different positions computed by averaging STRAIN values across all players of a particular position and all plays. Edge rushers (OLB and DE) tend to generate more STRAIN than interior rushers (DT and NT). The dotted gray line represents the average STRAIN curve for all players without accounting for position."
+#| fig.cap: "STRAIN curves for different positions. Edge rushers (OLB and DE) tend to generate more STRAIN than interior rushers (DT and NT). The dotted gray line represents the average STRAIN curve for all players without accounting for position."
 #| fig.width: 4.5
 #| fig.height: 3
 source(here("scripts", "03_fig_pos_curves.R"))
@@ -73,8 +73,12 @@ source(here("scripts", "08_fig_outcome_curves.R"))
 fig_outcome_curves
 ```
 
-Figure \ref{fig:fig_pos_curves} displays the average STRAIN by position for the first 40 frames (4 seconds) after the snap.  For each frame, this curve is calculated by averaging across all players of a particular position (where position is defined by the NFL) and all plays that lasted at least as long as the particular frame of interest meaning that the sample size used to compute these curves diminishes for frames that are chronologically later than frames at the beginning of the play.    
+<!-- 
+too wordy and confusing imo...
+For each frame, this curve is calculated by averaging across all players of a particular position (where position is defined by the NFL) and all plays that lasted at least as long as the particular frame of interest meaning that the sample size used to compute these curves diminishes for frames that are chronologically later than frames at the beginning of the play. -->
 
+Figure \ref{fig:fig_pos_curves} displays the average STRAIN by position for the first 40 frames (4 seconds) after the snap.
+For each position, the curve is based on the average of the observed STRAIN at each frame across all plays and players within the position.
 We observe a clear difference in STRAIN between edge rushers (OLBs and DEs) and interior linemen (DTs and NTs).
 Specifically, edge rushers have higher STRAIN than interior linemen on average, as they are more easily able to approach the quarterback on the edge of the pocket versus, for instance, a nose tackle attacking the line head on.
 
@@ -338,9 +342,10 @@ Residual & 0.907 \\
 <!-- We display the random intercepts for pass rusher in Table [INSERT TABLE REFERENCE] alongside their unadjusted STRAIN values.  -->
 
 In addition to adjusting for opposition, our multilevel model allows us to provide some notion of uncertainty about the pass rusher's effect on the play level STRAIN.
-Figure \ref{fig:fig_rankings_boot} displays the mean varying intercepts for the top ten pass rushers for each position along with the corresponding 95% confidence intervals. 
-We observe similar rankings based on the random intercepts in comparison to the average STRAIN results in Tables \ref{tab:edge} and \ref{tab:interior}, with Myles Garrett (DE), Aaron Donald (DT), Vita Vea (NT), and T.J. Watt (OLB) as the first-ranked pass rusher for their respective position. 
-We observe different levels of variability across these top players, with only a subset of players with intervals strictly above zero. This is not necessarily surprising given the limited sample of data.
+Figure \ref{fig:fig_rankings_boot} displays the varying intercept distributions for the top ten pass rushers for each position.
+We observe similar rankings based on the random intercepts in comparison to the average STRAIN results in Tables \ref{tab:edge} and \ref{tab:interior}, with Myles Garrett (DE), Aaron Donald (DT), Vita Vea (NT), and T.J. Watt (OLB) as the first-ranked pass rusher for their respective position.
+We observe different levels of variability across these top players, with only a subset of players with intercept ranges strictly above zero.
+This is not necessarily surprising given the limited sample of data.
 Additionally, we are ignoring correlated performance between defensive linemen on the same team.
 For instance, the top two defensive ends, Myles Garrett and Takkarist McKinley (see the top panel of Figure \ref{fig:fig_rankings_boot}), were teammates on the Cleveland Browns during this period of time.
 McKinley is a surprising name on our list and we suspect that his high rank is mostly due to playing on the same defensive unit with Garrett, who is well-known as an elite pass rusher.
@@ -349,9 +354,9 @@ We leave the exploration of adjusting for teammates for future work.
 
 ```{r}
 #| label: fig_rankings_boot
-#| fig.cap: "Top 10 pass rushers for each position (DE, DT, NT, OLB) by mean varying intercept with 95\\% confidence intervals."
+#| fig.cap: "Distributions of player effects for top 10 pass rushers in each position (DE, DT, NT, OLB) by median varying intercept"
 #| fig.width: 6
-#| fig.height: 8
+#| fig.height: 5
 source(here("scripts", "10_multilevel_mod.R"))
 fig_rankings_boot
 ```
