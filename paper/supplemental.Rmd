@@ -22,7 +22,7 @@ library(tidyverse)
 ```
 
 
-## Old Multilevel Model for Play-Level STRAIN {#sec:multilevel}
+# Old Multilevel Model for Play-Level STRAIN {#sec:multilevel}
 
 We additionally fit a multilevel model to evaluate pass rushers' impact on the average STRAIN observed in a play, while accounting for their pass blocker, QB, and play-level attributes. This version of our model has random intercepts for the three player groups: (1) pass rushers as $R$, (2) nearest pass blockers as $B$, and (3) QBs as $Q$.
 As before, the coefficients $\boldsymbol \beta$ associated with covariate vector $\mathbf{x_{ij}}$ for pass rusher $j$ in play $i$ are estimated as fixed-effects. 
@@ -39,4 +39,14 @@ Q_{q} &\sim N(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
 We consider a normal distribution to obtain the random intercepts for each player toward their respective position group means.
 
 
+# Team effects justification
+
+We perform leave-one-week-out cross-validation (LOWO CV)
+
+We evaluate the model performance based on mean squared error (MSE)
+
+```{r}
+source(here("scripts", "10_multilevel_mod.R"))
+fig_loocv_team_eff
+```
 

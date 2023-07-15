@@ -180,19 +180,19 @@ Below, we attempt the answer these questions, and the following results are for 
 
 We first investigate the predictability of STRAIN as a measure of pressure.
 In particular, we look at how well our metric correlates with a simple measure of pressure rate, defined as the total hits, sacks and hurries per snap.
-Figure \ref{fig:fig_cor_pressure} is a scatterplot of average STRAIN and pressure rate over the course the provided eight-game sample, which reveals a fairly strong correlation ($r =0.625$) between the quantities.
+Figure \ref{fig:fig_cor_pressure} is a scatterplot of average STRAIN and pressure rate over the course the provided eight-game sample, which reveals a fairly strong correlation ($r =0.6255$) between the quantities.
 Hence, defenders with high STRAIN values also tend to generate more pressure toward the quarterback.
-Furthermore, the average STRAIN for the first four weeks of the 2021 season is more predictive of the last four weeks' pressure rate ($r=0.322$) than the first four weeks' pressure rate ($r=0.097$), as illustrated in Figure \ref{fig:fig_predictability}.
+Furthermore, the average STRAIN for the first four weeks of the 2021 season is more predictive of the last four weeks' pressure rate ($r=0.3217$) than the first four weeks' pressure rate ($r=0.0965$), as illustrated in Figure \ref{fig:fig_predictability}.
 
 We also analyze the stability of STRAIN over time by comparing the average STRAIN across all frames played for the first and last four weeks of the 2021 NFL regular season.
-It is apparent from Figure \ref{fig:fig_stability} that there is a strong positive correlation $(r = 0.854)$ for this relationship.
+It is apparent from Figure \ref{fig:fig_stability} that there is a strong positive correlation $(r = 0.8545)$ for this relationship.
 This means that STRAIN is a highly stable football metric over the provided eight-week time window, and pass rushers appear to carry their STRAIN values with them from week to week.
 Overall, STRAIN performs well in both explaining defensive pressure on the field and predicting future performance of pass rushers.
 
 
 ```{r}
 #| label: fig_cor_pressure
-#| fig.cap: "Relationship between average STRAIN and pressure rate (total hits, sacks, and hurries per snap) over the first eight weeks of the 2021 NFL season. There is a moderately strong association between average STRAIN and pressure rate ($r =0.625$). Results shown here are for pass rushers with at least 100 snaps played over the eight-week data."
+#| fig.cap: "Relationship between average STRAIN and pressure rate (total hits, sacks, and hurries per snap) over the first eight weeks of the 2021 NFL season. There is a moderately strong association between average STRAIN and pressure rate ($r =0.6255$). Results shown here are for pass rushers with at least 100 snaps played over the eight-week data."
 #| fig.width: 4
 #| fig.height: 3
 source(here("scripts", "04_fig_cor_pressure.R"))
@@ -201,7 +201,7 @@ fig_cor_pressure
 
 ```{r}
 #| label: fig_predictability
-#| fig.cap: "Relationships between pressure rate for the last 4 weeks of the 2021 NFL season and first four weeks' pressure rate (left) and average STRAIN (right). STRAIN is more predictive ($r=0.322$) of future pressure rate than previous pressure rate itself ($r=0.097$). Results shown here are for pass rushers with at least 100 snaps played over the eight-week data."
+#| fig.cap: "Relationships between pressure rate for the last 4 weeks of the 2021 NFL season and first four weeks' pressure rate (left) and average STRAIN (right). STRAIN is more predictive ($r=0.3217$) of future pressure rate than previous pressure rate itself ($r=0.0965$). Results shown here are for pass rushers with at least 100 snaps played over the eight-week data."
 #| fig.width: 6.5
 #| fig.height: 3
 #| fig.show: "hold"
@@ -211,7 +211,7 @@ fig_predictability
 
 ```{r}
 #| label: fig_stability
-#| fig.cap: "Relationship between average STRAIN for the last and first four weeks of the 2021 NFL season. A strong linear correlation ($r = 0.854$) demonstrates that STRAIN is a highly stable metric over time. Results shown here are for pass rushers with at least 100 snaps played over the eight-week data."
+#| fig.cap: "Relationship between average STRAIN for the last and first four weeks of the 2021 NFL season. A strong linear correlation ($r = 0.8545$) demonstrates that STRAIN is a highly stable metric over time. Results shown here are for pass rushers with at least 100 snaps played over the eight-week data."
 #| fig.width: 4
 #| fig.height: 3
 source(here("scripts", "05_fig_stability.R"))
@@ -282,46 +282,41 @@ This emphasizes how STRAIN is mostly attributable to pass rushers, but is necess
 \hline
 & estimate & se & $t$-statistic & $p$-value \\ 
 \hline
-Intercept & 1.800 & 0.099 & 18.172 & 0.000 \\ 
-Number of blockers & -0.737 & 0.026 & -28.415 & 0.000 \\
-Yards to go & 0.049 & 0.003 & 14.901 & 0.000 \\
-Current yardline & 0.000 & 0.000 & 0.184 & 0.854 \\
-$I_{\text{\{2nd down\}}}$ & 0.514 & 0.029 & 17.744 & 0.000 \\
-$I_{\text{\{3rd down\}}}$ & 0.918 & 0.032 & 28.361 & 0.000 \\
-$I_{\text{\{4th down\}}}$ & 0.465 & 0.077 & 6.064 & 0.000 \\
-$I_{\text{\{2pt conversion\}}}$ & -0.138 & 0.180 & -0.770 & 0.441 \\
-$I_{\text{\{R:DT\}}}$ & -0.717 & 0.068 & -10.566 & 0.000 \\
-$I_{\text{\{R:interior\}}}$ & 0.561 & 0.100 & 5.614 & 0.000 \\
-$I_{\text{\{R:NT\}}}$ & -0.943 & 0.102 & -9.234 & 0.000 \\
-$I_{\text{\{R:OLB\}}}$ & 0.557 & 0.073 & 7.674 & 0.000 \\
-$I_{\text{\{R:secondary\}}}$ & 1.425 & 0.111 & 12.790 & 0.000 \\
-$I_{\text{\{B:C\}}}$ & -0.298 & 0.059 & -5.024 & 0.000 \\
-$I_{\text{\{B:G\}}}$ & -0.155 & 0.047 & -3.285 & 0.001 \\ 
-$I_{\text{\{B:other\}}}$ & -0.126 & 0.065 & -1.951 & 0.051 \\
+Intercept & 1.8004 & 0.0991 & 18.1723 & 0.0000 \\ 
+Number of blockers & -0.7366 & 0.0259 & -28.4153 & 0.0000 \\
+Yards to go & 0.0491 & 0.0033 & 14.9013 & 0.0000 \\
+Current yardline & 0.0001 & 0.0005 & 0.1844 & 0.8537 \\
+$I_{\text{\{2nd down\}}}$ & 0.5143 & 0.0290 & 17.7439 & 0.0000 \\
+$I_{\text{\{3rd down\}}}$ & 0.9176 & 0.0324 & 28.3613 & 0.0000 \\
+$I_{\text{\{4th down\}}}$ & 0.4649 & 0.0767 & 6.0637 & 0.0000 \\
+$I_{\text{\{2pt conversion\}}}$ & -0.1384 & 0.1797 & -0.7699 & 0.4413 \\
+$I_{\text{\{R:DT\}}}$ & -0.7166 & 0.0678 & -10.5658 & 0.0000 \\
+$I_{\text{\{R:interior\}}}$ & 0.5611 & 0.0999 & 5.6143 & 0.0000 \\
+$I_{\text{\{R:NT\}}}$ & -0.9426 & 0.1021 & -9.2344 & 0.0000 \\
+$I_{\text{\{R:OLB\}}}$ & 0.5574 & 0.0726 & 7.6742 & 0.0000 \\
+$I_{\text{\{R:secondary\}}}$ & 1.4252 & 0.1114 & 12.7899 & 0.0000 \\
+$I_{\text{\{B:C\}}}$ & -0.2983 & 0.0594 & -5.0237 & 0.0000 \\
+$I_{\text{\{B:G\}}}$ & -0.1546 & 0.0471 & -3.2847 & 0.0000 \\ 
+$I_{\text{\{B:other\}}}$ & -0.1260 & 0.0646 & -1.9508 & 0.0514 \\
 \hline
 \end{tabular}
 \end{table}
 
-```{r, eval=FALSE}
-                       Estimate Std. Error t value Pr(>|t|)
-(Intercept)               1.800      0.099  18.172    0.000
-rush_posDT               -0.717      0.068 -10.566    0.000
-rush_posinteriorLB        0.561      0.100   5.614    0.000
-rush_posNT               -0.943      0.102  -9.234    0.000
-rush_posOLB               0.557      0.073   7.674    0.000
-rush_possecondary         1.425      0.111  12.790    0.000
-block_posC               -0.298      0.059  -5.024    0.000
-block_posG               -0.155      0.047  -3.285    0.001
-block_posother           -0.126      0.065  -1.951    0.051
-n_blockers               -0.737      0.026 -28.415    0.000
-down0                    -0.138      0.180  -0.770    0.441
-down2                     0.514      0.029  17.744    0.000
-down3                     0.918      0.032  28.361    0.000
-down4                     0.465      0.077   6.064    0.000
-yardsToGo                 0.049      0.003  14.901    0.000
-absoluteYardlineNumber    0.000      0.000   0.184    0.854
-```
 
+<!-- \begin{table}[ht] -->
+<!-- \caption{Intraclass correlation coefficients for the multilevel model for average STRAIN. \label{tab:icc}} -->
+<!-- \centering -->
+<!-- \begin{tabular}{lr} -->
+<!-- \hline -->
+<!-- Group & ICC \\  -->
+<!-- \hline -->
+<!-- Pass rusher & 0.057 \\  -->
+<!-- Pass blocker & 0.012 \\  -->
+<!-- Quarterback & 0.023 \\  -->
+<!-- Residual & 0.907 \\  -->
+<!-- \hline -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
 
 
 \begin{table}[ht]
@@ -331,10 +326,11 @@ absoluteYardlineNumber    0.000      0.000   0.184    0.854
 \hline
 Group & ICC \\ 
 \hline
-Pass rusher & 0.057 \\ 
-Pass blocker & 0.012 \\ 
-Quarterback & 0.023 \\ 
-Residual & 0.907 \\ 
+Pass rusher & 0.0365 \\ 
+Pass blocker & 0.0098 \\ 
+Defensive team & 0.0134 \\ 
+Offensive team & 0.0143 \\
+Residual & 0.9260 \\ 
 \hline
 \end{tabular}
 \end{table}
@@ -354,8 +350,8 @@ We leave the exploration of adjusting for teammates for future work.
 
 ```{r}
 #| label: fig_rankings_boot
-#| fig.cap: "Distributions of player effects for top 10 pass rushers in each position (DE, DT, NT, OLB) by median varying intercept"
-#| fig.width: 6
+#| fig.cap: "Distributions of player effects for top 10 pass rushers in each position (DE, DT, NT, OLB) by median varying intercept."
+#| fig.width: 6.3
 #| fig.height: 5
 source(here("scripts", "10_multilevel_mod.R"))
 fig_rankings_boot

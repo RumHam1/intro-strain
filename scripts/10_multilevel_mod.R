@@ -346,7 +346,7 @@ mutate(strain_loocv_initial_rmse, team_eff = "No") |>
   theme_light()
 
 
-strain_loocv_initial_df |>
+fig_loocv_team_eff <- strain_loocv_initial_df |>
   mutate(resid = obs - pred,
          sq_err = resid ^ 2) |>
   group_by(week) |>
