@@ -45,6 +45,10 @@ We perform leave-one-week-out cross-validation (LOWO CV)
 
 We evaluate the model performance based on mean squared error (MSE)
 
+no team effects: 4.3215
+with team effects: 4.1882
+3.0846% decrease
+
 ```{r}
 source(here("scripts", "10_multilevel_mod.R"))
 fig_loocv_team_eff
