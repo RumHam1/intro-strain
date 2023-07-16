@@ -1,6 +1,9 @@
 # Discussion {#sec:discussion}
+
 In this work, we have proposed STRAIN---a simple and interpretable statistic for evaluating pass rushers---with higher values corresponding to greater pass rushing ability.
-We demonstrated that a pass rusher's average STRAIN is both stable and more predictive of future pressure events than using the player's previously observed pressure events.
+STRAIN is a model-free metric which can easily be integrated into any data pipeline without much computational cost.
+Visualizations of STRAIN can be useful and intuitive for coaches and broadcasters in various aspects ranging from gameplan preparation to in-game real-time play analysis.
+We demonstrate that a pass rusher's average STRAIN is both stable and more predictive of future pressure events than using the player's previously observed pressure events.
 This is analogous to the use of exit velocity in baseball, a predictive measurement that avoids the noisy nature of observed outcomes, emphasizing how the opportunity of working with player tracking data can lead to the development of insightful metrics in American football. 
 
 Through multilevel modeling, we observe that the pass rusher explains more variation in play-level STRAIN, followed by the quarterback and then their assigned blocker.
