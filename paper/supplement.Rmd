@@ -1,0 +1,169 @@
+---
+title: |
+  | Supplementary materials for
+  | "Here Comes the STRAIN: Analyzing Defensive Pass Rush in American Football with Player Tracking Data"
+blinded: 0
+bibliography: bibliography.bib
+biblio-style: chicago
+output: rticles::asa_article
+header-includes:
+  \date{}
+---
+
+\spacingset{1.45}
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+library(here)
+library(tidyverse)
+```
+
+# Visualizations of Player Tracking Data
+
+Figure \ref{fig:fig_field} shows snapshots of a play from the week six game between the Las Vegas Raiders and Denver Broncos in the 2021 NFL regular season.
+The play outcome is a sack made by Raiders defensive end Maxx Crosby on Broncos quarterback Teddy Bridgewater.
+The locations of every Las Vegas (in black, on defense) and Denver (in orange, on offense) player on the field at 1, 2, 3, and 4 seconds after the ball snap is displayed, with Crosby highlighted in blue.
+Note that the point size for each Las Vegas defender corresponds to their estimated STRAIN as the play progresses.
+This play is represented by Table [INSERT NUMBER - tracking data table] and Figure [INSERT NUMBER - line graph] in the paper.
+
+
+```{r}
+#| label: fig_field
+#| fig.cap: "A display of the player tracking data for a play during the Las Vegas Raiders (defense, in black) versus Denver Broncos (offense, in orange) NFL game on October 17, 2021. Raiders DE Maxx Crosby is highlighted in blue. For each Raiders defender, the point size indicates their individual STRAIN value, with larger points suggesting larger STRAIN. Snapshots are captured at 1, 2, 3, and 4 seconds after the ball snap."
+#| fig.width: 6.6
+#| fig.height: 4.4
+source(here("scripts", "01_fig_field.R"))
+fig_field
+```
+
+# Distribution of number of pass rushers
+
+Figure \ref{fig:pass_rushers_count} displays the distribution of the number of observed pass rushers involved in a play.
+It ranges from 1 to 8, with 4 pass rushers (i.e., 4-man rush formation) as the most common value.
+
+```{r}
+#| label: pass_rushers_count
+#| fig.cap: "Distribution of the number of pass rushers on passing plays."
+#| fig.width: 4
+#| fig.height: 3
+source(here("scripts", "12_fig_pass_rushers_count.R"))
+pass_rushers_count
+```
+
+# Pass rusher rankings based on average STRAIN
+
+Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size, as discussed in Section \ref{sec:defn}.
+Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass rushers (NTs and DTs) separately from edge rushers (OLBs and DEs).
+Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
+The tables also consist of the total number of hits, hurries, and sacks (determined from PFF scouting data) for each defender.
+
+<!-- Our results show many true positives with no surprises. -->
+<!-- Rashan Gary, a young rusher with huge potential, ranks first among all pass rushers according to our metric over the period of time observed. -->
+
+[TODO: rewrite this, move some of this to analyze the ggridges figure]
+
+Our results are mostly consistent with conventional rankings of rushers.
+Notably, Myles Garrett and TJ Watt are widely recognized as top-tier edge rushers and both show up in our top edge rusher list; whereas Aaron Donald, who is undoubtedly the best interior defender in football, appears at the top of our interior rusher rankings.
+Moreover, our leaderboards largely match the rankings of experts in the field.
+For instance, there is considerable overlap between our lists and PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings released after the 2021 season.
+This ultimately lends credibility to our proposed metric STRAIN as a measure of pass rushing effectiveness.
+
+\begin{table}
+\caption{Top 10 edge rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:edge}}
+\centering
+\begin{tabular}{rlllrrrrr}
+\hline
+Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\text{STRAIN}}$ \\
+\hline
+1 & Rashan Gary & GB & OLB & 176 & 10 & 25 & 5 & 2.82 \\ 
+2 & Leonard Floyd & LA & OLB & 185 & 2 & 25 & 8 & 2.80 \\ 
+3 & Justin Houston & BAL & OLB & 132 & 8 & 8 & 4 & 2.78 \\ 
+4 & Myles Garrett & CLE & DE & 197 & 9 & 29 & 12 & 2.75 \\ 
+5 & Von Miller & DEN & OLB & 145 & 4 & 21 & 5 & 2.75 \\ 
+6 & T.J. Watt & PIT & OLB & 147 & 6 & 9 & 8 & 2.71 \\ 
+7 & Yannick Ngakoue & LV & DE & 175 & 6 & 20 & 4 & 2.70 \\ 
+8 & Alex Highsmith & PIT & OLB & 129 & 4 & 7 & 2 & 2.65 \\ 
+9 & Preston Smith & GB & OLB & 124 & 4 & 8 & 2 & 2.61 \\ 
+10 & Randy Gregory & DAL & DE & 134 & 7 & 19 & 5 & 2.58 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+<!-- 11 & Joey Bosa & LAC & OLB & 160 & 5 & 21 & 4 & 2.58 \\  -->
+<!-- 12 & Darrell Taylor & SEA & DE & 107 & 5 & 9 & 3 & 2.57 \\  -->
+<!-- 13 & Josh Sweat & PHI & DE & 159 & 4 & 14 & 5 & 2.57 \\  -->
+<!-- 14 & Maxx Crosby & LV & DE & 198 & 12 & 30 & 7 & 2.56 \\  -->
+<!-- 15 & Markus Golden & ARI & OLB & 164 & 5 & 14 & 5 & 2.50 \\  -->
+
+\begin{table}
+\caption{Top 10 interior rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:interior}}
+\centering
+\begin{tabular}{rlllrrrrr}
+\hline
+Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\text{STRAIN}}$ \\
+\hline
+1 & Aaron Donald & LA & DT & 239 & 8 & 24 & 6 & 1.67 \\ 
+2 & Solomon Thomas & LV & DT & 115 & 7 & 11 & 3 & 1.51 \\ 
+3 & Quinton Jefferson & LV & DT & 144 & 6 & 8 & 3 & 1.46 \\ 
+4 & Chris Jones & KC & DT & 139 & 3 & 18 & 3 & 1.42 \\ 
+5 & DeForest Buckner & IND & DT & 198 & 4 & 18 & 4 & 1.26 \\ 
+6 & Cameron Heyward & PIT & DT & 188 & 2 & 22 & 3 & 1.25 \\ 
+7 & Javon Hargrave & PHI & DT & 156 & 6 & 15 & 5 & 1.24 \\ 
+8 & Jerry Tillery & LAC & DT & 171 & 4 & 7 & 3 & 1.16 \\ 
+9 & Ed Oliver & BUF & DT & 133 & 4 & 12 & 1 & 1.15 \\ 
+10 & Osa Odighizuwa & DAL & DT & 162 & 3 & 18 & 3 & 1.13 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+<!-- 11 & Greg Gaines & LA & NT & 111 & 2 & 13 & 2 & 1.11 \\  -->
+<!-- 12 & Leonard Williams & NYG & DT & 226 & 4 & 14 & 6 & 1.03 \\  -->
+<!-- 13 & Christian Barmore & NE & DT & 166 & 5 & 17 & 1 & 1.02 \\  -->
+<!-- 14 & Vita Vea & TB & NT & 184 & 6 & 12 & 1 & 1.01 \\  -->
+<!-- 15 & B.J. Hill & CIN & DT & 123 & 3 & 4 & 3 & 0.96 \\  -->
+
+# Comparison of multilevel models for play-level STRAIN
+
+## Model without team effects
+
+We additionally consider a multilevel model to evaluate pass rushers' impact on the average STRAIN observed in a play, while accounting for their pass blocker, QB, and play-level attributes.
+The average STRAIN by pass rusher $j$ on play $i$ is modeled as follows.
+\begin{equation*}
+\begin{aligned}
+\overline{\text{STRAIN}}_{ij} &\sim N(R_{j[i]} + B_{b[ij]} + Q_{q[i]} + \mathbf{x_{ij}} \boldsymbol{\beta}, \sigma^2), \text{ for } i = 1, \dots, n \text{ plays} \\
+R_{j} &\sim N(\mu_R, \sigma^2_R), \text{ for } j = 1, \cdots, \text{ \# of pass rushers}, \\
+B_{b} &\sim N(\mu_B, \sigma^2_B), \text{ for } b = 1, \cdots, \text{ \# of pass blockers}, \\
+Q_{q} &\sim N(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
+\end{aligned}
+\end{equation*}
+This version of our model contains random intercepts for three player groups: (1) pass rushers as $R$, (2) nearest pass blockers as $B$, and (3) QBs as $Q$.
+As before, the coefficients $\boldsymbol \beta$ associated with covariate vector $\mathbf{x_{ij}}$ for pass rusher $j$ in play $i$ are estimated as fixed-effects. 
+The variables included as fixed effects are the same as those from the model in the paper: position of pass rusher and blocker, number of blockers in a play, and play-context information (down, yards to go, and current yardline).
+We consider a normal distribution to obtain the random intercepts for each player toward their respective position group means.
+
+
+## Model comparison
+
+We perform leave-one-week-out cross-validation (LOWO CV) to compare the multilevel models with and without team effects for play-level STRAIN.
+For example, we train each model using data from weeks one through seven, and perform evaluation for week eight.
+This procedure is repeated for every single holdout week, and evaluate the model performance based on mean squared error (MSE).
+Figure \ref{fig:fig_loocv_team_eff} shows the week-by-week holdout MSE for the aforementioned multilevel models.
+We clearly see that a smaller MSE is achieved for each left-out week when accounting for team effects.
+Furthermore, the model with team effects yields a lower overall holdout MSE ($4.1882$) than the one without random intercepts for teams ($4.4138$).
+
+```{r}
+#| label: fig_loocv_team_eff
+#| fig.cap: "Comparison of leave-one-week-out cross-validation MSE with $\\pm 2$ standard error bounds for multilevel models with and without team effects."
+#| fig.width: 6
+#| fig.height: 3
+source(here("scripts", "10_multilevel_mod.R"))
+fig_loocv_team_eff
+```
+

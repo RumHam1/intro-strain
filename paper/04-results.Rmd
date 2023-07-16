@@ -53,6 +53,21 @@ source(here("scripts", "09_fig_play_unsuccess.R"))
 fig_crosby_curves_unsucess
 ```
 
+
+```{r}
+#| label: fig_features_combined
+#| fig.cap: "Changes in STRAIN, velocity, and distance from the QB for Maxx Crosby over the course of a successful pass rush play that results in a sack (left) and an unsuccessful pass rush play which results in a long pass attempt (right). The STRAIN for other pass rushers throughout each play is also displayed."
+#| fig.width: 6
+#| fig.height: 3.6
+source(here("scripts", "15_fig_features_combined.R"))
+fig_features_combined_bw
+```
+
+Figure \ref{fig:fig_features_combined}
+
+
+
+
 ## Positional STRAIN Curves {#sec:positional}
 
 ```{r}

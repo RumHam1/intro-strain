@@ -32,23 +32,23 @@ feat_unsuccess <- play_unsucess |>
   mutate(play = "Unsuccessful pass rush")
 
 
-feat_sack |> 
+fig_features_combined <- feat_sack |> 
   bind_rows(feat_unsuccess) |> 
   mutate(
     name = case_when(
-      name == "distance_from_QB" ~ "Distance from QB (yards)",
-      name == "slope_distance_from_QB" ~ "Velocity (yards/second)",
-      name == "strain" ~ "STRAIN (1/second)",
+      name == "distance_from_QB" ~ "Distance from QB\n(yards)",
+      name == "slope_distance_from_QB" ~ "Velocity\n(yards/second)",
+      name == "strain" ~ "STRAIN\n(1/second)",
       TRUE ~ as.character(name)
     ),
-    name_fct = ifelse(str_detect(name, "strain_"), "STRAIN of other rushers", name),
+    name_fct = ifelse(str_detect(name, "strain_"), "STRAIN of\nother rushers", name),
     name_fct = factor(
       name_fct,
       levels = c(
-        "Distance from QB (yards)",
-        "Velocity (yards/second)",
-        "STRAIN (1/second)",
-        "STRAIN of other rushers"
+        "Distance from QB\n(yards)",
+        "Velocity\n(yards/second)",
+        "STRAIN\n(1/second)",
+        "STRAIN of\nother rushers"
       )
     )
   ) |> 
@@ -69,5 +69,54 @@ feat_sack |>
         axis.text = element_text(size = rel(0.8)),
         strip.text = element_text(size = rel(1)),
         legend.position = "bottom",
-        legend.text = element_text(size = rel(0.8)),
-        legend.title = element_text(size = rel(1)))
+        legend.text = element_text(size = rel(0.9)),
+        panel.spacing = unit(2, "lines"),
+        legend.box.spacing = unit(0.25, "lines"))
+
+
+
+
+
+
+fig_features_combined_bw <- feat_sack |> 
+  bind_rows(feat_unsuccess) |> 
+  mutate(
+    name = case_when(
+      name == "distance_from_QB" ~ "Distance from QB\n(yards)",
+      name == "slope_distance_from_QB" ~ "Velocity\n(yards/second)",
+      name == "strain" ~ "STRAIN\n(1/second)",
+      TRUE ~ as.character(name)
+    ),
+    name_fct = ifelse(str_detect(name, "strain_"), "STRAIN of\nother rushers", name),
+    name_fct = factor(
+      name_fct,
+      levels = c(
+        "Distance from QB\n(yards)",
+        "Velocity\n(yards/second)",
+        "STRAIN\n(1/second)",
+        "STRAIN of\nother rushers"
+      )
+    )
+  ) |> 
+  ggplot() +
+  geom_line(aes(frameId_snap_corrected, value, alpha = name_fct, group = name, linetype = name_fct), linewidth = 1.2) +
+  labs(x = "Time since snap (seconds)",
+       y = "Feature value") +
+  scale_x_continuous(breaks = seq(0, 40, 10), labels = 0:4) +
+  # scale_color_manual(values = c("red", "#FFCC33" , "#1143E2", "#CDCDCD"),
+  scale_linetype_manual(values = c("dashed", "dotted" , "solid", "solid"),
+                        guide = guide_legend(order = 1)) +
+  scale_alpha_manual(values = c(1, 1, 1, 0.1),
+                     guide = guide_legend(order = 1)) +
+  facet_wrap(~ play, scales = "free_x") +
+  labs(linetype = NULL,
+       alpha = NULL) +
+  theme_light() +
+  theme(axis.title = element_text(size = rel(1)),
+        axis.text = element_text(size = rel(0.8)),
+        strip.text = element_text(size = rel(1)),
+        legend.position = "bottom",
+        legend.text = element_text(size = rel(0.9)),
+        panel.spacing = unit(2, "lines"),
+        legend.box.spacing = unit(0.25, "lines"),
+        legend.key.width = unit(1.5, "cm"))

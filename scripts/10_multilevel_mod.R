@@ -274,99 +274,103 @@ strain_fit_new |>
 
 # lowocv ------------------------------------------------------------------
 
-mod_df_final <- mod_df_final |> 
-  left_join(select(games, gameId, week))
-
-strain_loocv_initial <- function(w) {
-  
-  train <- filter(mod_df_final, week != w)
-  test <- filter(mod_df_final, week == w)
-  
-  fit <- lmer(
-    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | passer) + play_len + rush_pos + block_pos + n_blockers,
-    data = train
-  )
-  
-  out <- tibble(
-    pred = predict(fit, newdata = test, allow.new.levels = TRUE),
-    obs = pull(test, avg_strain),
-    week = w
-  )
-  return(out)
-}
-
-strain_loocv_initial_df <- map(1:8, strain_loocv_initial) |> 
-  list_rbind()
-
-library(yardstick)
-strain_loocv_initial_rmse <- strain_loocv_initial_df |>
-  group_by(week) |> 
-  rmse(obs, pred)
-
-
-strain_loocv_new <- function(w) {
-  
-  train <- filter(mod_df_final, week != w)
-  test <- filter(mod_df_final, week == w)
-  
-  fit <- lmer(
-    avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
-      rush_pos + block_pos + n_blockers + down + yardsToGo + absoluteYardlineNumber,
-    data = mod_df_final
-  )
-  
-  out <- tibble(
-    pred = predict(fit, newdata = test, allow.new.levels = TRUE),
-    obs = pull(test, avg_strain),
-    week = w
-  )
-  return(out)
-}
-
-strain_loocv_new_df <- map(1:8, strain_loocv_new) |> 
-  list_rbind()
-
-strain_loocv_new_rmse <- strain_loocv_new_df |>
-  group_by(week) |> 
-  rmse(obs, pred)
-
-mean(strain_loocv_initial_rmse$.estimate ^ 2)
-mean(strain_loocv_new_rmse$.estimate ^ 2)
-
-
-mutate(strain_loocv_initial_rmse, team_eff = "No") |>
-  bind_rows(mutate(strain_loocv_new_rmse, team_eff = "Yes")) |> 
-  ggplot(aes(week, .estimate, color = team_eff)) +
-  geom_point() +
-  geom_line() +
-  labs(x = "Left-out week",
-       y = "RMSE",
-       color = "Team effects?") +
-  scale_x_continuous(breaks = 1:8) +
-  theme_light()
+# mod_df_final <- mod_df_final |> 
+#   left_join(select(games, gameId, week))
+# 
+# strain_loocv_initial <- function(w) {
+#   
+#   train <- filter(mod_df_final, week != w)
+#   test <- filter(mod_df_final, week == w)
+#   
+#   fit <- lmer(
+#     avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | passer) + 
+#       rush_pos + block_pos + n_blockers + down + yardsToGo + absoluteYardlineNumber,
+#     data = train
+#   )
+#   
+#   out <- tibble(
+#     pred = predict(fit, newdata = test, allow.new.levels = TRUE),
+#     obs = pull(test, avg_strain),
+#     week = w
+#   )
+#   return(out)
+# }
+# 
+# strain_loocv_initial_df <- map(1:8, strain_loocv_initial) |> 
+#   list_rbind()
+# 
+# library(yardstick)
+# strain_loocv_initial_rmse <- strain_loocv_initial_df |>
+#   group_by(week) |> 
+#   rmse(obs, pred)
+# 
+# 
+# strain_loocv_new <- function(w) {
+#   
+#   train <- filter(mod_df_final, week != w)
+#   test <- filter(mod_df_final, week == w)
+#   
+#   fit <- lmer(
+#     avg_strain ~ (1 | nflId) + (1 | blocker_id) + (1 | possessionTeam) + (1 | defensiveTeam) + 
+#       rush_pos + block_pos + n_blockers + down + yardsToGo + absoluteYardlineNumber,
+#     data = mod_df_final
+#   )
+#   
+#   out <- tibble(
+#     pred = predict(fit, newdata = test, allow.new.levels = TRUE),
+#     obs = pull(test, avg_strain),
+#     week = w
+#   )
+#   return(out)
+# }
+# 
+# strain_loocv_new_df <- map(1:8, strain_loocv_new) |> 
+#   list_rbind()
+# 
+# strain_loocv_new_rmse <- strain_loocv_new_df |>
+#   group_by(week) |> 
+#   rmse(obs, pred)
+# 
+# mean(strain_loocv_initial_rmse$.estimate ^ 2)
+# mean(strain_loocv_new_rmse$.estimate ^ 2)
 
 
-fig_loocv_team_eff <- strain_loocv_initial_df |>
-  mutate(resid = obs - pred,
-         sq_err = resid ^ 2) |>
-  group_by(week) |>
-  summarize(mse = mean(sq_err, na.rm = TRUE),
-            # lower = quantile(sq_err, 0.025, na.rm = TRUE),
-            # upper = quantile(sq_err, 0.975, na.rm = TRUE),
-            se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
-            type = "No") |>
-  bind_rows(
-    strain_loocv_new_df |>
-      mutate(resid = obs - pred,
-             sq_err = resid ^ 2) |>
-      group_by(week) |>
-      summarize(mse = mean(sq_err, na.rm = TRUE),
-                # lower = quantile(sq_err, 0.025, na.rm = TRUE),
-                # upper = quantile(sq_err, 0.975, na.rm = TRUE),
-                se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
-                type = "Yes")
-  ) |>
-  mutate(lower = mse - 2*se, upper = mse + 2*se) |>
+# mutate(strain_loocv_initial_rmse, team_eff = "No") |>
+#   bind_rows(mutate(strain_loocv_new_rmse, team_eff = "Yes")) |> 
+#   ggplot(aes(week, .estimate, color = team_eff)) +
+#   geom_point() +
+#   geom_line() +
+#   labs(x = "Left-out week",
+#        y = "RMSE",
+#        color = "Team effects?") +
+#   scale_x_continuous(breaks = 1:8) +
+#   theme_light()
+
+# strain_loocv_results <- strain_loocv_initial_df |>
+#   mutate(resid = obs - pred,
+#          sq_err = resid ^ 2) |>
+#   group_by(week) |>
+#   summarize(mse = mean(sq_err, na.rm = TRUE),
+#             # lower = quantile(sq_err, 0.025, na.rm = TRUE),
+#             # upper = quantile(sq_err, 0.975, na.rm = TRUE),
+#             se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
+#             type = "No") |>
+#   bind_rows(
+#     strain_loocv_new_df |>
+#       mutate(resid = obs - pred,
+#              sq_err = resid ^ 2) |>
+#       group_by(week) |>
+#       summarize(mse = mean(sq_err, na.rm = TRUE),
+#                 # lower = quantile(sq_err, 0.025, na.rm = TRUE),
+#                 # upper = quantile(sq_err, 0.975, na.rm = TRUE),
+#                 se = sd(sq_err, na.rm = TRUE) / sqrt(n()),
+#                 type = "Yes")
+#   ) |>
+#   mutate(lower = mse - 2*se, upper = mse + 2*se)
+
+# write_rds(strain_loocv_results, here("data", "strain_loocv_results.rds"))
+
+fig_loocv_team_eff <- read_rds(here("data", "strain_loocv_results.rds")) |> 
   ggplot(aes(week, mse, color = type)) +
   geom_errorbar(aes(ymin = lower, ymax = upper), position = position_dodge(width = 0.5), width = 0.5) +
   geom_point(position = position_dodge(width = 0.5), size = 2) +

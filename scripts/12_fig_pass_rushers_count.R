@@ -13,7 +13,7 @@ pass_rushers_count <- pff_full |>
   count(gameId, playId) |> 
   count(n) |> 
   ggplot(aes(n, nn)) +
-  geom_col() +
+  geom_col(fill = "gray") +
   scale_x_continuous(breaks = 1:8) +
   labs(x = "Number of pass rushers",
        y = "Count")
