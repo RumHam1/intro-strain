@@ -248,8 +248,8 @@ For blockers, centers are those that absorb the most pressure on average, more t
 <!-- [INSERT CONCLUSIONS ABOUT THESE VARIABLES] -->
 <!-- [SAY SOMETHING ABOUT POSITION] -->
 
-Next, Table \ref{tab:icc} displays the intraclass correlation coefficients (ICC) for the three different grouped terms, describing the proportion variance explained between the group terms in comparison to the residual variance.
-While the residual variance is unsurprisingly the largest value, between the three group terms, we observe the largest ICC for pass rushers, followed by the QB, and the blocker.
+Next, Table \ref{tab:icc} displays the intraclass correlation coefficients (ICC) for the four different groupings, describing the proportion variance explained between the group terms in comparison to the residual variance.
+While the residual variance is unsurprisingly the largest value, between the player and team factors, we observe the largest ICC for pass rushers, followed by the offensive and defensive teams, and the blocker.
 This emphasizes how STRAIN is mostly attributable to pass rushers, but is necessary to adjust for opposition and other factors.
 
 <!-- reference levels: DE (rush), T (block) -->
@@ -333,18 +333,30 @@ $I_{\text{\{B:other\}}}$ & -0.1260 & 0.0646 & -1.9508 & 0.0514 \\
 <!-- \end{table} -->
 
 
+<!-- \begin{table}[ht] -->
+<!-- \caption{Intraclass correlation coefficients for the multilevel model for average STRAIN. \label{tab:icc}} -->
+<!-- \centering -->
+<!-- \begin{tabular}{lr} -->
+<!-- \hline -->
+<!-- Group & ICC \\  -->
+<!-- \hline -->
+<!-- Pass rusher & 0.0365 \\  -->
+<!-- Pass blocker & 0.0098 \\  -->
+<!-- Defensive team & 0.0134 \\  -->
+<!-- Offensive team & 0.0143 \\ -->
+<!-- Residual & 0.9260 \\  -->
+<!-- \hline -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
+
 \begin{table}[ht]
 \caption{Intraclass correlation coefficients for the multilevel model for average STRAIN. \label{tab:icc}}
 \centering
-\begin{tabular}{lr}
+\begin{tabular}{cccccc}
 \hline
-Group & ICC \\ 
+\text{ } & Pass rusher & Pass blocker & Defensive team & Offensive team & Residual \\ 
 \hline
-Pass rusher & 0.0365 \\ 
-Pass blocker & 0.0098 \\ 
-Defensive team & 0.0134 \\ 
-Offensive team & 0.0143 \\
-Residual & 0.9260 \\ 
+ICC & 0.0365 & 0.0098 & 0.0134 & 0.0143 & 0.9260 \\ 
 \hline
 \end{tabular}
 \end{table}
