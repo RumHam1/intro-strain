@@ -12,6 +12,11 @@ header-includes:
 
 \spacingset{1.45}
 
+# Summary
+
+This document contains supplementary materials for the article ""Here Comes the STRAIN: Analyzing Defensive Pass Rush in American Football with Player Tracking Data".
+We provide additional figures and tables, and justification for the multilevel model presented in the paper.
+
 ```{r}
 #| label: setup
 #| include: false
@@ -31,8 +36,7 @@ Figure \ref{fig:fig_field} shows snapshots of a play from the week six game betw
 The play outcome is a sack made by Raiders defensive end Maxx Crosby on Broncos quarterback Teddy Bridgewater.
 The locations of every Las Vegas (in black, on defense) and Denver (in orange, on offense) player on the field at 1, 2, 3, and 4 seconds after the ball snap is displayed, with Crosby highlighted in blue.
 Note that the point size for each Las Vegas defender corresponds to their estimated STRAIN as the play progresses.
-This play is represented by Table [INSERT NUMBER - tracking data table] and Figure [INSERT NUMBER - line graph] in the paper.
-
+This play is represented in Table [INSERT NUMBER - tracking data table] and Figure [INSERT NUMBER - line graph] in the paper.
 
 ```{r}
 #| label: fig_field
@@ -59,8 +63,8 @@ pass_rushers_count
 
 # Pass rusher rankings based on average STRAIN
 
-Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size, as discussed in Section \ref{sec:defn}.
-Based on the clearly distinct patterns for different positions as previously observed, we evaluate interior pass rushers (NTs and DTs) separately from edge rushers (OLBs and DEs).
+Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size.
+Based on the clearly distinct patterns for different positions as shown in Figure [INSERT strain curve figure] of the article, we evaluate interior pass rushers (NTs and DTs) separately from edge rushers (OLBs and DEs).
 Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
 The tables also consist of the total number of hits, hurries, and sacks (determined from PFF scouting data) for each defender.
 
@@ -69,11 +73,15 @@ The tables also consist of the total number of hits, hurries, and sacks (determi
 
 [TODO: rewrite this, move some of this to analyze the ggridges figure]
 
-Our results are mostly consistent with conventional rankings of rushers.
-Notably, Myles Garrett and TJ Watt are widely recognized as top-tier edge rushers and both show up in our top edge rusher list; whereas Aaron Donald, who is undoubtedly the best interior defender in football, appears at the top of our interior rusher rankings.
-Moreover, our leaderboards largely match the rankings of experts in the field.
-For instance, there is considerable overlap between our lists and PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings released after the 2021 season.
-This ultimately lends credibility to our proposed metric STRAIN as a measure of pass rushing effectiveness.
+
+We observe similar rankings based on the average STRAIN in comparison to the random intercepts results in the paper.
+Notably, Myles Garrett and TJ Watt are widely recognized as top-tier edge rushers and both show up in our top edge rusher list.
+Aaron Donald, who is undoubtedly the best interior defender in football, appears at the top of our interior rusher rankings.
+
+<!-- Our results are mostly consistent with conventional rankings of rushers. -->
+<!-- Moreover, our leaderboards largely match the rankings of experts in the field. -->
+<!-- For instance, there is considerable overlap between our lists and PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings released after the 2021 season. -->
+<!-- This ultimately lends credibility to our proposed metric STRAIN as a measure of pass rushing effectiveness. -->
 
 \begin{table}
 \caption{Top 10 edge rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:edge}}
@@ -129,9 +137,9 @@ Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\t
 <!-- 14 & Vita Vea & TB & NT & 184 & 6 & 12 & 1 & 1.01 \\  -->
 <!-- 15 & B.J. Hill & CIN & DT & 123 & 3 & 4 & 3 & 0.96 \\  -->
 
-# Comparison of multilevel models for play-level STRAIN
+# Comparison of multilevel models
 
-## Model without team effects
+## Modeling play-level STRAIN without team effects
 
 We additionally consider a multilevel model to evaluate pass rushers' impact on the average STRAIN observed in a play, while accounting for their pass blocker, QB, and play-level attributes.
 The average STRAIN by pass rusher $j$ on play $i$ is modeled as follows.

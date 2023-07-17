@@ -352,6 +352,11 @@ ICC & 0.0365 & 0.0098 & 0.0134 & 0.0143 & 0.9260 \\
 
 <!-- We display the random intercepts for pass rusher in Table [INSERT TABLE REFERENCE] alongside their unadjusted STRAIN values.  -->
 
+<!-- Our results are mostly consistent with conventional rankings of rushers, with Myles Garrett (defensive end), T.J. Watt (outside linebacker), Aaron Donald (defensive tackle), and Vita Vea (nose tackle) as the first-ranked pass rusher for their respective position. -->
+<!-- Moreover, our leaderboards largely match the rankings of experts in the field. -->
+<!-- For instance, there is considerable overlap between our lists and PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings released after the 2021 season. -->
+<!-- This ultimately lends credibility to our proposed metric STRAIN as a measure of pass rushing effectiveness. -->
+
 In addition to adjusting for opposition, our multilevel model allows us to provide some notion of uncertainty about the pass rusher's effect on the play level STRAIN.
 Figure \ref{fig:fig_rankings_boot} displays the varying intercept distributions for the top ten pass rushers for each position.
 We obtain similar rankings based on the random intercepts in comparison to the average STRAIN results in Tables \ref{tab:edge} and \ref{tab:interior}, with Myles Garrett (defensive end), T.J. Watt (outside linebacker), Aaron Donald (defensive tackle), and Vita Vea (nose tackle) as the first-ranked pass rusher for their respective position.
