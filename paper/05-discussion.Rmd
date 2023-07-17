@@ -6,8 +6,17 @@ Visualizations of STRAIN can be useful and intuitive for coaches and broadcaster
 We demonstrate that a pass rusher's average STRAIN is both stable and more predictive of future pressure events than using the player's previously observed pressure events.
 This is analogous to the use of exit velocity in baseball, a predictive measurement that avoids the noisy nature of observed outcomes, emphasizing how the opportunity of working with player tracking data can lead to the development of insightful metrics in American football. 
 
-Through multilevel modeling, we observe that the pass rusher explains more variation in their play-level STRAIN, followed by the possession team, the pass rushing team, and finally the pass rusher's assigned blocker.
-This is an intuitive result, consistent with previous literature on pass rushing and pressure. However, our model is limited in that we only account for players directly involved as the pass rusher or nearest blocker, on top of team-level effects. The nested structure of our model enforces positive dependence between pass rushers on the same team, which may not be true. For instance, if one player is known to be an elite pass rusher then the opposing blocking team may focus their blocking efforts on this player. This could leave the path open for another player to rush the quarterback with ease, resulting in higher STRAIN values. In order to capture this type of behavior, we could consider modeling an aggregate STRAIN across pass rushers with a regularized adjusted plus-minus (RAPM) regression approach. The use of RAPM techniques has been successfully demonstrated in American football by @sabin2021estimating, which accounts for all players on the field with Bayesian hierarchical models. We leave this type of analysis for future work, which will require careful consideration of available informative priors [@matano2023augmenting].
+Through multilevel modeling, we observe that the pass rusher explains more variation in their play-level STRAIN, followed by the possession and pass rushing teams, and finally the pass rusher's assigned blocker.
+This is an intuitive result, consistent with previous literature on pass rushing and pressure.
+However, our model is limited in that we only account for players directly involved as the pass rusher or nearest blocker, on top of team-level effects.
+The nested structure of our model enforces positive dependence between pass rushers on the same team, which may not be true.
+For instance, if one player is known to be an elite pass rusher then the opposing blocking team may focus their blocking efforts on this player. 
+This could leave the path open for another player to rush the quarterback with ease, resulting in higher STRAIN values.
+As shown in Figure \ref{fig:fig_rankings_boot}, the first- and fourth-ranked defensive ends Myles Garrett and Takkarist McKinley were teammates on the Cleveland Browns during this period of time.
+McKinley is a surprising name on our list and we suspect that his high rank is mostly due to playing on the same defensive unit with Garrett, who is well-known as an great pass rusher.
+In order to capture this type of behavior, we could consider modeling an aggregate STRAIN across pass rushers with a regularized adjusted plus-minus (RAPM) regression approach.
+The use of RAPM techniques has been successfully demonstrated in American football by @sabin2021estimating, which accounts for all players on the field with Bayesian hierarchical models.
+We leave this type of analysis for future work, which will require careful consideration of available informative priors [@matano2023augmenting].
 
 In addition, we believe there are other concepts in materials science that could be applied to evaluating pass rushing and pass blocking in American football.
 One potential idea is to consider a quantity called stress, which measures force over an area.
