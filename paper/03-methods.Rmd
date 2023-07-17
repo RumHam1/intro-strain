@@ -36,7 +36,7 @@ v_{ij}(t) = s'_{ij}(t) = \frac{ds_{ij}(t)}{dt}.
 \end{equation*}
 *   The STRAIN for pass rusher $j$ at frame $t$ during play $i$ is 
 \begin{equation*}
-\text{STRAIN}_{ij}(t) = \frac{v_{ij}(t)}{s_{ij}(t)}.
+\text{STRAIN}_{ij}(t) = \frac{- v_{ij}(t)}{s_{ij}(t)}.
 \end{equation*}
 
 Note that to distinguish our metric from strain and strain rate in materials science, we write it in capital letters (STRAIN) for the remainder of this manuscript.
