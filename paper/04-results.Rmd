@@ -350,6 +350,15 @@ ICC & 0.0365 & 0.0098 & 0.0134 & 0.0143 & 0.9260 \\
 \end{tabular}
 \end{table}
 
+```{r}
+#| label: fig_rankings_boot
+#| fig.cap: "Distributions of player effects for top 10 pass rushers in each position (defensive end, outside linebacker, defensive tackle, nose tackle) by median varying intercept."
+#| fig.width: 6.3
+#| fig.height: 6
+source(here("scripts", "10_multilevel_mod.R"))
+fig_rankings_boot
+```
+
 <!-- We display the random intercepts for pass rusher in Table [INSERT TABLE REFERENCE] alongside their unadjusted STRAIN values.  -->
 
 <!-- Our results are mostly consistent with conventional rankings of rushers, with Myles Garrett (defensive end), T.J. Watt (outside linebacker), Aaron Donald (defensive tackle), and Vita Vea (nose tackle) as the first-ranked pass rusher for their respective position. -->
@@ -360,7 +369,7 @@ ICC & 0.0365 & 0.0098 & 0.0134 & 0.0143 & 0.9260 \\
 In addition to adjusting for opposition, our multilevel model allows us to provide some notion of uncertainty about the pass rusher's effect on the play level STRAIN.
 Figure \ref{fig:fig_rankings_boot} displays the varying intercept distributions for the top ten pass rushers for each position.
 We obtain similar rankings based on the random intercepts in comparison to the average STRAIN results in Tables \ref{tab:edge} and \ref{tab:interior}, with Myles Garrett (defensive end), T.J. Watt (outside linebacker), Aaron Donald (defensive tackle), and Vita Vea (nose tackle) as the first-ranked pass rusher for their respective position.
-Additionally, we observe different levels of variability across these top players, with only a subset of players with intercept ranges strictly above zero.
+Additionally, we observe different levels of variability across these top players, with only a subset of players having intercept distributions strictly above zero.
 This is not necessarily surprising given the limited sample of data.
 
 <!-- [TODO: edit the below? McKinley still there but we did control for team effects] -->
@@ -369,15 +378,3 @@ This is not necessarily surprising given the limited sample of data.
 <!-- For instance, the top two defensive ends, Myles Garrett and Takkarist McKinley (see the top panel of Figure \ref{fig:fig_rankings_boot}), were teammates on the Cleveland Browns during this period of time. -->
 <!-- McKinley is a surprising name on our list and we suspect that his high rank is mostly due to playing on the same defensive unit with Garrett, who is well-known as an elite pass rusher. -->
 <!-- We leave the exploration of adjusting for teammates for future work. -->
-
-
-
-
-```{r}
-#| label: fig_rankings_boot
-#| fig.cap: "Distributions of player effects for top 10 pass rushers in each position (defensive end, outside linebacker, defensive tackle, nose tackle) by median varying intercept."
-#| fig.width: 6.3
-#| fig.height: 6
-source(here("scripts", "10_multilevel_mod.R"))
-fig_rankings_boot
-```
