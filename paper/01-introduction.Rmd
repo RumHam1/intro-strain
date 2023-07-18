@@ -154,7 +154,7 @@ The peer-reviewed literature on measuring the performance of football linemen (e
 @AlamarGould2008 find an association between pass completion rate and successful pass blocking by offensive linemen.
 The data for this study are collected for the first three weeks of the 2007 NFL season, manually recording whether a lineman holds a block and the time it took for quarterback to throw the football.
 @AlamarGoldner2011 later follow up by using manually-tracked data for the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g., Chicago Bears' left tackle, Pittsburgh Steelers' center, etc.).
-The paper uses survival analysis to model time in pocket and completion percentage for quarterbacks before proposing a measure for linemen's contribution to their team's passing in terms of yards gained.
+They used survival analysis to model time in pocket and completion percentage for quarterbacks before proposing a measure for linemen's contribution to their team's passing in terms of yards gained.
 
 @Wolfson2017Forecasting comment on the two aforementioned articles that "[a]lthough these are exciting preliminary steps, there is still a long way to go before we can provide a comprehensive appraisal of the achievements of an individual lineman."
 The challenge here is fundamental, since there were not enough public data at the time to develop any meaningful metric for linemen in football, as also noted by @AlamarGould2008.
