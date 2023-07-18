@@ -39,7 +39,7 @@ In addition to defensive lineman, other positions may attempt to rush the QB on 
 Note that apart from the formations shown in Figure \ref{fig:formation}, defensive linemen can have the flexibility to line up differently.
 For example, a defensive end, depending on the opposing matchup, may not necessarily be positioned toward the outside of the line of scrimmage.
 
-```{r formation, fig.width=4.8, fig.height=3.5, fig.pos="t", fig.cap="Two common defensive alignments in football: 4-3 defense (top) and 3-4 defense (bottom). The dashed line represents the line of scrimmage separating the defense and offense."}
+```{r formation, fig.width=4.8, fig.height=3.5, fig.pos="t", fig.cap="Two common defensive alignments in football: 4-3 defense (top) and 3-4 defense (bottom). The dashed line represents the line of scrimmage separating the defense and offense. Cornerbacks (CB) and safeties (S) are primarily involved in defending against passing plays.  Outside linbackers (OLB) and inside linebackers (ILB) generally play directly behind the defensive line and are involved in defending against passing and rushing plays.  Defensive tackles (DT), defensive ends (DE), and nose tackles (NT) primarily rush the quarterback on passing plays and attempt to stop the rusher as quickly as possible on running plays."}
 tibble(x = c(3:5, 3:6 - 0.5, c(2, 3.7, 4.3, 6)),
        y = c(1, 1, 1, 1.01, 1.01, 1.01, 1.01, 1.02, 1.02, 1.02, 1.02),
        pos = c("DE", "NT", "DE", "OLB", "ILB", "ILB", "OLB",
