@@ -17,7 +17,7 @@ That is,
 \varepsilon'(t) = \frac{d \varepsilon}{dt} = \frac{v(t)}{L_{0}},
 \end{equation*}
 where $v(t)$ is the velocity at which the two points of interest within the material are moving away from or towards each other.
-Whereas strain has no units, the strain rate is measured in inverse of time, usually 1/second.
+Whereas strain has no units, the strain rate is measured in inverse of time, usually 1/seconds.
 
 Motivated by its scientific definition, we draw a delightful analogy between strain rate and pass rushing in football.
 Just as strain rate is a measure of deformation in materials science, a pass rusher's efforts involve the application of deformation against the offensive line, with the ultimate goal of breaking through the protection to reach the quarterback.
