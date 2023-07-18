@@ -74,10 +74,11 @@ In addition to the average STRAIN over all frames played, we can also calculate 
 \begin{equation*}
 \overline{\text{STRAIN}}_{ij} = \frac{1}{T_i} \sum_{t=1}^{T_i} \widehat{\text{STRAIN}}_{ij}(t).
 \end{equation*}
-While this aggregated measure is a simple first step for pass rush evaluation, the observed average STRAIN on a single play is likely due to a convolution of factors.
-Outside of the pass rusher's ability, there is variability in the opposing strength of pass blockers across plays a pass rusher is involved - both at the individual and team level.
-Additionally, based on previous work by PFF, the opposing QB plays an important role on the observed pressure in passing plays [@eager2019pressure]. We also suspect that pass rusher's STRAIN is affected by their defensive teammates as well. 
+While this aggregated measure is a simple first step for pass rush evaluation, the observed average STRAIN on a single play is likely due to numerous factors.
+Besides the pass rusher's ability, there is variability in the opposing strength of pass blockers across plays a pass rusher is involved, both at the individual and team levels.
 Thus, we need to appropriately divide the credit of an observed average STRAIN across the different players and team involved, amongst other factors.
+
+<!-- Additionally, based on previous work by PFF, the opposing QB plays an important role on the observed pressure in passing plays [@eager2019pressure]. We also suspect that pass rusher's STRAIN is affected by their defensive teammates as well.  -->
 
 To this end, we fit a multilevel model to evaluate pass rushers' impact on the average STRAIN observed in a play, while accounting for their team on defense, the opposing team on offense, and their assigned pass blocker.
 We identify the pass blocker linked with the pass rusher of interest using the data provided by PFF.
@@ -95,7 +96,7 @@ O_{o} &\sim N(\mu_O, \sigma^2_O), \text{ for } o = 1, \cdots, \text{ \# of offen
 \end{aligned}
 \end{equation*}
 
-We consider a normal distribution to shrink the random intercepts for each player and team toward their respective group means.
+In detail, we consider a normal distribution to shrink the random intercepts for each player and team toward their respective group means.
 This is a useful property since we do not observe the same number of plays for each player. 
 For the team effects, this provides us with the average defense and offense team-level effects on a pass rusher's STRAIN.
 Due to the nested nature of players on teams, the individual pass rusher and blocker random intercepts reflect the respective player's effect relative to their team effects. 
@@ -110,10 +111,10 @@ As for the fixed-effects about pass rusher $j$ in play $i$, we include a variety
 First, we adjust for the position of both the pass rusher and nearest blocker to account for any positional effects.
 Table \ref{tab:pos} shows our positional categorization for the pass rush and pass block roles.
 These are encoded as indicator variables with defensive ends and tackles as the reference levels for the pass rushers and blockers, respectively.
-We also adjust for the number of pass blockers on the play, since teams may decide to employ a more protective scheme that could lower the observed STRAIN.
+We also account for the number of pass blockers on the play, since teams may decide to employ a more protective scheme that could lower the observed STRAIN.
 Finally, we control for play-context covariates with respect to the offensive team.
 These include the current down (first, second, third, fourth, or two-point conversion), yards to go for a first down, and current yardline (i.e., distance from the possession team's goal line). 
-We account for play-context since these variables impact a team's designed play, which may result in a play with low or high STRAIN regardless of the pass rusher's role. 
+We consider play-context information since these variables impact a team's designed play, which may result in a play with low or high STRAIN regardless of the pass rusher's role. 
 For instance, a team may call a short pass that is intended to be thrown early which could limit the amount of STRAIN on a play. 
 Or a team may need to throw a deep pass which would require more time and potentially create more STRAIN.
 We do not account for time directly in the model due to the concern that the time it takes for a quarterback to throw the ball is itself a function of both the play call and pressure from pass rushers.

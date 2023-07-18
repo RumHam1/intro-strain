@@ -405,21 +405,49 @@ strain_boot <- function(b) {
   rushers <- res |> 
     pluck("nflId") |> 
     as_tibble() |> 
-    transmute(nflId = rownames(res$nflId),
+    transmute(who = rownames(res$nflId),
               intercept = `(Intercept)`,
-              boot = b)
-  return(rushers)
+              eff = "rusher")
+  
+  blockers <- res |> 
+    pluck("blocker_id") |> 
+    as_tibble() |> 
+    transmute(who = rownames(res$blocker_id),
+              intercept = `(Intercept)`,
+              eff = "blocker")
+  
+  defense <- res |> 
+    pluck("defensiveTeam") |> 
+    as_tibble() |> 
+    transmute(who = rownames(res$defensiveTeam),
+              intercept = `(Intercept)`,
+              eff = "defense")
+  
+  offense <- res |> 
+    pluck("possessionTeam") |> 
+    as_tibble() |> 
+    transmute(who = rownames(res$possessionTeam),
+              intercept = `(Intercept)`,
+              eff = "offense")
+  
+  out <- rushers |> 
+    bind_rows(blockers) |> 
+    bind_rows(defense) |> 
+    bind_rows(offense) |> 
+    mutate(boot = b)
+  
+  return(out)
 }
 
 # library(furrr)
 # plan(multisession, workers = 7)
 # n_boots <- 1000
-# strain_boot_eff <- seq_len(n_boots) |> 
-#   future_map(strain_boot, 
+# strain_boot_eff <- seq_len(n_boots) |>
+#   future_map(strain_boot,
 #              .options = furrr_options(seed = 101),
 #              .progress = TRUE)
-#   
-# strain_boot_eff <- strain_boot_eff |> 
+# 
+# strain_boot_eff <- strain_boot_eff |>
 #   list_rbind()
 # 
 # write_rds(strain_boot_eff, here("data", "strain_boot_eff.rds"))
@@ -427,6 +455,8 @@ strain_boot <- function(b) {
 strain_boot_eff <- read_rds(here("data", "strain_boot_eff.rds"))
 
 top_rushers <- strain_boot_eff |> 
+  filter(eff == "rusher") |> 
+  rename(nflId = who) |> 
   group_by(nflId) |> 
   summarize(med_intercept = median(intercept, na.rm = TRUE)) |> 
   filter(nflId %in% filter(pass_rush_snaps, n_plays >= 100)$nflId) |> 
@@ -436,7 +466,10 @@ top_rushers <- strain_boot_eff |>
   group_by(officialPosition) |> 
   slice_max(med_intercept, n = 10)
   
+library(ggridges)
 fig_rankings_boot <- strain_boot_eff |> 
+  filter(eff == "rusher") |> 
+  rename(nflId = who) |> 
   mutate(nflId = as.double(nflId)) |> 
   filter(nflId %in% top_rushers$nflId) |> 
   left_join(players) |> 
@@ -445,16 +478,33 @@ fig_rankings_boot <- strain_boot_eff |>
   mutate(officialPosition = factor(officialPosition, levels = c("DE", "OLB", "DT", "NT"))) |> 
   ggplot(aes(intercept, reorder(displayName, med_intercept))) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  ggridges::geom_density_ridges(quantile_lines = TRUE, 
-                                quantiles = 0.5, 
-                                rel_min_height = 0.01,
-                                scale = 1.2) +
+  geom_density_ridges(quantile_lines = TRUE, 
+                      quantiles = 0.5, 
+                      rel_min_height = 0.01,
+                      scale = 1.2) +
   facet_wrap(~ officialPosition, scales = "free_y") +
   scale_x_continuous(breaks = seq(-0.5, 1.5, 0.5)) +
   labs(x = "Pass rusher varying intercept",
        y = NULL) +
   theme_light() +
   theme(panel.grid.minor = element_blank())
+
+
+strain_boot_eff |> 
+  filter(eff == "offense") |> 
+  group_by(who) |> 
+  summarize(med_intercept = median(intercept, na.rm = TRUE)) |> 
+  arrange(med_intercept)
+
+strain_boot_eff |> 
+  filter(eff == "defense") |> 
+  group_by(who) |> 
+  summarize(med_intercept = median(intercept, na.rm = TRUE)) |> 
+  arrange(-med_intercept)
+
+
+
+
 
 # res |> 
 #   pluck("nflId") |> 

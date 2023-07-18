@@ -175,3 +175,10 @@ source(here("scripts", "10_multilevel_mod.R"))
 fig_loocv_team_eff
 ```
 
+# Additional model results
+
+## Top blockers
+
+## Defense
+
+## Offense

@@ -231,7 +231,7 @@ In other words, NFL pass rushers tend to generate more pressure when facing fewe
 
 As for play context, defensive pressure appears to increase when more yardage is required for the offense to reach a first down and for later plays within a set of down, when all other predictors are held constant.
 In particular, every extra yard in the distance needed for a first down is associated with a 0.0491 increase (95% CI [0.0426, 0.0555]) in the average STRAIN.
-Relative to first down situations, higher amount of defensive pressure seem to happen in plays that come after (second, third, and fourth downs).
+Relative to first down situations, higher amount of pressure seem to happen in plays that come after (second, third, and fourth downs).
 In addition, we have insufficient evidence for a relationship between average STRAIN and the current yardline on the field for the offensive team.
 
 Moreover, we observe statistically significant differences among the pass rush and pass block positions in most cases, while controlling for other variables.
@@ -366,10 +366,10 @@ fig_rankings_boot
 <!-- For instance, there is considerable overlap between our lists and PFF's edge [@Monson2022nfl] and interior [@Linsey2022nfl] rusher rankings released after the 2021 season. -->
 <!-- This ultimately lends credibility to our proposed metric STRAIN as a measure of pass rushing effectiveness. -->
 
-In addition to adjusting for opposition, our multilevel model allows us to provide some notion of uncertainty about the pass rusher's effect on the play level STRAIN.
+Aside from adjusting for opposition, our multilevel model allows us to provide some notion of uncertainty about the pass rusher's effect on the play level STRAIN.
 Figure \ref{fig:fig_rankings_boot} displays the varying intercept distributions for the top ten pass rushers for each position.
 We obtain similar rankings based on the random intercepts in comparison to the average STRAIN results in Tables \ref{tab:edge} and \ref{tab:interior}, with Myles Garrett (defensive end), T.J. Watt (outside linebacker), Aaron Donald (defensive tackle), and Vita Vea (nose tackle) as the first-ranked pass rusher for their respective position.
-Additionally, we observe different levels of variability across these top players, with only a subset of players having intercept distributions strictly above zero.
+Additionally, we observe different levels of variability across these top defenders, with only a subset of players having intercept distributions strictly above zero.
 This is not necessarily surprising given the limited sample of data.
 
 <!-- [TODO: edit the below? McKinley still there but we did control for team effects] -->
