@@ -8,7 +8,7 @@ The strain for a material at time $t$ is defined as
 \begin{equation*}
 \varepsilon(t)= \frac{L(t) - L_{0}}{L_{0}}.
 \end{equation*}
-Notice that this measure is unitless due to being a ratio of two quantities having the same dimension.
+Notice that this measure is unitless due to being a ratio of two quantities having the same units.
 
 Accordingly, the strain rate of a material measures the change in its deformation with respect to time.
 Mathematically, the strain rate of a material can be expressed as the derivative of its strain.
