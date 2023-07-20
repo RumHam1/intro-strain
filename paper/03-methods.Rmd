@@ -51,16 +51,19 @@ Since we only observe the distance and velocity quantities discretely in increme
 \begin{equation*}
 \widehat{\text{STRAIN}}_{ij}(t) = \cfrac{-\cfrac{s_{ij}(t) - s_{ij}(t - 1)}{0.1}}{s_{ij}(t)}.
 \end{equation*}
+
+
 Notice that this quantity increases in two ways: 1) the rate at which the rusher is moving towards the quarterback increases, and 2) the distance between the rusher and the quarterback decreases.
 Both of these are indications of an effective pass rush attempt.
 Finally, our statistic STRAIN is measured in inverse second, similar to strain rate.
 Note that the reciprocal of our metric (1/STRAIN) has an interesting and straightforward interpretation: the amount of time required for the rusher to get to the quarterback at the current location and rate at any given time $t$.
 
 Moreover, since we observe STRAIN at every tenth of a second within each play, we can then compute the average STRAIN across all frames played for every pass rusher.
-Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass rusher $j$ involved in $n_j$ total plays across $T_j$ total frames is
+Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass rusher $j$ involved in $n_j$ total plays across $\sum_{i\in Z_j} T_i$ total frames where $Z_j$ is a set of the play indices where player $j$ was involved is
 \begin{equation*}
-\overline{\text{STRAIN}}_{j} = \frac{1}{T_j} \sum_{t=1}^{T_j} \widehat{\text{STRAIN}}_{j}(t).
-\end{equation*}
+\overline{\text{STRAIN}}_{j} = \frac{1}{\sum_{i\in Z_j} T_i} \sum_{i\in Z_j} \sum_{t=1}^{T_i} \widehat{\text{STRAIN}}_{ij}(t).
+\end{equation*}.
+  
 This can be helpful for player evaluation, as we determine the most effective pass rushers based on their average STRAIN values in Section \ref{sec:strainbar}.
 We also use average STRAIN to assess different statistical properties of our metric in Section \ref{sec:statprop}.
 
