@@ -88,8 +88,8 @@ However, for plays that do not result in the aforementioned outcomes (in particu
 
 In addition, the sum of sacks, hits, and hurries is often defined as pressures.
 This is better than the individual counts to some extent, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
-Pro Football Focus (PFF) defines a metric called pass-rush productivity (PRP), which is a minor modification from the aforementioned pressures metric (see Table \ref{tab:metrics}).
-In particular, PRP gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures.
+Pro Football Focus (PFF) defines a metric called pass-rush productivity, which is a minor modification from the aforementioned pressures metric (see Table \ref{tab:metrics}).
+In particular, pass-rush productivity gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures.
 However, the choice of weights is ad-hoc and still only considers binary outcomes, similar to the shortcomings of previous metrics.
 
 \begin{table}
