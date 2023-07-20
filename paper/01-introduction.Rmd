@@ -173,7 +173,7 @@ Our statistic gives a continuous measure of pressure for every pass rusher on th
 This allows for the assessment of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
 We view this as a major step forward for accurately evaluating defensive linemen performance.
 We also demonstrate that STRAIN is a stable quantity over time and predictive of defensive pressure.
-Additionally, we consider a multilevel model to estimate every pass rusher's contribution to the average STRAIN in a play while controlling for other positions like QB and pass blocker as well as various play-level information.
+Additionally, we consider a multilevel model to estimate every pass rusher's contribution to the average STRAIN in a play while controlling for team and various play-level information.
 We note that although our focus in this paper is on pass rushers, our approach can be extended to the evaluation of pass blockers in American football.  
 
 The remainder of this manuscript is outlined as follows.
