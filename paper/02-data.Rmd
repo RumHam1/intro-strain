@@ -43,19 +43,19 @@ fig_field_raw
 ```
 
 
-Along with the tracking information, the 2023 BDB includes scouting data provided by Pro Football Focus (PFF). 
-This contains manually-collected player-level information, such as the player's role (e.g., whether they are a pass rusher and pass blocker) and credited events (e.g., player is credited with hitting the QB on the play).
-In this manuscript, we use the PFF data to identify 36,362 unique pass rush attempts by players designated in the "pass rush" role across all plays.
-For context, Figure \ref{fig:pass_rushers_count} displays the distribution of the number of observed pass rushers involved in a play, ranging from 1 to 8 with 4 pass rushers (i.e., 4-man rush formation) as the most common value.
-We also leverage the PFF scouting data to count how many hits, hurries, and sacks each pass rusher is credited with across the span of observed data. 
-Additionally, we use the PFF player roles to identify the blocking matchup for each pass rusher in order to adjust for opponent strength, as discussed in Section \ref{sec:methods}.
-
 ```{r}
 #| label: pass_rushers_count
 #| fig.cap: "Distribution of the number of pass rushers on passing plays."
-#| fig.width: 4.5
-#| fig.height: 3
+#| fig.width: 3
+#| fig.height: 2.5
 source(here("scripts", "12_fig_pass_rushers_count.R"))
 pass_rushers_count
 ```
+
+Along with the tracking information, the Big Data Bowl 2023 includes scouting data provided by Pro Football Focus (PFF). 
+This contains manually-collected player-level information, such as the player's role (e.g., whether they are a pass rusher and pass blocker) and credited events (e.g., player is credited with hitting the QB on the play).
+In this manuscript, we use the PFF data to identify 36,362 unique pass rush attempts by players designated in the "pass rush" role across all plays.
+For context, Figure \ref{fig:pass_rushers_count} displays the distribution of the number of observed pass rushers involved in a play, ranging from 1 to 8 with 4 pass rushers (i.e., 4-man rush formation) as the most common value.
+We also leverage this scouting data to count how many hits, hurries, and sacks each pass rusher is credited with across the span of observed data. 
+Additionally, we use the PFF player roles to identify the blocking matchup for each pass rusher in order to adjust for opponent strength, as discussed in Section \ref{sec:methods}.
 

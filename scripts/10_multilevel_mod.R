@@ -478,7 +478,8 @@ fig_rankings_boot <- strain_boot_eff |>
   mutate(officialPosition = factor(officialPosition, levels = c("DE", "OLB", "DT", "NT"))) |> 
   ggplot(aes(intercept, reorder(displayName, med_intercept))) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  geom_density_ridges(quantile_lines = TRUE, 
+  geom_density_ridges(fill = "lightgray",
+                      quantile_lines = TRUE, 
                       quantiles = 0.5, 
                       rel_min_height = 0.01,
                       scale = 1.2) +

@@ -97,7 +97,7 @@ We observe a clear difference in STRAIN between edge rushers (outside linebacker
 Specifically, edge rushers have higher STRAIN than interior linemen on average, as they are more easily able to approach the quarterback on the edge of the pocket versus, for instance, a nose tackle attacking the line head on.
 
 On average, STRAIN appears to increase for the first 0.5 seconds of a play, followed by a decline in the next second.
-STRAIN then increases again until around 2.5-3 seconds after the snap before trending down towards the end of the play.
+STRAIN then increases again until around 2.5--3 seconds after the snap before trending down towards the end of the play.
 In context, this reflects the actions that a pass rusher initially moves towards the quarterback, but is then stopped by the offensive line while the quarterback drops back.
 When the quarterback stops dropping, the rusher closes the gap and increases STRAIN, before slowing down later on.
 

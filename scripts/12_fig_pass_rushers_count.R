@@ -16,7 +16,8 @@ pass_rushers_count <- pff_full |>
   geom_col(fill = "gray") +
   scale_x_continuous(breaks = 1:8) +
   labs(x = "Number of pass rushers",
-       y = "Count")
+       y = "Count") +
+  theme(panel.grid.minor = element_blank())
 
 pass_blockers_count <- pff_full |> 
   filter(pff_role == "Pass Block") |> 

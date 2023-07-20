@@ -8,7 +8,7 @@ The strain for a material at time $t$ is defined as
 \begin{equation*}
 \varepsilon(t)= \frac{L(t) - L_{0}}{L_{0}}.
 \end{equation*}
-Notice that this measure is unitless due to being a ratio of two quantities having the same units.
+Notice that this measure is unitless due to being a ratio of two quantities having the same unit.
 
 Accordingly, the strain rate of a material measures the change in its deformation with respect to time.
 Mathematically, the strain rate of a material can be expressed as the derivative of its strain.
@@ -17,7 +17,7 @@ That is,
 \varepsilon'(t) = \frac{d \varepsilon}{dt} = \frac{v(t)}{L_{0}},
 \end{equation*}
 where $v(t)$ is the velocity at which the two points of interest within the material are moving away from or towards each other.
-Whereas strain has no units, the strain rate is measured in inverse of time, usually 1/seconds.
+Whereas strain has no units, the strain rate is measured in inverse of time, usually inverse second.
 
 Motivated by its scientific definition, we draw a delightful analogy between strain rate and pass rushing in football.
 Just as strain rate is a measure of deformation in materials science, a pass rusher's efforts involve the application of deformation against the offensive line, with the ultimate goal of breaking through the protection to reach the quarterback.
@@ -51,19 +51,16 @@ Since we only observe the distance and velocity quantities discretely in increme
 \begin{equation*}
 \widehat{\text{STRAIN}}_{ij}(t) = \cfrac{-\cfrac{s_{ij}(t) - s_{ij}(t - 1)}{0.1}}{s_{ij}(t)}.
 \end{equation*}
-
-
 Notice that this quantity increases in two ways: 1) the rate at which the rusher is moving towards the quarterback increases, and 2) the distance between the rusher and the quarterback decreases.
 Both of these are indications of an effective pass rush attempt.
 Finally, our statistic STRAIN is measured in inverse second, similar to strain rate.
 Note that the reciprocal of our metric (1/STRAIN) has an interesting and straightforward interpretation: the amount of time required for the rusher to get to the quarterback at the current location and rate at any given time $t$.
 
 Moreover, since we observe STRAIN at every tenth of a second within each play, we can then compute the average STRAIN across all frames played for every pass rusher.
-Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass rusher $j$ involved in $n_j$ total plays across $\sum_{i\in Z_j} T_i$ total frames where $Z_j$ is a set of the play indices where player $j$ was involved is
+Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass rusher $j$ involved in $n_j$ total plays across $\sum_{i\in Z_j} T_i$ total frames, where $Z_j$ is the set of all plays with pass rusher $j$'s involvement, is
 \begin{equation*}
 \overline{\text{STRAIN}}_{j} = \frac{1}{\sum_{i\in Z_j} T_i} \sum_{i\in Z_j} \sum_{t=1}^{T_i} \widehat{\text{STRAIN}}_{ij}(t).
-\end{equation*}.
-  
+\end{equation*}
 This can be helpful for player evaluation, as we determine the most effective pass rushers based on their average STRAIN values in Section \ref{sec:strainbar}.
 We also use average STRAIN to assess different statistical properties of our metric in Section \ref{sec:statprop}.
 
@@ -84,7 +81,7 @@ Thus, we need to appropriately divide the credit of an observed average STRAIN a
 <!-- Additionally, based on previous work by PFF, the opposing QB plays an important role on the observed pressure in passing plays [@eager2019pressure]. We also suspect that pass rusher's STRAIN is affected by their defensive teammates as well.  -->
 
 To this end, we fit a multilevel model to evaluate pass rushers' impact on the average STRAIN observed in a play, while accounting for their team on defense, the opposing team on offense, and their assigned pass blocker.
-We identify the pass blocker linked with the pass rusher of interest using the data provided by PFF.
+We identify the pass blocker linked with the pass rusher of interest using the scouting data provided by PFF as mentioned in Section \ref{sec:data}.
 Since there can be multiple blockers matching up with a rusher, for simplicity, we consider the nearest blocker positioned to the pass rusher at the start of the play.
 We use random intercepts for the two player groups: pass rushers as $R$ and nearest pass blockers as $B$, as well as for the two team groups: defense $D$ and offense $O$.
 We also account for attributes about pass rusher $j$ in play $i$ through the covariate vector $\mathbf{x_{ij}}$, and estimate their respective coefficients $\boldsymbol \beta$ as fixed-effects. 
@@ -107,7 +104,7 @@ We implement the model using penalized likelihood via the `lme4` package in `R` 
 
 In order to provide a measure of uncertainty for our random effects, we use a bootstrapping strategy similar to the approach in @yurko2019nflwar.
 Specifically, we resample team drives within games, which preserves the fact that team schedules are fixed but allows for random variation in player usage since this is dependent on team decision making.
-By resampling plays within the same drive together, our sampling is generating realistic simulated data in comparison to sampling individual plays.
+By resampling plays within the same drive together, this allows us to generate realistic simulated data in comparison to sampling individual plays.
 For each bootstrapped dataset, we fit the aforementioned multilevel model to obtain a distribution of estimates for the considered player and team effects.
 
 As for the fixed-effects about pass rusher $j$ in play $i$, we include a variety of features that likely contribute to variation in STRAIN.

@@ -57,7 +57,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   fig.align = "center"
-  # fig.pos = "t"
+  # fig.pos = "p"
   # cache = TRUE
 )
 library(here)
@@ -86,7 +86,8 @@ library(tidyverse)
 
 We thank the organizers of the NFL Big Data Bowl 2023 for hosting the competition and providing access to the data.
 
-\bigskip
+<!-- \bigskip -->
+\newpage
 \begin{center}
 {\large\bf SUPPLEMENTARY MATERIAL}
 \end{center}
