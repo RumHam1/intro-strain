@@ -62,8 +62,8 @@ fig_cor_pressure_bw <- test_summed |>
   scale_x_continuous(breaks = seq(0.5, 2.5, 1)) +
   scale_y_continuous(breaks = seq(0, 0.12, 0.04)) +
   #scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
-  scale_color_manual(values = c("gray20", "gray20", "gray80", "gray80")) +
-  scale_fill_manual(values = c("gray20", "gray20", "gray80", "gray80")) +
+  scale_color_manual(values = rev(c("gray20", "gray20", "gray80", "gray80"))) +
+  scale_fill_manual(values = rev(c("gray20", "gray20", "gray80", "gray80"))) +
   scale_shape_manual(values = c(21, 24, 22, 25)) +
   labs(y = "Pressure rate",
        x = "Average STRAIN",

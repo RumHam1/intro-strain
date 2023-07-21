@@ -71,7 +71,7 @@ fig_pos_curves_bw <- pass_rush |>
   geom_smooth(se = FALSE, span = 0.3, linewidth = 1) +
   scale_x_continuous(breaks = seq(0, 40, 10), labels = 0:4) +
   scale_linetype_manual(values = c("solid", "dashed", "twodash", "dotdash", "dotted"), name = "Position") +
-  scale_color_manual(values = c("black", "black", "gray90", "gray60", "gray60"), name = "Position") +
+  scale_color_manual(values = rev(c("black", "black", "gray90", "gray60", "gray60")), name = "Position") +
   labs(y = "STRAIN",
        x = "Time since snap (seconds)") +
   theme_light() +

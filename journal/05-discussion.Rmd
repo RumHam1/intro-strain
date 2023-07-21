@@ -1,0 +1,61 @@
+# Discussion {#sec:discussion}
+
+In this work, we have proposed STRAIN---a simple and interpretable statistic for evaluating pass rushers---with higher values corresponding to greater pass rushing ability.
+STRAIN is a model-free metric which can easily be integrated into any data pipeline without much computational cost.
+Visualizations of STRAIN can be useful and intuitive for coaches and broadcasters in various aspects ranging from gameplan preparation to in-game real-time play analysis.
+We demonstrate that a pass rusher's average STRAIN is both stable and more predictive of future pressure events than using the player's previously observed pressure events.
+This is analogous to the use of exit velocity in baseball, a predictive measurement that avoids the noisy nature of observed outcomes, emphasizing how the opportunity of working with player tracking data can lead to the development of insightful metrics in American football. 
+Through multilevel modeling, we observe that the pass rusher explains more variation in their play-level STRAIN, followed by the possession team and pass rushing team, and finally the pass rusher's assigned blocker.
+This is an intuitive result, consistent with previous literature on pass rushing and defensive pressure.
+
+Our multilevel model, however, is subject to several limitations.
+We only account for players directly involved as the pass rusher or nearest blocker, on top of team-level effects.
+The nested structure of our model enforces positive dependence between pass rushers on the same team, which may not be true.
+For instance, if one defender is known to be an elite pass rusher then the opposing team may focus their blocking efforts on this player. 
+This could leave the path open for another player to rush the quarterback with ease, resulting in higher STRAIN values.
+As shown in Figure \ref{fig:fig_rankings_boot}, the first- and fourth-ranked defensive ends Myles Garrett and Takkarist McKinley were teammates on the Cleveland Browns during the first eight weeks of the 2021 NFL season.
+McKinley is a surprising name on our list and we suspect that his high rank is mostly due to playing on the same defensive unit with Garrett, who is highly-regarded as an great pass rusher.
+In order to capture this type of behavior, we could consider modeling an aggregate STRAIN across pass rushers with a regularized adjusted plus-minus (RAPM) regression approach.
+The use of RAPM techniques has been successfully demonstrated in American football by @sabin2021estimating, which accounts for all players on the field with Bayesian hierarchical models.
+We leave this type of analysis for future work, which will require careful consideration of available informative priors [@matano2023augmenting].
+
+In addition, we believe there are other concepts in materials science that could be applied to evaluating pass rushing and pass blocking in American football.
+One potential idea is to consider a quantity called stress, which measures force over an area.
+By definition, force is the product of mass and acceleration, meaning this quantity would take into account the physical size of a pass rusher in the computation of force.
+We could then divide this force over the "area" of the pocket formed by pass blockers to compute stress.
+
+Moreover, although we focus solely on pass rushers in this paper, STRAIN can also be applied to the assessment of pass blockers as a unit.
+This can be accomplished through the aforementioned RAPM regression or by simply looking at quantities such as the total STRAIN or the maximum STRAIN per frame aggregated across the entire play.
+It is also possible to apply STRAIN to assess individual offensive pass blockers, provided that a method of matching blockers to rushers was developed.
+Furthermore, compared to existing metrics, STRAIN measures pass rush effectiveness for every play continuously over time, which is at a much more granular level than considering whether the play resulted in a binary outcome such as a sack.
+Indeed, visualizations of STRAIN curves across moments of time within plays reveal variability that simple averaging may obscure. 
+There is ample opportunity for working with the complete STRAIN trajectories via temporal modeling and functional data analysis techniques to better understand the impact of STRAIN on offensive production in American football.
+
+
+<!-- 
+
+from bdb submission
+
+As for future directions, STRAIN could be utilized to collectively evaluate the performance of a pass-rushing unit by considering the total amount of STRAIN during a play, which could, in turn, be used to examine the effectiveness of different types of blitzes. Moreover, while we focused solely on pass-rushers, STRAIN can be easily extended to the assessment of pass-blockers as a unit by looking at quantities such as the total STRAIN or the maximum STRAIN per frame aggregated across the entire play. It is also possible to apply STRAIN to assess individual offensive pass-blockers, provided that a method of matching blockers to rushers was developed.
+
+Our metric, however, is subject to several limitations. As currently devised, STRAIN cannot distinguish between a pass-rusher who has to face a single blocker versus a double team. This problem could be addressed, at least somewhat, by having a method of matching pass-rushers to blockers as previously mentioned. Additionally, there are a few situations such as quarterback out-of-pocket scrambling where STRAIN does not appear to be useful. If a pass-rusher is on the left side and the quarterback scrambles out to the left, the STRAIN for that pass-rusher can drop considerably as the distance between the quarterback and pass-rusher increases, which the defender should not necessarily be negatively affected by in a measure of pass-rushing effectiveness. -->
+
+
+
+<!--
+
+from bdb draft
+
+We have proposed a simple, effective, and easily interpretable metric for evaluating the performance of pass rushers in the NFL that we call STRAIN. Higher values of STRAIN indicate two important aspects of a pass rush: 1) the distance between the pass rusher and the quarterback is small and 2) the rate at which the pass rusher is moving towards the quarterback is high.
+
+One of the major advantages of STRAIN over existing measures is that it gives a measure of effectiveness of a pass rush for every single play at a much more granular level than simply the play resulted in a sack or not or the play was a "success" or not. It is important to have a quantitative measure of pass rushing effectiveness if one wants to objectively evaluate the performance of pass rushers. STRAIN is just such a measure that objectively measures the pressure that pass rushers put on a quarterback.
+
+In this report, we simply propose the new metric STRAIN; However, there are innumerable future projects that could be based on STRAIN. For example, STRAIN could be used to collectively evaluate the performance of a pass rushing unit by looking at the total amount of STRAIN during a play, which could, in turn, be used to evaluate the effectiveness of different types of blitzes. In addtion, STRAIN could be included as a covariate in models trying to predict quantities such as passing yards or completion probability. Notably, I believe there is very interesting work that could be done with functional regression (i.e. treating the STRAIN curve over time as a function) in modeling how STRAIN affects offensive production though is non-trivial as the length in time of plays varies from one play to another, and we leave this as future work.
+
+In addtion, while we focused solely on evaluating the performance of pass rushers, this concept can be easily extended to the evaluation of pass blockers as a unit by simply looking at a quantity such as the total amount of STRAIN on a play or the maximum amount of STRAIN per frame aggregated across the entire play. Further, STRAIN could be extended to individual offensive pass blockers provided that a method of matching blockers to rushers was devised.
+
+While STRAIN is a big step forward, there are still some notable limitations to this metric. For instance, STRAIN, as currently devised, cannot distinguish between a pass rusher who has to face a single blocker versus a double team. This problem could be addressed, at least somewhat, by devising a method of matching pass rushers to blockers as previously mentioned. Another limitation of this metric occurs when a quarterback scrambles out of the pocket. If you are a pass rusher on the left side and the quarterback scrambles out to the left, the STRAIN value for that pass rusher can drop considerably as the distance between the quarterback and the pass rusher gets larger, which the pass rushers shouldn't necessarily be negatively affected by in a measure of pass rushing effectiveness.
+
+Finally, we believe there are other concepts in materials science that could be applied to evaluating pass rushing and pass blocking. One potential idea is a quantity called stress, which measures force over an area. Recall from intro physics that force is mass times acceleration, so this quantity would take into account the physical size of a pass rusher in the computation of force. You could then somehow divide this force over the "area" of the pocket formed by pass blockers to compute stress. There is also a quantity measuring the ratio of stress and strain called the elastic modulus which measures "an object's or substance's resistance to being deformed elastically". It is easy to imagine the pocket as an object and evaluating the succes of the pocket based on it's "resistance to being deformed".
+
+-->

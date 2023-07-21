@@ -1,0 +1,213 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Introduction {#sec:introduction}
+
+<!--
+TODO: update citations after they're published
+-->
+
+<!--
+textual citation (\citet): @Baumer2023Big
+parenthetical citation (\citep): [@Baumer2023Big]
+-->
+
+In recent years, tracking data have replaced traditional box-score statistics and play-by-play data as the state of the art in sports analytics.
+Numerous sports are collecting and releasing data on player and ball locations on the playing surface over the course of a game.
+This multiresolution spatiotemporal source of data has provided exceptional opportunities for researchers to perform advanced studies at a more granular level to deepen our understanding of different sports.
+For complete surveys on how tracking data have transformed sports analytics, see @Macdonald2020Recreating, @Baumer2023Big, and @Kovalchik2023Player.
+
+<!-- We contribute to the growing literature of research based on player tracking data in American football.  -->
+
+In an attempt to foster analytics and innovate the game, the National Football League (NFL) introduced their player tracking system known as Next Gen Stats in 2016 [@nfl2023ngs].
+Next Gen Stats uses radio frequency identification (RFID) chips placed in players' shoulder pads (and in the ball) to collect data at a rate of 10 frames per second.
+The data captures real-time on-field information such as locations, speeds, and accelerations of all 22 players (and the football).
+While these data were initially only available for teams, media, and vendors, in December 2018 the NFL launched the inaugural edition of their annual Big Data Bowl competition [@nfl2023big].  
+
+The first Big Data Bowl led to several contributions largely focused on offensive performance evaluation. For example, one group of finalists introduced an approach for modeling the hypothetical completion probability of a pass aiding in the evaluation of quarterback (QB) decision making [@deshpande2020expected]. The winners of the inaugural Big Data Bowl focused on identifying receiver routes via clustering techniques [@chu2020route] and convolutional neural networks [@sterken2019routenet]. Along with the competition entries, the public release of NGS data allowed researchers to tackle <!-- (pun intended.  #eyeroll) --> a variety of other problems such as revisiting fourth down decision making [@lopez2020bigger], annotating pass coverage with Gaussian mixture models [@dutta2020unsupervised], and introducing a continuous-time framework to estimate within-play value [@yurko2020going].  Since its inception, the Big Data Bowl has chosen a different theme each year leading to new insight about evaluating different positions such as running backs, defensive backs, and special teams. The 2023 edition of the NFL Big Data Bowl asked participants to evaluate linemen on passing plays [@Howard2023NFL].
+
+Our focus of this manuscript is specifically on measuring the performance of defensive linemen in the NFL.
+Using data made available in the Big Data Bowl 2023, we present a novel approach to measure the performance of pass rushers.
+Relative to other aspects of American football, such as quarterback evaluation [@burke2019deepqb; @reyers2021quarterback], the literature on evaluating pass rushers is scarce.
+Below, we provide a brief overview of existing pass rush metrics.
+
+<!-- (defensive players whose role on a given play is to put pressure on the QB) -->
+
+## Previous Pass Rush Metrics
+
+<!-- Table \ref{tab:metrics} gives a summary of existing football metrics for pass rush. -->
+<!-- We now highlight what these quantities describe as well as their limitations. -->
+
+Perhaps the most commonly-known statistics for evaluating defensive linemen on pass rush plays are sacks, hits, and hurries, which are discretely observed at the play-level.
+Officially tracked by the NFL since 1982, a sack is recorded when a defender tackles the QB behind the line of scrimmage before the QB releases a pass.
+Other traditional box score statistics such as hits and hurries are collected by various outlets.
+A hit is a collision between a defender and the opposing team's quarterback after the quarterback makes a throw.
+A hurry represents an instance when a defender successfully disrupts without necessarily making direct contact with the QB and forces the QB to throw the football earlier than expected.
+These are all simple binary measures of pass rush outcome for any given play.
+However, for plays that do not result in the aforementioned outcomes (in particular, sack), there are still many intermediate defensive actions on the field within the play that are valuable and can be considered positive achievements.
+
+In addition, the sum of sacks, hits, and hurries is often defined as pressures.
+This is better than the individual counts to some extent, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
+Pro Football Focus (PFF) defines a metric called pass-rush productivity, which is a minor modification from the aforementioned pressures metric.<!-- (see Table \ref{tab:metrics}). -->
+In particular, pass-rush productivity gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures.
+However, the choice of weights is ad-hoc and still only considers binary outcomes, similar to the shortcomings of previous metrics.
+
+<!-- \begin{table} -->
+<!-- \caption{A summary of previously-existing pass rush metrics. \label{tab:metrics}} -->
+<!-- \centering -->
+<!-- \begin{tabular}{p{0.27\textwidth}p{0.67\textwidth}} -->
+<!-- \hline -->
+<!-- Metric & Description \\  -->
+<!-- \hline -->
+<!-- Sacks & A defender tackles the QB behind the line of scrimmage before a QB throw \\ -->
+<!-- Hits & A defender tackles the QB behind the line of scrimmage after a QB throw \\ -->
+<!-- Hurries & A defender pressures the QB behind the line of scrimmage forcing the QB to throw the ball sooner than intended \\ -->
+<!-- Pressures & $\text{Hurries} + \text{ Hits } + \text{ Sacks}$ \\ -->
+<!-- Pass-Rush Productivity & $\displaystyle \frac{(\text{Hurries} + \text{Hits})/2 + \text{Sacks}}{\text{ Pass Rush Snaps}}$\\ -->
+<!-- Time In Pocket & Time (in seconds) between ball snap and throw or pocket collapse for a QB \\ -->
+<!-- NGS Get Off & Average time (in seconds) required for a defender to cross the line of scrimmage after the ball snap\\ -->
+<!-- Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 seconds after ball snap\\ -->
+<!-- \hline -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
+
+<!-- and are still binary outcomes (i.e. There is a continuum of plays that are not hurries that all counted as simply "not hurries"). -->
+
+<!-- (https://www.pro-football-reference.com/years/2022/advanced.htm) -->
+
+<!-- [Pro football ref has a slightly different QB pressures formula than the formula below https://www.pro-football-reference.com/about/advanced_stats.htm] -->
+
+
+<!-- $$\frac{(\text{Hurries} + \text{Hits})/2 + \text{Sacks}}{\text{ Pass Rush Snaps}}$$ -->
+
+<!-- (https://www.pro-football-reference.com/about/advanced_stats.htm) -->
+
+More recently proposed metrics such as time in pocket, NGS get off [@Hermsmeyer2021nfl], and pass rush win rate [@Burke2018Created] are substantial improvements over the less sophisticated counting statistics, but nevertheless are still imperfect.
+Time in pocket refers to how long a QB can operate within the protected space behind the offensive line, known as the pocket.
+However, this measure is highly context-dependent, as it can be influenced by a number of factors such as the defensive scheme or type of passing route.
+NGS get off is an aggregated statistic, illustrating how quickly a defender can get past the line of scrimmage after the snap on average.
+Pass rush win rate is created using player tracking data, which is at a more granular level than previous measures.
+It demonstrates whether a pass rusher is able to beat their blocking matchup before a fixed time from the snap (2.5 seconds as chosen by ESPN).
+However, this depends on the rather arbitrary time threshold used to define a pass rush win.
+Besides, once a cutoff is chosen, pass rush win rate converts continuous data to a win-loss indicator, becoming dichotomous like most of the metrics discussed above.  
+
+<!-- (e.g. deep versus shallow). -->
+
+<!-- (https://www.espn.com/nfl/story/_/id/34536376/2022-nfl-pass-rushing-run-stopping-blocking-leaderboard-win-rate-rankings-top-players-teams) -->
+
+<!-- All of these measures represent different versions of "the best we can do with the available data". -->
+<!-- Without granular data, it is difficult to measure effectiveness of a pass rusher so many simple metrics of success have been proposed.  -->
+
+
+
+<!-- (https://www.pff.com/news/pro-pff-signature-statistics-a-glossary#:~:text=Time%20in%20Pocket,time%20until%20a%20quarterback%20scrambles) -->
+
+<!-- (https://www.espn.com/nfl/story/_/id/34536376/2022-nfl-pass-rushing-run-stopping-blocking-leaderboard-win-rate-rankings-top-players-teams) -->
+
+
+<!-- ## Previous Pass-Rush Measure in academic literaure -->
+
+## Previous Research on Football Linemen
+
+<!-- https://www.taylorfrancis.com/chapters/edit/10.1201/9781315166070-12/forecasting-performance-college-prospects-selected-national-football-league-draft-julian-wolfson-vittorio-addona-robert-schmicker -->
+
+The peer-reviewed literature on measuring the performance of football linemen (either offensive or defensive) is scant.
+@AlamarGould2008 find an association between pass completion rate and successful pass blocking by offensive linemen.
+The data for this study are collected for the first three weeks of the 2007 NFL season, manually recording whether a lineman holds a block and the time it took for quarterback to throw the football.
+@AlamarGoldner2011 later follow up by using manually-tracked data for the 2010 season to estimate lineman performance for different team-positions instead of individual defenders (e.g., Chicago Bears' left tackle, Pittsburgh Steelers' center, etc.).
+This work uses survival analysis to model time in pocket and completion percentage for quarterbacks before proposing a measure for linemen's contribution to their team's passing in terms of yards gained.
+
+@Wolfson2017Forecasting comment on the two aforementioned articles that "[a]lthough these are exciting preliminary steps, there is still a long way to go before we can provide a comprehensive appraisal of the achievements of an individual lineman."
+The challenge here is fundamental, since there were not enough public data at the time to develop any meaningful metric for linemen in football, as also noted by @AlamarGould2008.
+However, with the granularity of player tracking data, we have access to data not only for the linemen but also for every player on the field.
+This provides us with a great opportunity to study and gain better insights into linemen performance in football.
+
+<!-- The academic literature on the performance of linemen, either offensive or defensive in football is scant. @AlamarGould2008 studied the the relationship between pass completion rate and performance of offensive linemen in terms of how successful they were at blocking.  The data for this study was collecting essentially by hand by watching and charting the performance of each lineman on a play.  This was done using games from the beginning 2007 season for seven teams and their first three games each.  The authors note that there is not much research on linemen saying "One of the principal reasons for this lack of study is the absence of publicly available data that is needed in order to track the performance of a specific lineman."  -->
+
+<!-- Later, @AlamarGoldner2011 again studied offensive linemen performance.  They analyzed 20 teams during the 2010 season for a total of 1,259 plays.  They don't estimate the performance of an individual lineman, but rather positions on a team (e.g. Chicago Bears' left tackle, Pittsburgh Steelers' center, etc.).  They then go on to use a survival analysis model to estimate time in pocket.  The average probability of success from the survival model is then used as a covariate in a model to estimate the probability of competing a pass, and they show that there is a significant relationship between these two probabilities.   -->
+
+## Our Contribution
+
+In this paper, we focus on the evaluation of defensive linemen in football.
+We propose STRAIN, a metric for measuring pass rush effectiveness, inspired by the concept of strain rate in materials science.
+Our statistic gives a continuous measure of pressure for every pass rusher on the football field over the course of an entire play.
+This allows for the assessment of pass rush success even on plays that do not result in an observed outcome like a sack, hit, or hurry.
+We view this as a major step forward for accurately evaluating defensive linemen performance.
+We also demonstrate that STRAIN is a stable quantity over time and predictive of defensive pressure.
+Additionally, we consider a multilevel model to estimate every pass rusher's contribution to the average STRAIN in a play while controlling for player positions, team, and various play-level information.
+We note that although our focus in this paper is on pass rushers, our approach can be extended to the evaluation of pass blockers in American football.  
+
+The remainder of this manuscript is outlined as follows.
+We first describe the player tracking data provided by the Big Data Bowl 2023 in Section \ref{sec:data}.
+We then introduce the mathematical motivation and definition of our measure STRAIN, followed by our modeling approach in Section \ref{sec:methods}.
+Next, we present applications of STRAIN and study different statistical properties of the metric in Section \ref{sec:results}.
+We close with our discussion of future directions related to this work in Section \ref{sec:discussion}.
+
+
+<!-- : They talk about how there is no data available to measure offensive line performance.  1259 plays, 20 teams, 2010 season.  Success of each offensive lineman was evaluated using the best judgement of the observer.   Collected time in pocket.  They collected a bunch of binary variables and did this all by HAND!  Estimate a survival model for each position on the offensive line.  They don't rank individuals, but rather positions on a team.  They then use the predicted probability as a covariate in a model to predict completion.  -->
+
+
+<!-- @AlamarGould2008: Abstract: Protecting the quarterback is an integral part of the passing game in the National Football league, yet the relationship between the abilities of an individual lineman and the effectiveness of a passing game remains unexplored. One of the principal reasons for this lack of study is the absence of publicly available data that is needed in order to track the performance of a specific lineman. In order to create the relevant data, the first 3 games of the 2007 NFL season for seven different teams were charted. The performance of each lineman was recorded on every pass play, as well as the amount of undisturbed time the quarterback was given (time in the pocket) to make a throw. These data were used in a series of regressions to determine how likely a lineman was to successfully hold his block in relation to the time it took for the quarterback to throw the ball, for each lineman in the sample. These data were also used to estimate the correlation between successful blocking and completion rate. The results of these regressions were then used to simulate the effects that different linemen have on the passing game. The trade in the offseason between the New York Jets and Washington Redskins which sent left guard Pete Kendall to Washington was examined. The analysis finds that the Jets lost approximately 3 percentage points on their completion rate due to the trade. -->
+
+<!-- Is this interesting? https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2938948/ -->
+
+<!-- Evaluating offensive line salray: https://sites.duke.edu/djepapers/files/2016/10/froelich-dje.pdf -->
+
+<!-- Read this:  -->
+<!-- https://www.researchgate.net/profile/Gita-Sukthankar/publication/220814393_A_Real-Time_Opponent_Modeling_System_for_Rush_Football/links/00b7d528a16b30fc12000000/A-Real-Time-Opponent-Modeling-System-for-Rush-Football.pdf -->
+
+<!-- Pass Rush productivity  -->
+<!-- Time in pocket -->
+<!-- Pass Rush win rate -->
+
+
+
+<!-- hurries hits and sacks are "pressures" -->
+
+<!-- Limitations -->
+
+
+
+
+
+<!-- Sacks, hits, hurries, pressures -->
+
+<!-- Officially tracked by the NFL since 1982, the most well known statistic for evaluating defensive linemen on pass rushing plays is the sack, which occurs when a defensive player tackles the quarterback behind the line of scrimmage before the quarterback is able to throw a pass. -->
+
+<!-- Sack definition:  -->
+
+<!-- https://www.pro-football-reference.com/about/advanced_stats.htm -->
+
+<!-- Pressures: QB pressures (hurries + knockdowns + sack plays). Note that "sack plays" in this instance include both sacks and assists. -->
+
+<!-- Hurried: Times QBs were hurried - defined as a situation when the QB is forced to throw the ball earlier than intended or is chased around/out of the pocket as the result of defensive pressure -->
+
+<!-- Hit: Times QBs were hit - occurs when the QB hits the ground after a throw, not marked on a sack play -->
+
+<!-- PFF's Pass-Rush Productivity (PRP) -->
+
+<!-- https://www.pff.com/news/pro-signature-stats-spotlight-defensive-line -->
+
+
+
+<!-- More recently metrics such as Time In Pocket (TIP) and Pass Rush Win Rate (PRWR) have also been proposed and are substantial improvements over the less sophisticated counting statistics.  -->
+
+<!-- Pocket Time: Number of seconds the quarterback was in the pocket between the snap of the ball and a pass or the collapse of the pocket -->
+
+<!-- @Burke2018Created -->
+<!-- @AlamarGoldner2013: They talk about how there is no data available to measure offensive line performance.  1259 plays, 20 teams, 2010 season.  Success of each offensive lineman was evaluated using the best judgement of the observer.   Collected time in pocket.  They collected a bunch of binary variables and did this all by HAND!  Estimate a survival model for each position on the offensive line.  They don't rank individuals, but rather positions on a team.  They then use the predicted probability as a covariate in a model to predict completion.   -->
+
+<!-- @AlamarGould2008 -->
+
+<!-- https://www.espn.com/nfl/story/_/id/24892208 -->
+
+<!-- 2.5 seconds, arbitrary -->
+
+
+<!-- While PRWR is certainly a step in the right direction, it takes continuous data and converts it to a binary win/loss, which is generally not recommended in statistical analysis -->
+
+
+

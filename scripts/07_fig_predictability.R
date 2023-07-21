@@ -108,8 +108,8 @@ hsh_hsh_bw <- hsh_first |>
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.5, color = "black", alpha = 0.5) +
   geom_point(aes(color = officialPosition, group = nflId, fill = officialPosition, shape = officialPosition), size = 2, alpha = 0.8) +
   #scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
-  scale_color_manual(values = c("gray20", "gray20", "gray80", "gray80")) +
-  scale_fill_manual(values = c("gray20", "gray20", "gray80", "gray80")) +
+  scale_color_manual(values = rev(c("gray20", "gray20", "gray80", "gray80"))) +
+  scale_fill_manual(values = rev(c("gray20", "gray20", "gray80", "gray80"))) +
   scale_shape_manual(values = c(21, 24, 22, 25)) +
   labs(x = "Pressure rate (first 4 weeks)",
        y = "Pressure rate (last 4 weeks)",
@@ -136,8 +136,8 @@ strain_hsh_bw <- hsh_last |>
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.5, color = "black", alpha = 0.5) +
   geom_point(aes(color = pos, group = name, fill = pos, shape = pos), size = 2, alpha = 0.8) +
   #scale_color_manual(values = c("#D81B60", "#1E88E5", "#FFC107", "#004D40")) +
-  scale_color_manual(values = c("gray20", "gray20", "gray80", "gray80")) +
-  scale_fill_manual(values = c("gray20", "gray20", "gray80", "gray80")) +
+  scale_color_manual(values = rev(c("gray20", "gray20", "gray80", "gray80"))) +
+  scale_fill_manual(values = rev(c("gray20", "gray20", "gray80", "gray80"))) +
   scale_shape_manual(values = c(21, 24, 22, 25)) +
   labs(x = "Average STRAIN (first 4 weeks)",
        # y = "Pressure rate (last 4 weeks)",

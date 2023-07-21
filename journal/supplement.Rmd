@@ -1,0 +1,244 @@
+---
+title: |
+  | Supplement to "Here Comes the STRAIN: Analyzing Defensive Pass Rush in American Football with Player Tracking Data"
+blinded: 0
+bibliography: bibliography.bib
+biblio-style: chicago
+authors: 
+- name: Quang Nguyen
+  # thanks: Corresponding author's email
+  affiliation: |
+    | Department of Statistics & Data Science
+    | Carnegie Mellon University
+- name: Ronald Yurko
+  affiliation: |
+    | Department of Statistics & Data Science
+    | Carnegie Mellon University
+- name: Gregory J. Matthews
+  affiliation: |
+    | Department of Mathematics and Statistics
+    | Center for Data Science and Consulting
+    | Loyola University Chicago
+output: rticles::asa_article
+header-includes:
+  \date{}
+  \def\thesection{\Alph{section}}
+---
+
+\spacingset{1.45}
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+library(here)
+library(tidyverse)
+```
+
+# Summary {-}
+
+This document contains supplementary materials for the article "Here Comes the STRAIN: Analyzing Defensive Pass Rush in American Football with Player Tracking Data".
+We provide an overview of defensive positions in football, additional figures and tables, and justification for the multilevel model presented in the paper.
+
+# Defensive Linemen in Football: Common Terms
+
+There are two main types of defensive linemen in American football: defensive tackles and defensive ends.
+Typically, these positions are located within the interior of the line and along the edges, respectively; with main role of rushing the quarterback (QB) on passing plays.
+See Figure \ref{fig:formation} (top) for example formation with defensive tackles and defensive ends.
+Additionally, within defensive tackles there are nose tackles who directly line up across from the ball at the line of scrimmage.
+See Figure \ref{fig:formation} (bottom) for example defensive scheme with a nose tackle.
+NFL teams often employ either one nose tackle or two defensive tackles on the interior with defensive ends along either side of the defensive line.
+Besides defensive lineman, other positions may attempt to rush the QB on blitzing plays such as outside linebackers, interior linebackers, and potentially members of the secondary (cornerbacks, free safeties, and strong safeties) whose primary role is pass coverage.
+Note that apart from the formations shown in Figure \ref{fig:formation}, defensive linemen can have the flexibility to line up differently.
+For example, a defensive end, depending on the opposing matchup, may not necessarily be positioned toward the outside of the line of scrimmage.
+
+```{r formation, fig.width=5, fig.height=4, fig.cap="Two common defensive alignments in football: 4-3 defense (top) and 3-4 defense (bottom). The dashed line represents the line of scrimmage separating the defense and offense. Defensive tackles (DT), defensive ends (DE), and nose tackles (NT) primarily rush the QB on passing plays and attempt to stop the ball carrier as quickly as possible on running plays. Outside linebackers (OLB) and inside linebackers (ILB) usually play directly behind the defensive line and are involved in defending against passing and rushing plays. Cornerbacks (CB) and safeties (S) generally involve in defending against passing plays."}
+tibble(x = c(3:5, 3:6 - 0.5, c(2, 3.7, 4.3, 6)),
+       y = c(1, 1, 1, 1.01, 1.01, 1.01, 1.01, 1.02, 1.02, 1.02, 1.02),
+       pos = c("DE", "NT", "DE", "OLB", "ILB", "ILB", "OLB",
+               "CB", "S", "S", "CB"),
+       d = "3-4 Defense") |> 
+  bind_rows(
+    tibble(x = c(3:6, c(2.5, 4.5, 6.5), c(2, 4.1, 4.9, 7)),
+           y = c(1, 1, 1, 1, 1.01, 1.01, 1.01, 1.02, 1.02, 1.02, 1.02),
+           pos = c("DE", "DT", "DT", "DE", "OLB", "MLB", "OLB",
+                   "CB", "S", "S", "CB"),
+           d = "4-3 Defense") 
+  ) |> 
+  mutate(d = fct_relevel(d, "4-3 Defense", "3-4 Defense")) |> 
+  ggplot(aes(x, y)) +
+  geom_tile(fill = "white") +
+  geom_label(aes(label = pos), size = rel(4)) +
+  geom_hline(yintercept = 0.996, linetype = "dashed") +
+  facet_wrap(~ d, scales = "free", ncol = 1) +
+  coord_cartesian(ylim = c(0.99, 1.03)) +
+  theme_light() +
+  theme(strip.text = element_text(size = rel(1.2)),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        panel.grid = element_blank())
+```
+
+# Summary of Previous Pass Rush Metrics
+
+Table \ref{tab:metrics} gives a summary of existing football metrics for pass rush, as discussed in Section 1.1 of the paper.
+
+\begin{table}
+\caption{A summary of previously-existing pass rush metrics. \label{tab:metrics}}
+\centering
+\begin{tabular}{p{0.27\textwidth}p{0.67\textwidth}}
+\hline
+Metric & Description \\
+\hline
+Sacks & A defender tackles the QB behind the line of scrimmage before a QB throw \\
+Hits & A defender tackles the QB behind the line of scrimmage after a QB throw \\
+Hurries & A defender pressures the QB behind the line of scrimmage forcing the QB to throw the ball sooner than intended \\
+Pressures & $\text{Hurries} + \text{ Hits } + \text{ Sacks}$ \\
+Pass-Rush Productivity & $\displaystyle \frac{(\text{Hurries} + \text{Hits})/2 + \text{Sacks}}{\text{ Pass Rush Snaps}}$\\
+Time In Pocket & Time (in seconds) between ball snap and throw or pocket collapse for a QB \\
+NGS Get Off & Average time (in seconds) required for a defender to cross the line of scrimmage after the ball snap\\
+Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 seconds after ball snap\\
+\hline
+\end{tabular}
+\end{table}
+
+# Visualizing Player Tracking Data
+
+Figure \ref{fig:fig_field} shows snapshots of a play from the week six game between the Las Vegas Raiders and Denver Broncos in the 2021 NFL regular season.
+The play outcome is a sack made by Raiders defensive end Maxx Crosby on Broncos quarterback Teddy Bridgewater.
+The locations of every Las Vegas (in black, on defense) and Denver (in orange, on offense) player on the field at 1, 2, 3, and 4 seconds after the ball snap is displayed, with Crosby highlighted in blue.
+Note that the point size for each Las Vegas player corresponds to their estimated STRAIN as the play progresses.
+This play is represented in Table 1 and Figure 1 (left) of the paper.
+
+```{r}
+#| label: fig_field
+#| fig.cap: "A display of the player tracking data for a play during the Las Vegas Raiders (defense, in black) versus Denver Broncos (offense, in orange) NFL game on October 17, 2021. Raiders DE Maxx Crosby is highlighted in blue. For each Raiders defender, the point size indicates their individual STRAIN value, with larger points suggesting larger STRAIN. Snapshots are captured at 1, 2, 3, and 4 seconds after the ball snap."
+#| fig.width: 6.6
+#| fig.height: 4.4
+source(here("scripts", "01_fig_field.R"))
+fig_field
+```
+
+# Distribution of Number of Pass Rushers
+
+Figure \ref{fig:pass_rushers_count} displays the distribution of the number of observed pass rushers involved in a play.
+The number of pass rusher ranges from 1 to 8, with 4 pass rushers (i.e., 4-man rush formation) as the most common value.
+
+```{r}
+#| label: pass_rushers_count
+#| fig.cap: "Distribution of the number of pass rushers on passing plays."
+#| fig.width: 4
+#| fig.height: 3
+source(here("scripts", "12_fig_pass_rushers_count.R"))
+pass_rushers_count
+```
+
+# Pass Rusher Rankings Based on Average STRAIN
+
+Since STRAIN is observed continuously for every play in our data, this allows us to aggregate across all frames played and compute the average STRAIN for NFL pass rushers over the course of the eight-week sample size.
+Based on the clearly distinct patterns for different positions as shown in Figure 2 of the article, we evaluate interior pass rushers (NTs and DTs) separately from edge rushers (OLBs and DEs).
+Tables \ref{tab:edge} and \ref{tab:interior} are leaderboards for the NFL's best edge and interior rushers (with at least 100 plays) rated by the average STRAIN across all frames for the first eight weeks of the 2021 regular season.
+The tables also consist of the total number of hits, hurries, and sacks (determined from PFF scouting data) for each defender.
+We observe similar rankings based on the average STRAIN in comparison to the random intercepts results from Section 4.4 of the paper.
+Notably, Myles Garrett and T.J. Watt both show up in our top edge rusher list based on average STRAIN, whereas Aaron Donald appears at the top of our interior rusher rankings.
+
+\begin{table}
+\caption{Top 15 edge rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:edge}}
+\centering
+\begin{tabular}{rlllrrrrr}
+\hline
+Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\text{STRAIN}}$ \\
+\hline
+1 & Rashan Gary & GB & OLB & 176 & 10 & 25 & 5 & 2.82 \\ 
+2 & Leonard Floyd & LA & OLB & 185 & 2 & 25 & 8 & 2.80 \\ 
+3 & Justin Houston & BAL & OLB & 132 & 8 & 8 & 4 & 2.78 \\ 
+4 & Myles Garrett & CLE & DE & 197 & 9 & 29 & 12 & 2.75 \\ 
+5 & Von Miller & DEN & OLB & 145 & 4 & 21 & 5 & 2.75 \\ 
+6 & T.J. Watt & PIT & OLB & 147 & 6 & 9 & 8 & 2.71 \\ 
+7 & Yannick Ngakoue & LV & DE & 175 & 6 & 20 & 4 & 2.70 \\ 
+8 & Alex Highsmith & PIT & OLB & 129 & 4 & 7 & 2 & 2.65 \\ 
+9 & Preston Smith & GB & OLB & 124 & 4 & 8 & 2 & 2.61 \\ 
+10 & Randy Gregory & DAL & DE & 134 & 7 & 19 & 5 & 2.58 \\
+11 & Joey Bosa & LAC & OLB & 160 & 5 & 21 & 4 & 2.58 \\
+12 & Darrell Taylor & SEA & DE & 107 & 5 & 9 & 3 & 2.57 \\
+13 & Josh Sweat & PHI & DE & 159 & 4 & 14 & 5 & 2.57 \\
+14 & Maxx Crosby & LV & DE & 198 & 12 & 30 & 7 & 2.56 \\
+15 & Markus Golden & ARI & OLB & 164 & 5 & 14 & 5 & 2.50 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}
+\caption{Top 15 interior rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:interior}}
+\centering
+\begin{tabular}{rlllrrrrr}
+\hline
+Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\text{STRAIN}}$ \\
+\hline
+1 & Aaron Donald & LA & DT & 239 & 8 & 24 & 6 & 1.67 \\ 
+2 & Solomon Thomas & LV & DT & 115 & 7 & 11 & 3 & 1.51 \\ 
+3 & Quinton Jefferson & LV & DT & 144 & 6 & 8 & 3 & 1.46 \\ 
+4 & Chris Jones & KC & DT & 139 & 3 & 18 & 3 & 1.42 \\ 
+5 & DeForest Buckner & IND & DT & 198 & 4 & 18 & 4 & 1.26 \\ 
+6 & Cameron Heyward & PIT & DT & 188 & 2 & 22 & 3 & 1.25 \\ 
+7 & Javon Hargrave & PHI & DT & 156 & 6 & 15 & 5 & 1.24 \\ 
+8 & Jerry Tillery & LAC & DT & 171 & 4 & 7 & 3 & 1.16 \\ 
+9 & Ed Oliver & BUF & DT & 133 & 4 & 12 & 1 & 1.15 \\ 
+10 & Osa Odighizuwa & DAL & DT & 162 & 3 & 18 & 3 & 1.13 \\ 
+11 & Greg Gaines & LA & NT & 111 & 2 & 13 & 2 & 1.11 \\
+12 & Leonard Williams & NYG & DT & 226 & 4 & 14 & 6 & 1.03 \\
+13 & Christian Barmore & NE & DT & 166 & 5 & 17 & 1 & 1.02 \\
+14 & Vita Vea & TB & NT & 184 & 6 & 12 & 1 & 1.01 \\
+15 & B.J. Hill & CIN & DT & 123 & 3 & 4 & 3 & 0.96 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+# Comparison of Multilevel Models
+
+## Modeling Play-Level STRAIN Without Team Effects
+
+We additionally consider a multilevel model to evaluate the impact of pass rushers on the average STRAIN observed in a play, while accounting for their pass blocker, QB, and play-level attributes.
+The average STRAIN by pass rusher $j$ on play $i$ is modeled as follows.
+\begin{equation*}
+\begin{aligned}
+\overline{\text{STRAIN}}_{ij} &\sim N(R_{j[i]} + B_{b[ij]} + Q_{q[i]} + \mathbf{x_{ij}} \boldsymbol{\beta}, \sigma^2), \text{ for } i = 1, \dots, n \text{ plays} \\
+R_{j} &\sim N(\mu_R, \sigma^2_R), \text{ for } j = 1, \cdots, \text{ \# of pass rushers}, \\
+B_{b} &\sim N(\mu_B, \sigma^2_B), \text{ for } b = 1, \cdots, \text{ \# of pass blockers}, \\
+Q_{q} &\sim N(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
+\end{aligned}
+\end{equation*}
+This model version contains random intercepts for three player groups: (1) pass rushers as $R$, (2) nearest pass blockers as $B$, and (3) QBs as $Q$.
+We consider a normal distribution to obtain the random intercepts for each player toward their respective position group means.
+As before, the coefficients $\boldsymbol \beta$ associated with covariate vector $\mathbf{x_{ij}}$ for pass rusher $j$ in play $i$ are estimated as fixed-effects. 
+The variables included as fixed effects are the same as those in the model from Section 3.2 of the paper: position of pass rusher and blocker, number of blockers in a play, and play-context information (down, yards to go, and current yardline).
+
+
+## Model Comparison
+
+We perform leave-one-week-out cross-validation to compare the multilevel models with and without team effects for play-level STRAIN.
+For example, we train each model using data from weeks one through seven, and perform evaluation for week eight.
+This procedure is repeated for every single holdout week, and we evaluate the model performance based on mean squared error (MSE).
+Figure \ref{fig:fig_loocv_team_eff} shows the week-by-week holdout MSE for the aforementioned multilevel models.
+We clearly see that a smaller MSE is achieved for each left-out week when accounting for team effects.
+Furthermore, the model with team effects yields a lower overall holdout MSE ($4.1882$) than the one without random intercepts for teams ($4.4138$).
+This provides a quantitative justification for including team effects in our multilevel model.
+
+```{r}
+#| label: fig_loocv_team_eff
+#| fig.cap: "Comparison of leave-one-week-out cross-validation MSE with $\\pm 2$ standard error bounds for multilevel models with and without team effects."
+#| fig.width: 6
+#| fig.height: 3
+source(here("scripts", "10_multilevel_mod.R"))
+fig_loocv_team_eff
+```

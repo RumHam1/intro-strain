@@ -111,7 +111,7 @@ fig_outcome_curves_bw <- hit |>
   geom_smooth(se = FALSE, span = 0.4, linewidth = 1) +
   scale_x_continuous(breaks = seq(0, 40, 10), labels = 0:4) +
   scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted"), name = "Position") +
-  scale_color_manual(values = c("black", "black", "gray60", "gray60"), name = "Position") +
+  scale_color_manual(values = rev(c("black", "black", "gray60", "gray60")), name = "Position") +
   expand_limits(y = 2.3) +
   labs(y = "STRAIN",
        x = "Time since snap (seconds)") +

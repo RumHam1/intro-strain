@@ -1,0 +1,97 @@
+---
+title: "Response to Reviewers"
+output: pdf_document
+fontsize: 10pt
+header-includes:
+ \usepackage{mathptmx}
+---
+
+We thank the editor, associate editor, and two reviewers for their critical assessment of our paper.
+Below, we provide a point-by-point response to their comments.
+Editor/reviewer comments are in normal font and our responses are bold-faced.
+
+# Reviewer 1
+
+**Model assumptions**
+
+* I really liked the multi-level model for STRAIN. That said, the model encodes some strong exchangeability assumptions that, in my opinion, are worth probing. Insofar as (i) pass blockers are nested within teams and (ii) different teams deploy different pass protection schemes/techniques, have you considered an elaborated model in which pass blocker effects are first shrunk towards a team-specific average, which themselves are shrunk to a league-wide average? Perhaps more importantly, as you noted in Section 4.3, the model ignores correlated performance between defensive linemen on the same team. To account for this, you could, similarly nest pass rushers within teams. Doing so, however, introduces positive dependence between the $R_j$'s and it is not obvious to me that two teammates' strains on the same play should be positively correlated. We might observe negative dependence, for instance, if pass blockers concentrated more on blocking one player over another. At the very least, you should discuss the assumptions underpinning the multi-level model. A clear demonstrate that the proposed model provides a better fit to the data than alternatives would, of course, be much better!
+
+> **We thank the reviewer for the positive feedback and for their feedback about the multi-level model. We agree with the reviewer's concern and have updated the model to account for both pass rush and blocking team effects, with nested players. We demonstrate in our supplement that the team model with nested player effects performs better out-of-sample in comparison to our previous model specification.  Coupled with this change, in order to provide uncertainty about the new combined team and player effects, we switched from a parametric bootstrap to a new resampling approach which we believe provides more insight about the model estimates without the rigid assumptions of parametric bootstrapping. We recognize limitations of our initial modeling efforts of STRAIN, and have included further discussion of a RAPM-style approach to address these concerns in Section 5.**
+
+* Relatedly, is there a reason to model the average STRAIN across a play as opposed to the frame-level STRAIN values? The two example plays reveal considerable variation in the frame-to-frame variability. I worry that simply averaging over all frames in a play might obscure this variation.
+
+> **This is a great point raised by the reviewer. Our STRAIN curve figures clearly demonstrate frame-level variability that averaging may hide. We have updated the final paragraph of Section 5 to emphasize this point more clearly. However, we leave modeling frame-level STRAIN for future work due to the increased complexity of that problem and its necessary techniques in relation to this manuscript's purpose of introducing STRAIN in American football.**
+
+**Strain curves**
+
+* I was a bit confused by the STRAIN curves in Figure 7. Are these curves based on a single play? Are they averages of the observed $\overline{\text{STRAIN}}_{ij}$'s values across all plays and all players within positions? Or are they averages of the estimated $\overline{\text{STRAIN}}$ values from the fitted multi-level model? If these curves are based solely on the observed $\overline{\text{STRAIN}}$ values, to what extent can the positional differences be explained by the fact that different pass rush positions tend to be blocked by different offensive line positions? Since multi-level model allows you to adjusting for the position of the nearest pass blocker, it would be interesting to see whether the differences observed between the curves persist after such adjustment.
+
+> **The STRAIN curves are not based on the multilevel and instead are based on the observed average STRAIN values for each position. We have added a sentence to clarify this at the start of section 4.2. It now says "For each position, the curve is based on the average of the observed STRAIN at each frame across all plays and players within the position."**
+
+**Minor comments**
+
+* The $f_{d_{ij}}(t)$ notation in Equations (3)–(5) seems cumbersome. What is $f$ and why is indexed by a distance? Why not just use $d_{ij}(t)$ for the distance?
+
+> **We have changed the distance notation from $f_{d_{ij}}(t)$ to $s_{ij}(t)$. We chose $s_{ij}(t)$ instead of $d_{ij}(t)$ (as suggested by the reviewer) since $s_{ij}(t)$ aligns with the common notation for distance/position in physics, in addition to avoiding notational confusion since we already have another $d$ notation for differentiation.**
+
+* Fixed effects in the multi-level model: it would be helpful to describe what variables are recorded in $\mathbf{x}$ when you introduce the multi-level model instead of in a table towards the end.
+
+> **We have added more descriptions of the fixed effects in our multilevel model. See the last paragraph of Section 3.2 in our revised paper.**
+
+
+# Reviewer 2
+
+* Page 3: It seems the author is defining anyone who lines up on the line of scrimmage outside a DE. This is not always agreed upon, I would recommend the authors make how they're defining that clear. Is it per play? Or is one player defined as always being a DE?
+
+> **We thank the reviewer for the recommendation. Here, we are showing where a DE typically (not always) lines up, with regards to the two defensive schemes in Figure 1 (of the original manuscript). In the revised version, this part has been moved to the supplement; see section A. We have added clarification about the positions and it now reads "Note that apart from the formations shown in Figure 1 [of the supplement], defensive linemen can have the flexibility to line up differently. For example, a defensive end, depending on their opposing matchup, may not necessarily be positioned toward the outside of the line of scrimmage."**
+
+* Page 13: other fixed effects – this part feels a little rushed. I'd like to see more on why you chose those fixed effects.
+
+> **We have added more descriptions of the fixed effects in our multilevel model. See the last paragraph of Section 3.2 in our revised paper.**
+
+* Page 13: mixed effects model – the way this is written, if a quarterback tends to have more pass rushers or less pass rushers than an average QB, there may be some effect on his random effect of average STRAIN that is due to the this effect
+
+> **We thank the reviewer for the comment and agree with their concern. We have updated the model to no longer directly account for time due to the directionality concern of this relationship. Instead, we now adjust for play-level context: down, yards to go, and yards from endzone - which may impact the type of play call leading to variation in the intended time of the play. We have updated the last paragraph of Section 3.2 accordingly with justification for the play-context features.**
+
+* Why is this random effects model focused on 1 rusher x 1 blocker x 1 qb at a time and not try to put all the players who are present on the field at the same time in the same model? This current format will likely have a lot of teammate effects bleeding into the estimate of another teammate due to being on the field so often together. ( you mention this briefly on page 24 and again in the conclusion – could add to the literature of APM metrics in football (Sabin, 2021).
+
+> **We appreciate the reviewer's feedback and motivation for a regularized adjusted plus-minus (RAPM) style approach for modeling STRAIN. Since our response variable is a pass rusher's average STRAIN for a play, we are not necessarily interested in estimating effects for every player since the interpretation of the coefficient would be at a player-play level. However, we have updated text in Section 5 about modeling an aggregate STRAIN using a RAPM style approach similar to Sabin (2021). Since the primary purpose of this manuscript was to introduce STRAIN and its usefulness in measuring pass rush ability, we leave the RAPM approach for future work in a separate manuscript.**
+
+# Associate Editor
+
+1. The first comment that warrants serious consideration is whether the average strain, across an entire play, is the best way to summarize a pash rushers effect on a particular play. Furthermore, and as just one example, would this summary consistently capture the pash rusher effect across plays of different length?
+
+> **In addition to the average STRAIN, we also considered other summaries, namely, minimum STRAIN and maximum STRAIN. We chose average STRAIN since it is a highly stable quantity over time, as demonstrated in Figure 6. On the other hand, we also compute the correlations in minimum and maximum STRAIN between the first and last four weeks of the 2021 NFL season, and they are both much lower compared to average STRAIN. 
+Further, we agree with the comment that our analysis did not account for the fact that play length can differ. This problem can be addressed with a time-to-event analysis. Since the main goal of this paper is to introduce STRAIN as a metric for evaluating pass rushers in football, we leave this for future work.**
+
+[TODO: edit the time to event response]
+
+2. Summarizing the pass rush / pass blocker scheme to a one rusher vs. one defender was also highlighted as a place of concern by both referees. Team pass blocking schemes, multiple pass blockers, and/or changing blockers over the course of the play could all be influential here.
+
+> **We agree with the reviewers on this point that a pass rusher being assigned to exactly one blocker is overly simplistic. However, we believe that the main purpose of this paper is to introduce STRAIN and its usefulness in measuring pass rush ability. Our work focuses entirely on defensive linemen, but in other research that is actively being worked on we attempt to extend STRAIN to evaluate offensive linemen. This requires the problem of assigning each pass rusher to blockers be handled much more rigorously, and we aim to develop a probabilistic approach to match each pass blocker to different defensive pass rushers at every moment within a play. But again, we leave the exploration of this for future work.**
+
+# Editor
+
+1. Avoid abbreviations except obvious ones like NFL and QB. Your paper is short enough (without tables/figures) that we can afford not to use them. This also relates to readability for our readers who are not football experts. See remark #6 below.
+
+> **We have replaced non-obvious abbreviated words/phrases with their full versions.** 
+
+2. Reduce the number of tables and figures--you currently have 19 combined. My usual limit is 6--7, but I realize this submission may need to use more in the manuscript. A supplementary article can be used to house additional figures and additional work required to complete this revision. Please see recent issues of TAS for guidance on constructing the supplement. Please submit your revised article and supplement as separate .pdf files.
+
+> **We have reduced the number of tables and figures, and added a supplement.**
+
+3. Do not use footnotes on pages 7 and 16. Either absorb into the text (somewhere) if critical or remove them.
+
+> **We have removed the footnotes.**
+
+4. You might consider using different plotting symbols in Figure 2, for example, when referring to the blue and orange dots. I'm thinking ahead if you want to avoid having to pay for extra charges which relate to the use of color. Same with Figure 4 and others. I'll leave this to you.
+
+> **We have reformatted the figures with different plotting symbols and color schemes. The figures are no longer in color.**
+
+5. Only number those equations which are referred to later in the exposition.
+
+> **We have removed the equation number for those that are not referenced in the text.**
+
+6. Overall comment: Not all of our readers will be football experts like in sports analytics journal submissions. Please try to revise with this in mind. Use language that will make your paper inviting for all readers. Have any NFL teams used your methods? You might mention this in the Discussion section if appropriate.
+
+> **We have revised the paper to make it more readable for a broader audience. While we do not have any direct knowledge of any NFL team implementing this method in the evaluation of offensive or defensive linemen, we do know that NFL teams are at least aware of our proposed metric, as this was a finalist entry in the NFL Big Data Bowl 2023 competition. We have added to Section 5 a brief discussion of how our metric can be easily adapted by football data engineering teams, coaches and broadcasters. It now says "STRAIN is a model-free metric which can easily be integrated into any data pipeline without much computational cost. Visualizations of STRAIN can be useful and intuitive for coaches and broadcasters in various aspects ranging from gameplan preparation to in-game real-time play analysis.**
