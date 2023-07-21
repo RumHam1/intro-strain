@@ -112,11 +112,11 @@ fig_features_combined_bw <- feat_sack |>
   labs(linetype = NULL,
        alpha = NULL) +
   theme_light() +
-  theme(axis.title = element_text(size = rel(1)),
-        axis.text = element_text(size = rel(0.8)),
-        strip.text = element_text(size = rel(1)),
+  theme(axis.title = element_text(size = rel(0.9)),
+        axis.text = element_text(size = rel(0.7)),
+        strip.text = element_text(size = rel(0.9)),
         legend.position = "bottom",
-        legend.text = element_text(size = rel(0.9)),
+        legend.text = element_text(size = rel(0.75)),
         panel.spacing = unit(2, "lines"),
         legend.box.spacing = unit(0.25, "lines"),
         legend.key.width = unit(1.5, "cm"))
