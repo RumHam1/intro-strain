@@ -62,7 +62,7 @@ Editor/reviewer comments are in normal font and our responses are bold-faced.
 1. The first comment that warrants serious consideration is whether the average strain, across an entire play, is the best way to summarize a pash rushers effect on a particular play. Furthermore, and as just one example, would this summary consistently capture the pash rusher effect across plays of different length?
 
 > **In addition to the average STRAIN, we also considered other summaries, namely, minimum STRAIN and maximum STRAIN. We chose average STRAIN since it is a highly stable quantity over time, as demonstrated in Figure 6. On the other hand, we also compute the correlations in minimum and maximum STRAIN between the first and last four weeks of the 2021 NFL season, and they are both much lower compared to average STRAIN. 
-Further, we agree with the comment that our analysis did not account for the fact that play length can differ. This problem can be addressed with a time-to-event analysis. Since the main goal of this paper is to introduce STRAIN as a metric for evaluating pass rushers in football, we leave this for future work.**
+Further, we recognize the limitation that our analysis did not account for the fact that play length can differ. This problem can be addressed with a time-to-event model. Although we agree that this is an important consideration, since the main goal of this paper is to introduce STRAIN as a metric for evaluating pass rushers in football, we leave this for future work.
 
 [TODO: edit the time to event response]
 
