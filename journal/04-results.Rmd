@@ -2,8 +2,6 @@
 
 ## Real-Game Illustration of STRAIN
 
-
-
 <!-- ```{r} -->
 <!-- #| label: fig_field -->
 <!-- #| fig.cap: "A display of the player tracking data for a play during the Las Vegas Raiders (defense, in black) versus Denver Broncos (offense, in orange) NFL game on October 17, 2021. Raiders DE Maxx Crosby is highlighted in blue. For each Raiders defender, the point size indicates their individual STRAIN value, with larger points suggesting larger STRAIN. Snapshots are captured at 1, 2, 3, and 4 seconds after the ball snap." -->
@@ -225,7 +223,7 @@ fig_stability_bw
 ## Multilevel Model Results
 
 The results of fitting the multilevel model described in Section \ref{sec:multilevel} is displayed in Table \ref{tab:fixedeff}.
-First, we investigate the fixed-effects terms of this model.
+First, we investigate the fixed effects terms of this model.
 It appears that that the average STRAIN decreases by 0.7366 (95% CI [-0.7875, -0.6858]) for every additional blocker in the offensive unit, after accounting for other covariates.
 In other words, NFL pass rushers tend to generate more pressure when facing fewer number of blockers, which makes intuitive sense.
 
@@ -281,7 +279,7 @@ This emphasizes how STRAIN is mostly attributable to pass rushers, but is necess
 <!--   n\_blockers & -0.064 & 0.003 & -24.788 & 0.000 \\  -->
 
 \begin{table}
-\caption{Fixed-effects coefficient estimates for the multilevel model for average STRAIN. Note that the reference down level is first down, the reference pass rusher level is defensive end (DE), denoted R:DE; the reference pass blocker level is tackle (T), denoted B:T. \label{tab:fixedeff}}
+\caption{Fixed effects coefficient estimates for the multilevel model for average STRAIN. Note that the reference down level is first down, the reference pass rusher level is defensive end (DE), denoted R:DE; the reference pass blocker level is tackle (T), denoted B:T. \label{tab:fixedeff}}
 \centering
 \begin{tabular}{lrrrr}
 \hline

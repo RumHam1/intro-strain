@@ -25,7 +25,7 @@ header-includes:
   \def\thesection{\Alph{section}}
 ---
 
-\spacingset{1.45}
+\spacingset{1.5}
 
 ```{r}
 #| label: setup
@@ -114,7 +114,7 @@ Figure \ref{fig:fig_field} shows snapshots of a play from the week six game betw
 The play outcome is a sack made by Raiders defensive end Maxx Crosby on Broncos quarterback Teddy Bridgewater.
 The locations of every Las Vegas (in black, on defense) and Denver (in orange, on offense) player on the field at 1, 2, 3, and 4 seconds after the ball snap is displayed, with Crosby highlighted in blue.
 Note that the point size for each Las Vegas player corresponds to their estimated STRAIN as the play progresses.
-This play is represented in Table 1 and Figure 1 (left) of the paper.
+This play is illustrated with Table 1 and Figure 1 (left) of the paper.
 
 ```{r}
 #| label: fig_field
@@ -133,8 +133,8 @@ The number of pass rusher ranges from 1 to 8, with 4 pass rushers (i.e., 4-man r
 ```{r}
 #| label: pass_rushers_count
 #| fig.cap: "Distribution of the number of pass rushers on passing plays."
-#| fig.width: 4
-#| fig.height: 3
+#| fig.width: 3.2
+#| fig.height: 2.7
 source(here("scripts", "12_fig_pass_rushers_count.R"))
 pass_rushers_count
 ```
@@ -220,8 +220,8 @@ Q_{q} &\sim N(\mu_Q, \sigma^2_Q), \text{ for } q = 1, \cdots, \text{ \# of QBs}.
 \end{equation*}
 This model version contains random intercepts for three player groups: (1) pass rushers as $R$, (2) nearest pass blockers as $B$, and (3) QBs as $Q$.
 We consider a normal distribution to obtain the random intercepts for each player toward their respective position group means.
-As before, the coefficients $\boldsymbol \beta$ associated with covariate vector $\mathbf{x_{ij}}$ for pass rusher $j$ in play $i$ are estimated as fixed-effects. 
-The variables included as fixed effects are the same as those in the model from Section 3.2 of the paper: position of pass rusher and blocker, number of blockers in a play, and play-context information (down, yards to go, and current yardline).
+As before, the coefficients $\boldsymbol \beta$ associated with covariate vector $\mathbf{x_{ij}}$ for pass rusher $j$ in play $i$ are estimated as fixed effects. 
+The variables included as fixed effects are the same as those in the model from Section 3.2 of the paper, namely, position of pass rusher and blocker, number of blockers in a play, and play-context information (down, yards to go, and current yardline).
 
 
 ## Model Comparison
@@ -232,7 +232,7 @@ This procedure is repeated for every single holdout week, and we evaluate the mo
 Figure \ref{fig:fig_loocv_team_eff} shows the week-by-week holdout MSE for the aforementioned multilevel models.
 We clearly see that a smaller MSE is achieved for each left-out week when accounting for team effects.
 Furthermore, the model with team effects yields a lower overall holdout MSE ($4.1882$) than the one without random intercepts for teams ($4.4138$).
-This provides a quantitative justification for including team effects in our multilevel model.
+The out-of-sample performance justifies the inclusion of team effects in our multilevel model.
 
 ```{r}
 #| label: fig_loocv_team_eff

@@ -86,7 +86,7 @@ To this end, we fit a multilevel model to evaluate pass rushers' impact on the a
 We identify the pass blocker linked with the pass rusher of interest using the scouting data provided by PFF as mentioned in Section \ref{sec:data}.
 Since there can be multiple blockers matching up with a rusher, for simplicity, we consider the nearest blocker positioned to the pass rusher at the start of the play.
 We use random intercepts for the two player groups: pass rushers as $R$ and nearest pass blockers as $B$, as well as for the two team groups: defense $D$ and offense $O$.
-We also account for attributes about pass rusher $j$ in play $i$ through the covariate vector $\mathbf{x_{ij}}$, and estimate their respective coefficients $\boldsymbol \beta$ as fixed-effects. 
+We also account for attributes about pass rusher $j$ in play $i$ through the covariate vector $\mathbf{x_{ij}}$, and estimate their respective coefficients $\boldsymbol \beta$ as fixed effects. 
 Our model for the average STRAIN by pass rusher $j$ on play $i$ is as follows.
 \begin{equation*}
 \begin{aligned}
@@ -109,7 +109,7 @@ Specifically, we resample team drives within games, which preserves the fact tha
 By resampling plays within the same drive together, this allows us to generate realistic simulated data in comparison to sampling individual plays.
 For each bootstrapped dataset, we fit the aforementioned multilevel model to obtain a distribution of estimates for the considered player and team effects.
 
-As for the fixed-effects about pass rusher $j$ in play $i$, we include a variety of features that likely contribute to variation in STRAIN.
+As for the fixed effects about pass rusher $j$ in play $i$, we include a variety of features that likely contribute to variation in STRAIN.
 First, we adjust for the position of both the pass rusher and nearest blocker to account for any positional effects.
 Our positional categorization for pass rushers include defensive end, defensive tackle, nose tackle, outside linebacker, interior linebacker (middle linebacker and inside linebacker), and Secondary (cornerback and safety).
 As for pass blockers, we consider center, guard, tackle, and other (tight end, running back, fullback and wide receiver).
