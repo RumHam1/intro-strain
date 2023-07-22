@@ -13,8 +13,11 @@
 
 <!-- Figure \ref{fig:fig_field} shows an updated version of Figure \ref{fig:fig_field_raw}, with the point size for each Las Vegas defender corresponding to the estimated STRAIN in the selected frames as the play progresses. -->
 
-To illustrate our proposed metric STRAIN for pass rush evaluation, we use the same play from the Las Vegas Raiders and Denver Broncos game as mentioned in Section \ref{sec:data}.
+To illustrate our proposed metric STRAIN for pass rush evaluation, we use the example play from the Las Vegas Raiders and Denver Broncos game as mentioned in Section \ref{sec:data}.
 Figure \ref{fig:fig_features_combined} (left) is a line graph showing how Crosby's distance from the quarterback, velocity, and STRAIN change continuously throughout the play.
+In addition, Figure C.1 of the Supplement presents the locations of every Las Vegas and Denver player
+on the field from this play at 1, 2, 3 and 4 seconds after the ball snap, with the point size for each Las Vegas defender corresponding to the estimated STRAIN at the selected frames.
+
 We observe that for the first two seconds, Crosby is being blocked by a Denver offensive lineman and unable to get close to the quarterback, hence the corresponding STRAIN values are virtually zero. 
 Suddenly at around three seconds after the snap, the STRAIN for Crosby starts to increase after the Raiders defensive end is freed up and charges towards the QB. 
 At 4 seconds after the snap, Crosby's STRAIN is 2.30, which means at his current moving rate, it will take Crosby about 0.43 (1/2.30) seconds to make the distance between him and the quarterback 0 (i.e. essentially sack the quarterback).

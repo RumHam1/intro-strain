@@ -1,7 +1,7 @@
 ---
 title: "Response to Reviewers"
 output: pdf_document
-fontsize: 10pt
+fontsize: 11pt
 header-includes:
  \usepackage{mathptmx}
 ---
@@ -43,7 +43,7 @@ Editor/reviewer comments are in normal font and our responses are bold-faced.
 
 * Page 3: It seems the author is defining anyone who lines up on the line of scrimmage outside a DE. This is not always agreed upon, I would recommend the authors make how they're defining that clear. Is it per play? Or is one player defined as always being a DE?
 
-> **We thank the reviewer for the recommendation. Here, we are showing where a DE typically (not always) lines up, with regards to the two defensive schemes in Figure 1 (of the original manuscript). In the revised version, this part has been moved to the supplement; see section A. We have added clarification about the positions and it now reads "Note that apart from the formations shown in Figure 1 [of the supplement], defensive linemen can have the flexibility to line up differently. For example, a defensive end, depending on their opposing matchup, may not necessarily be positioned toward the outside of the line of scrimmage."**
+> **We thank the reviewer for the recommendation. Here, we are showing where a DE typically (not always) lines up, with regards to the two defensive schemes in Figure 1 (of the original manuscript). In the revised version, this part has been moved to the supplement; see section A. We have added clarification about the positions and it now reads "Note that apart from the formations shown in Figure A.1 [of the supplement], defensive linemen can have the flexibility to line up differently. For example, a defensive end, depending on their opposing matchup, may not necessarily be positioned toward the outside of the line of scrimmage."**
 
 * Page 13: other fixed effects – this part feels a little rushed. I'd like to see more on why you chose those fixed effects.
 
@@ -62,7 +62,7 @@ Editor/reviewer comments are in normal font and our responses are bold-faced.
 1. The first comment that warrants serious consideration is whether the average strain, across an entire play, is the best way to summarize a pash rushers effect on a particular play. Furthermore, and as just one example, would this summary consistently capture the pash rusher effect across plays of different length?
 
 > **In addition to the average STRAIN, we also considered other summaries, namely, minimum STRAIN and maximum STRAIN. We chose average STRAIN since it is a highly stable quantity over time, as demonstrated in Figure 6. On the other hand, we also compute the correlations in minimum and maximum STRAIN between the first and last four weeks of the 2021 NFL season, and they are both much lower compared to average STRAIN. 
-Further, we recognize the limitation that our analysis did not account for the fact that play length can differ. Although we agree that this is an important consideration, since the main goal of this paper is to introduce STRAIN as a metric for evaluating pass rushers in football, we leave consideration of time-to-event modeling for future work.**
+Further, we recognize the limitation that our analysis did not account for the fact that play length can differ. Although we agree that this is an important consideration, which requires time-to-event modeling, since the main goal of this paper is to introduce STRAIN as a metric for evaluating pass rushers in football, we leave this problem for future work.**
 
 2. Summarizing the pass rush / pass blocker scheme to a one rusher vs. one defender was also highlighted as a place of concern by both referees. Team pass blocking schemes, multiple pass blockers, and/or changing blockers over the course of the play could all be influential here.
 

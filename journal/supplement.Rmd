@@ -23,9 +23,11 @@ output: rticles::asa_article
 header-includes:
   \date{}
   \def\thesection{\Alph{section}}
+  \counterwithin{figure}{section}
+  \counterwithin{table}{section}
 ---
 
-\spacingset{1.5}
+\spacingset{1.45}
 
 ```{r}
 #| label: setup
@@ -87,7 +89,7 @@ tibble(x = c(3:5, 3:6 - 0.5, c(2, 3.7, 4.3, 6)),
 
 # Summary of Previous Pass Rush Metrics
 
-Table \ref{tab:metrics} gives a summary of existing football metrics for pass rush, as discussed in Section 1.1 of the paper.
+Table \ref{tab:metrics} summarizes previous pass rush statistics in football, to accompany Section 1.1 of the paper.
 
 \begin{table}
 \caption{A summary of previously-existing pass rush metrics. \label{tab:metrics}}
@@ -108,13 +110,29 @@ Pass Rush Win Rate & Rate at which pass rusher beats pass block within 2.5 secon
 \end{tabular}
 \end{table}
 
+\newpage
+
 # Visualizing Player Tracking Data
 
-Figure \ref{fig:fig_field} shows snapshots of a play from the week six game between the Las Vegas Raiders and Denver Broncos in the 2021 NFL regular season.
+Table \ref{tab:track} shows an example of player tracking data for a play from the week six game between the Las Vegas Raiders and Denver Broncos in the 2021 NFL regular season.
 The play outcome is a sack made by Raiders defensive end Maxx Crosby on Broncos quarterback Teddy Bridgewater.
-The locations of every Las Vegas (in black, on defense) and Denver (in orange, on offense) player on the field at 1, 2, 3, and 4 seconds after the ball snap is displayed, with Crosby highlighted in blue.
-Note that the point size for each Las Vegas player corresponds to their estimated STRAIN as the play progresses.
-This play is illustrated with Table 1 and Figure 1 (left) of the paper.
+Figure \ref{fig:fig_field} shows different snapshots of this play, where the locations of every Las Vegas (in black, on defense) and Denver (in orange, on offense) player on the field at 1, 2, 3, and 4 seconds after the ball snap is displayed, with Crosby highlighted in blue.
+Note that the point size for each Las Vegas defender represents their STRAIN value at the different snapshots.
+
+\begin{table}
+\caption{Example of tracking data for a play during the Las Vegas Raiders versus Denver Broncos NFL game on October 17, 2021. The variables include frame identifier for each play (\textbf{frameId}); player position on the field (\textbf{x} and \textbf{y} coordinates); speed (\textbf{s}, in yards/second); acceleration (\textbf{a}, in yards/second$^2$); distance traveled from previous frame (\textbf{dis}, in yards); orientation (\textbf{o}, between 0 and 360 degrees); angle of motion (\textbf{dir}, between 0 and 360 degrees); and event annotation for each frame (\textbf{event}). The data shown here are for Raiders defensive end Maxx Crosby, and the frames included are between the ball snap and when the sack by Crosby is recorded. \label{tab:track}}
+\centering
+\begin{tabular}{ccccccccc}
+\hline
+\textbf{frameId} & \textbf{x} & \textbf{y} & \textbf{s} & \textbf{a} & \textbf{dis} & \textbf{o} & \textbf{dir} & \textbf{event} \\ 
+\hline
+7 & 67.68 & 29.89 & 0.34 & 1.57 & 0.04 & 124.86 & 88.21 & ball\_snap \\ 
+8 & 67.76 & 29.89 & 0.69 & 2.13 & 0.08 & 124.07 & 89.59 & None \\ 
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\ 
+50 & 73.67 & 25.06 & 4.19 & 2.62 & 0.42 & 134.21 & 125.26 & qb\_sack \\ 
+\hline
+\end{tabular}
+\end{table}
 
 ```{r}
 #| label: fig_field
@@ -127,8 +145,8 @@ fig_field
 
 # Distribution of Number of Pass Rushers
 
-Figure \ref{fig:pass_rushers_count} displays the distribution of the number of observed pass rushers involved in a play.
-The number of pass rusher ranges from 1 to 8, with 4 pass rushers (i.e., 4-man rush formation) as the most common value.
+Figure \ref{fig:pass_rushers_count} is a histogram of the number of pass rushers across every play in our data.
+The pass rusher count ranges from 1 to 8, with 4 being the mode of the distribution.
 
 ```{r}
 #| label: pass_rushers_count
@@ -174,8 +192,6 @@ Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\t
 \end{tabular}
 \end{table}
 
-
-
 \begin{table}
 \caption{Top 15 interior rushers (with at least 100 snaps played) according to the average STRAIN across all frames played. \label{tab:interior}}
 \centering
@@ -203,10 +219,7 @@ Rank & Player & Team & Position & Snaps & Hits & Hurries & Sacks & $\overline{\t
 \end{table}
 
 
-
-# Comparison of Multilevel Models
-
-## Modeling Play-Level STRAIN Without Team Effects
+# Multilevel Model Without Team Effects
 
 We additionally consider a multilevel model to evaluate the impact of pass rushers on the average STRAIN observed in a play, while accounting for their pass blocker, QB, and play-level attributes.
 The average STRAIN by pass rusher $j$ on play $i$ is modeled as follows.
@@ -223,16 +236,13 @@ We consider a normal distribution to obtain the random intercepts for each playe
 As before, the coefficients $\boldsymbol \beta$ associated with covariate vector $\mathbf{x_{ij}}$ for pass rusher $j$ in play $i$ are estimated as fixed effects. 
 The variables included as fixed effects are the same as those in the model from Section 3.2 of the paper, namely, position of pass rusher and blocker, number of blockers in a play, and play-context information (down, yards to go, and current yardline).
 
-
-## Model Comparison
-
 We perform leave-one-week-out cross-validation to compare the multilevel models with and without team effects for play-level STRAIN.
 For example, we train each model using data from weeks one through seven, and perform evaluation for week eight.
 This procedure is repeated for every single holdout week, and we evaluate the model performance based on mean squared error (MSE).
 Figure \ref{fig:fig_loocv_team_eff} shows the week-by-week holdout MSE for the aforementioned multilevel models.
 We clearly see that a smaller MSE is achieved for each left-out week when accounting for team effects.
 Furthermore, the model with team effects yields a lower overall holdout MSE ($4.1882$) than the one without random intercepts for teams ($4.4138$).
-The out-of-sample performance justifies the inclusion of team effects in our multilevel model.
+The out-of-sample performance justifies the inclusion of team effects in our proposed multilevel model in the paper.
 
 ```{r}
 #| label: fig_loocv_team_eff

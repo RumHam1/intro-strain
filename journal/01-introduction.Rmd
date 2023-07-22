@@ -29,7 +29,7 @@ While these data were initially only available for teams, media, and vendors, in
 
 The first Big Data Bowl led to several contributions largely focused on offensive performance evaluation. For example, one group of finalists introduced an approach for modeling the hypothetical completion probability of a pass aiding in the evaluation of quarterback (QB) decision making [@deshpande2020expected]. The winners of the inaugural Big Data Bowl focused on identifying receiver routes via clustering techniques [@chu2020route] and convolutional neural networks [@sterken2019routenet]. Along with the competition entries, the public release of NGS data allowed researchers to tackle <!-- (pun intended.  #eyeroll) --> a variety of other problems such as revisiting fourth down decision making [@lopez2020bigger], annotating pass coverage with Gaussian mixture models [@dutta2020unsupervised], and introducing a continuous-time framework to estimate within-play value [@yurko2020going].  Since its inception, the Big Data Bowl has chosen a different theme each year leading to new insight about evaluating different positions such as running backs, defensive backs, and special teams. The 2023 edition of the NFL Big Data Bowl asked participants to evaluate linemen on passing plays [@Howard2023NFL].
 
-Our focus of this manuscript is specifically on measuring the performance of defensive linemen in the NFL.
+Our focus of this manuscript is specifically on measuring the performance of NFL defensive linemen (see Section A of the Supplement for more information on the defensive positions in football).
 Using data made available in the Big Data Bowl 2023, we present a novel approach to measure the performance of pass rushers.
 Relative to other aspects of American football, such as quarterback evaluation [@burke2019deepqb; @reyers2021quarterback], the literature on evaluating pass rushers is scarce.
 Below, we provide a brief overview of existing pass rush metrics.
@@ -38,8 +38,8 @@ Below, we provide a brief overview of existing pass rush metrics.
 
 ## Previous Pass Rush Metrics
 
-<!-- Table \ref{tab:metrics} gives a summary of existing football metrics for pass rush. -->
-<!-- We now highlight what these quantities describe as well as their limitations. -->
+Table B.1 of the Supplement gives a summary of existing football metrics for pass rush.
+We now highlight what these quantities describe as well as their limitations.
 
 Perhaps the most commonly-known statistics for evaluating defensive linemen on pass rush plays are sacks, hits, and hurries, which are discretely observed at the play-level.
 Officially tracked by the NFL since 1982, a sack is recorded when a defender tackles the QB behind the line of scrimmage before the QB releases a pass.
@@ -51,7 +51,7 @@ However, for plays that do not result in the aforementioned outcomes (in particu
 
 In addition, the sum of sacks, hits, and hurries is often defined as pressures.
 This is better than the individual counts to some extent, but suffers from problems of subjectivity (e.g., whether there is an actual hurry or not).
-Pro Football Focus (PFF) defines a metric called pass-rush productivity, which is a minor modification from the aforementioned pressures metric.<!-- (see Table \ref{tab:metrics}). -->
+Pro Football Focus (PFF) defines a metric called pass-rush productivity, which is a minor modification from the aforementioned pressures metric.
 In particular, pass-rush productivity gives twice as much weight to a sack relative to hurries and hits, which is a small upgrade to pressures.
 However, the choice of weights is ad-hoc and still only considers binary outcomes, similar to the shortcomings of previous metrics.
 
@@ -92,7 +92,7 @@ NGS get off is an aggregated statistic, illustrating how quickly a defender can 
 Pass rush win rate is created using player tracking data, which is at a more granular level than previous measures.
 It demonstrates whether a pass rusher is able to beat their blocking matchup before a fixed time from the snap (2.5 seconds as chosen by ESPN).
 However, this depends on the rather arbitrary time threshold used to define a pass rush win.
-Besides, once a cutoff is chosen, pass rush win rate converts continuous data to a win-loss indicator, becoming dichotomous like most of the metrics discussed above.  
+Besides, once a cutoff is chosen, pass rush win rate converts continuous data to a win-loss indicator, becoming dichotomous like most of the metrics discussed above.
 
 <!-- (e.g. deep versus shallow). -->
 

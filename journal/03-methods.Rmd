@@ -61,7 +61,8 @@ Formally, the average STRAIN, denoted by $\overline{\text{STRAIN}}$, for pass ru
 \begin{equation*}
 \overline{\text{STRAIN}}_{j} = \frac{1}{\sum_{i\in Z_j} T_i} \sum_{i\in Z_j} \sum_{t=1}^{T_i} \widehat{\text{STRAIN}}_{ij}(t).
 \end{equation*}
-This can be helpful for metric assessment, as we use average STRAIN to examine different statistical properties of our measure in Section \ref{sec:statprop}. 
+This can be helpful in determining the most effective pass rushers; see Section E of the Supplement for our pass rusher evaluation based on average STRAIN.
+We also use average STRAIN to assess different statistical properties of our metric in Section \ref{sec:statprop}. 
 
 <!-- This can be helpful for player evaluation, as we determine the most effective pass rushers based on their average STRAIN values in Section \ref{sec:strainbar}. -->
 <!-- We also use average STRAIN to assess different statistical properties of our metric in Section \ref{sec:statprop}. -->
@@ -101,7 +102,8 @@ O_{o} &\sim N(\mu_O, \sigma^2_O), \text{ for } o = 1, \cdots, \text{ \# of offen
 In detail, we consider a normal distribution to shrink the random intercepts for each player and team toward their respective group means.
 This is a useful property since we do not observe the same number of plays for each player. 
 For the team effects, this provides us with the average defense and offense team-level effects on a pass rusher's STRAIN.
-Due to the nested nature of players on teams, the individual pass rusher and blocker random intercepts reflect the respective player's effect relative to their team effects. 
+Due to the nested nature of players on teams, the individual pass rusher and blocker random intercepts reflect the respective player's effect relative to their team effects.
+Furthermore, our proposed model demonstrates better out-of-sample predictive performance than a model without random intercepts for teams, as detailed in Section F of the Supplement.
 We implement the model using penalized likelihood via the `lme4` package in `R` [@bateslme4; @R2023Language].
 
 In order to provide a measure of uncertainty for our random effects, we use a bootstrapping strategy similar to the approach in @yurko2019nflwar.
