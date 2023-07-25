@@ -355,7 +355,7 @@ $I_{\text{\{B:other\}}}$ & -0.1260 & 0.0646 & -1.9508 & 0.0514 \\
 
 ```{r}
 #| label: fig_rankings_boot
-#| fig.cap: "Distributions of player effects for top 10 pass rushers in each position (defensive end, outside linebacker, defensive tackle, nose tackle) by median varying intercept."
+#| fig.cap: "Distributions of player effects (obtained from 1,000 bootstrap samples) for top 10 pass rushers in each position (defensive end, outside linebacker, defensive tackle, nose tackle) by median varying intercept."
 #| fig.width: 6.3
 #| fig.height: 6
 source(here("scripts", "10_multilevel_mod.R"))

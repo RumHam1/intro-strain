@@ -14,7 +14,7 @@ The nested structure of our model enforces positive dependence between pass rush
 For instance, if one defender is known to be an elite pass rusher then the opposing team may focus their blocking efforts on this player. 
 This could leave the path open for another player to rush the quarterback with ease, resulting in higher STRAIN values.
 As shown in Figure \ref{fig:fig_rankings_boot}, the first- and fourth-ranked defensive ends Myles Garrett and Takkarist McKinley were teammates on the Cleveland Browns during the first eight weeks of the 2021 NFL season.
-McKinley is a surprising name on our list and we suspect that his high rank is mostly due to playing on the same defensive unit with Garrett, who is highly-regarded as an great pass rusher.
+McKinley is a surprising name on our list and we suspect that his high rank is mostly due to playing on the same defensive unit with Garrett, who is highly-regarded as a great pass rusher.
 In order to capture this type of behavior, we could consider modeling an aggregate STRAIN across pass rushers with a regularized adjusted plus-minus (RAPM) regression approach.
 The use of RAPM techniques has been successfully demonstrated in American football by @sabin2021estimating, which accounts for all players on the field with Bayesian hierarchical models.
 We leave this type of analysis for future work, which will require careful consideration of available informative priors [@matano2023augmenting].
