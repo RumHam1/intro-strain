@@ -26,7 +26,7 @@ We could then divide this force over the "area" of the pocket formed by pass blo
 
 Moreover, although we focus solely on pass rushers in this paper, STRAIN can also be applied to the assessment of pass blockers as a unit.
 This can be accomplished through the aforementioned RAPM regression or by simply looking at quantities such as the total STRAIN or the maximum STRAIN per frame aggregated across the entire play.
-It is also possible to apply STRAIN to assess individual offensive pass blockers, provided that a method of matching blockers to rushers was developed.
+It is also possible to apply STRAIN to assess individual offensive pass blockers, provided that a method of matching blockers to rushers is developed.
 Furthermore, compared to existing metrics, STRAIN measures pass rush effectiveness for every play continuously over time, which is at a much more granular level than considering whether the play resulted in a binary outcome such as a sack.
 Indeed, visualizations of STRAIN curves across moments of time within plays reveal variability that simple averaging may obscure. 
 There is ample opportunity for working with the complete STRAIN trajectories via temporal modeling and functional data analysis techniques to better understand the impact of STRAIN on offensive production in American football.

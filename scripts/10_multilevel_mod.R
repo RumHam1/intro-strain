@@ -384,9 +384,18 @@ fig_loocv_team_eff <- read_rds(here("data", "strain_loocv_results.rds")) |>
 
 # resampling --------------------------------------------------------------
 
+pbp21 <- nflfastR::load_pbp(2021)
+
+get_drive <- pbp21 |> 
+  select(gameId = old_game_id, playId = play_id, driveId = drive) |> 
+  mutate(gameId = as.double(gameId))
+
+mod_df_final <- mod_df_final |> 
+  left_join(get_drive)
+
 strain_boot <- function(b) {
   boot_df <- mod_df_final |> 
-    group_by(gameId, playId) |> 
+    group_by(gameId, driveId) |> 
     nest() |> 
     ungroup() |> 
     group_by(gameId) |> 
@@ -449,7 +458,7 @@ strain_boot <- function(b) {
 # 
 # strain_boot_eff <- strain_boot_eff |>
 #   list_rbind()
-# 
+
 # write_rds(strain_boot_eff, here("data", "strain_boot_eff.rds"))
 
 strain_boot_eff <- read_rds(here("data", "strain_boot_eff.rds"))
