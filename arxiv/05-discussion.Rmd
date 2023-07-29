@@ -14,7 +14,7 @@ The nested structure of our model enforces positive dependence between pass rush
 For instance, if one defender is known to be an elite pass rusher then the opposing team may focus their blocking efforts on this player. 
 This could leave the path open for another player to rush the quarterback with ease, resulting in higher STRAIN values.
 As shown in Figure \ref{fig:fig_rankings_boot}, the first- and fourth-ranked defensive ends Myles Garrett and Takkarist McKinley were teammates on the Cleveland Browns during the first eight weeks of the 2021 NFL season.
-McKinley is a surprising name on our list and we suspect that his high rank is mostly due to playing on the same defensive unit with Garrett, who is highly-regarded as an great pass rusher.
+McKinley is a surprising name on our list and we suspect that his high rank is mostly due to playing on the same defensive unit with Garrett, who is highly-regarded as a great pass rusher.
 In order to capture this type of behavior, we could consider modeling an aggregate STRAIN across pass rushers with a regularized adjusted plus-minus (RAPM) regression approach.
 The use of RAPM techniques has been successfully demonstrated in American football by @sabin2021estimating, which accounts for all players on the field with Bayesian hierarchical models.
 We leave this type of analysis for future work, which will require careful consideration of available informative priors [@matano2023augmenting].
@@ -26,7 +26,7 @@ We could then divide this force over the "area" of the pocket formed by pass blo
 
 Moreover, although we focus solely on pass rushers in this paper, STRAIN can also be applied to the assessment of pass blockers as a unit.
 This can be accomplished through the aforementioned RAPM regression or by simply looking at quantities such as the total STRAIN or the maximum STRAIN per frame aggregated across the entire play.
-It is also possible to apply STRAIN to assess individual offensive pass blockers, provided that a method of matching blockers to rushers was developed.
+It is also possible to apply STRAIN to assess individual offensive pass blockers, provided that a method of matching blockers to rushers is developed.
 Furthermore, compared to existing metrics, STRAIN measures pass rush effectiveness for every play continuously over time, which is at a much more granular level than considering whether the play resulted in a binary outcome such as a sack.
 Indeed, visualizations of STRAIN curves across moments of time within plays reveal variability that simple averaging may obscure. 
 There is ample opportunity for working with the complete STRAIN trajectories via temporal modeling and functional data analysis techniques to better understand the impact of STRAIN on offensive production in American football.
