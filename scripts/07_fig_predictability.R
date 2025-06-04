@@ -31,8 +31,9 @@ hsh_first <- hsh |>
       filter(displayName %in% min_100_snaps, week %in% 1:4) |> 
       group_by(nflId) |>
       summarize(n_plays = length(unique(playId)))
-  ) |> 
-  transmute(nflId, first_hsh = (hurries + sacks + sacks) / n_plays)
+  ) |>
+  # pressure rate = (hurries + sacks + hits) / plays
+  transmute(nflId, first_hsh = (hurries + sacks + hits) / n_plays)
 
 hsh_last <- hsh |> 
   filter(nflId %in% min_100_snaps_id, week %in% 5:8) |> 
@@ -46,8 +47,9 @@ hsh_last <- hsh |>
       filter(displayName %in% min_100_snaps, week %in% 5:8) |> 
       group_by(nflId) |>
       summarize(n_plays = length(unique(playId)))
-  ) |> 
-  transmute(nflId, last_hsh = (hurries + sacks + sacks) / n_plays)
+  ) |>
+  # pressure rate = (hurries + sacks + hits) / plays
+  transmute(nflId, last_hsh = (hurries + sacks + hits) / n_plays)
 
 
 
